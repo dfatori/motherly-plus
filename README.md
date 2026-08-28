@@ -5,26 +5,6 @@ This repository contains two independent components for the **Motherly Plus** ra
 1. **`scripts/`** — Pre-specified statistical analysis scripts for the RCT;
 2. **`dashboard/`** — Operational dashboard.
 
-## What this repository is
-
-- A locked statistical analysis plan implemented as reproducible R code, ready for pre-registration.
-- A workflow that loads raw REDCap trial data, processes it into analytic variables, runs descriptive and inferential analyses, and exports all outputs with script-number prefixes.
-- An optional operational dashboard that reads the same raw REDCap CSV to monitor recruitment, completion, and follow-up windows.
-
-## What this repository is not
-
-- It does **not** contain identifiable participant data (see `.gitignore`).
-- It does **not** randomize participants; randomization is performed independently in REDCap.
-- The dashboard does **not** perform inferential analyses or replace the scripts in `scripts/`.
-
-## Overview
-
-- **Planned N**: 104 women (18–40 years old, up to 12 months postpartum, with major depressive disorder).
-- **Arms**: Waitlist (control) vs. Intervention.
-- **Timepoints**: T1 (baseline, week 1), T2 (week 2), T3 (week 4, post-treatment), T4 (week 8, follow-up).
-- **Primary outcome**: QIDS-C16 total score at T3.
-- **Analytical perspective**: Intention-to-treat (ITT).
-
 ## Repository structure
 
 ```
@@ -39,7 +19,7 @@ motherly-plus/
 │   ├── participantes/         # Generated per-participant .qmd pages (not versioned)
 │   ├── _site/                 # Generated static website (not versioned)
 │   └── *.qmd                  # Quarto source pages
-├── example/                   # Reference scripts, protocol, and scoring documents
+├── example/                   # References for scripts [DELETE LATER]
 ├── outputs/                   # Generated analysis outputs
 │   ├── figures/               # Plots and images (prefixed by script number)
 │   ├── models/                # RDS datasets and fitted models (prefixed by script number)
@@ -61,8 +41,8 @@ motherly-plus/
 │   ├── 30_sensitivity-analysis.r
 │   ├── 31_adverse-events.r
 │   └── 99_master-run.r
-├── instructions.md            # Pre-specified statistical analysis plan
-└── README.md                  # This file
+├── instructions.md            # Instructions of project
+└── README.md
 ```
 
 ## Requirements
@@ -89,13 +69,12 @@ data/trial/MotherlyRCT2025*-Geral_DATA_YYYY-MM-DD_HHMM.csv
     models, tables)               dashboard/_site/ (HTML)
 ```
 
-The two components share only the raw REDCap CSV. They must not write into each other's output folders.
 
 ## How to run the analyses
 
-1. Export REDCap data as **CSV with field names**.
-2. Save the file to `data/trial/MotherlyRCT2025-Geral_DATA_YYYY-MM-DD_HHMM.csv`.
-3. (Optional, when available) Save Motherly app usage data to `data/app/`.
+1. Export REDCap data as **CSV with field names**;
+2. Save the file to `data/trial/MotherlyRCT2025-Geral_DATA_YYYY-MM-DD_HHMM.csv`;
+3. Save Motherly app usage data to `data/app/`;
 4. Run all analysis scripts from the R console with the working directory at the repository root:
 
    ```r
@@ -151,10 +130,3 @@ The operational monitoring dashboard lives in `dashboard/` and is kept **strictl
 ## Authors
 
 - **Daniel Fatori** — conception, analysis, and code
-
-## References
-
-- Protocol: `example/projeto-motherly-rct3.docx`
-- Pre-specified analysis plan: `instructions.md`
-- PSI-SF reference: `example/psi/ParentingStressIndexPSI_Mother.pdf`
-- PSQI reference: `example/psqi/psqi scoring.pdf`
