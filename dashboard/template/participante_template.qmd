@@ -1,0 +1,50 @@
+---
+title: "Participante"
+format:
+  html:
+    css: ../styles.css
+    toc: true
+    toc-location: left
+params:
+  id: 0
+---
+
+::: {.participant-header}
+# Participante #{ID}
+
+**Status geral:** {STATUS_GERAL}
+:::
+
+[← Voltar para lista de participantes](../participantes.html)
+
+## Dados de identificação / baseline
+
+| Campo | Valor |
+|---|---|
+| ID | {ID} |
+| Idade | {IDADE} anos |
+| Idade do bebê | {IDADE_BEBE} meses |
+| Cor da pele | {COR_PELE} |
+| Escolaridade | {ESCOLARIDADE} |
+| Estado civil | {ESTADO_CIVIL} |
+| Renda familiar | {RENDA} |
+
+## Linha do tempo do acompanhamento
+
+{TABELA_TIMELINE}
+
+## Detalhes por avaliação
+
+{DETALHES_AVALIACOES}
+
+## Completude por instrumento (REDCap) e por tempo
+
+{TABELA_FORMS}
+
+## Alertas e ações
+
+{ALERTAS}
+
+---
+
+[← Voltar para lista de participantes](../participantes.html)

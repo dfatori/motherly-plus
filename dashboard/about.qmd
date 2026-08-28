@@ -1,0 +1,64 @@
+---
+title: "Sobre"
+format:
+  html:
+    css: styles.css
+    page-layout: custom
+---
+
+# Sobre o dashboard
+
+Este dashboard foi desenvolvido para monitoramento operacional do ensaio clínico randomizado **Motherly RCT**.
+
+## Fonte de dados
+
+- Os dados são exportados diariamente do REDCap.
+- Este site é gerado como HTML estático e publicado em hospedagem com acesso restrito.
+
+## Avaliações do estudo
+
+| Avaliação | Momento | Janela |
+|---|---|---|
+| T0 | Recrutamento (`recrutamento_t0`) | — |
+| T1 | Baseline / randomização | Semana 1 |
+| T2 | Meio do tratamento | Semana 2 |
+| T3 | Pós-tratamento | Semana 4 |
+| T4 | Seguimento | Semana 8 |
+
+## Como atualizar
+
+1. Exportar dados do REDCap em formato CSV com **field names**.
+2. Salvar em `../data/trial/MotherlyRCT2025*_DATA_YYYY-MM-DD_HHMM.csv`.
+3. (Opcional) Salvar o DataDictionary em `../data/trial/MotherlyRCT2025*_DataDictionary_YYYY-MM-DD.csv`.
+4. Rodar `dashboard/R/preparar_dados.R`.
+5. Rodar `dashboard/R/gerar_participantes.R`.
+6. Renderizar o site com Quarto: `cd dashboard && quarto render`.
+7. Publicar os arquivos da pasta `dashboard/_site/`.
+
+## Estrutura do dashboard
+
+```
+.
+├── data/
+│   ├── trial/
+│   │   ├── MotherlyRCT2025*_DATA_YYYY-MM-DD_HHMM.csv   # compartilhado com análises
+│   │   └── MotherlyRCT2025*_DataDictionary_YYYY-MM-DD.csv
+│   └── app/
+├── dashboard/
+│   ├── _quarto.yml
+│   ├── index.qmd
+│   ├── participantes.qmd
+│   ├── recrutamento.qmd
+│   ├── styles.css
+│   ├── data/
+│   │   └── *.rds                                       # gerados pelo dashboard
+│   ├── R/
+│   │   ├── preparar_dados.R
+│   │   ├── gerar_participantes.R
+│   │   └── atualizar_dashboard.R
+│   ├── template/
+│   │   └── participante_template.qmd
+│   └── participantes/
+│       └── *.qmd
+└── scripts/                                            # análises do RCT (separadas)
+```

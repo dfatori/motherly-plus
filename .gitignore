@@ -1,0 +1,43 @@
+# Quarto / dashboard build artifacts
+_site/
+.quarto/
+dashboard/_site/
+dashboard/.quarto/
+dashboard/_site.zip
+dashboard/_site_test_extract/
+dashboard/.wrangler/
+
+# RDS gerados pelo dashboard
+dashboard/data/*.rds
+
+# Páginas individuais geradas automaticamente
+dashboard/participantes/*.qmd
+
+# Dados brutos sensíveis (nunca versionar)
+data/trial/*
+data/app/*
+data/*.csv
+data/*.rds
+data/*.xlsx
+data/*.sav
+data/*.dta
+
+# Outputs gerados pelas análises
+outputs/figures/*
+outputs/models/*
+outputs/tables/*
+
+# Arquivos temporários/extração do protocolo em scripts/
+scripts/*.rds
+scripts/*.txt
+scripts/*.py
+
+# Arquivos temporários do R
+.Rhistory
+.RData
+.Rproj.user
+*.Rproj
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

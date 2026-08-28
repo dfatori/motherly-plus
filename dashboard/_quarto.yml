@@ -1,0 +1,34 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "participantes/*.qmd"
+
+website:
+  title: "Motherly RCT — Dashboard"
+  navbar:
+    background: primary
+    left:
+      - href: index.qmd
+        text: Visão geral
+      - href: participantes.qmd
+        text: Participantes
+      - href: recrutamento.qmd
+        text: Recrutamento
+    right:
+      - href: about.qmd
+        text: Sobre
+  page-footer:
+    left: "Motherly RCT — Dashboard de monitoramento"
+    right: "Atualizado em: <span class='dashboard-updated-at'></span>"
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    include-after-body: footer.html
+    toc: false
+    page-layout: custom

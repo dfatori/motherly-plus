@@ -1,0 +1,95 @@
+---
+title: "Recrutamento"
+format:
+  html:
+    css: styles.css
+    page-layout: custom
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(knitr)
+
+recrutamento <- readRDS("data/recrutamento.rds")
+criterios <- readRDS("data/criterios_inclusao.rds")
+```
+
+# Acompanhamento do recrutamento
+
+::: {.callout-note appearance="simple" title="Como ler esta página"}
+Os valores abaixo vêm diretamente dos campos de status dos formulários no REDCap. **Registros** é o número de participantes para as quais o formulário está disponível; **completos** corresponde ao status REDCap `2`; **incompletos** reúne os demais status registrados. Estes números não representam elegibilidade, perdas ou randomizações confirmadas.
+:::
+
+## Progresso dos formulários
+
+```{r progresso-formularios}
+recrutamento |>
+  select(formulario, Completos = n_completos, Incompletos = n_incompletos) |>
+  pivot_longer(c(Completos, Incompletos), names_to = "status", values_to = "n") |>
+  mutate(formulario = factor(formulario, levels = rev(recrutamento$formulario))) |>
+  ggplot(aes(x = formulario, y = n, fill = status)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(values = c("Completos" = "#198754", "Incompletos" = "#d9dee3")) +
+  labs(x = NULL, y = "Registros", fill = "Status") +
+  theme_minimal()
+```
+
+## Detalhamento
+
+```{r tabela-formularios}
+recrutamento |>
+  kable(
+    col.names = c("Formulário", "Registros", "Completos", "Incompletos", "% completo"),
+    align = "lrrrr"
+  )
+```
+
+## Critérios de inclusão
+
+::: {.callout-note appearance="simple" title="Origem e interpretação"}
+Os sete critérios abaixo são os definidos no projeto e correspondem diretamente aos campos `t0_criterio_i_1` a `t0_criterio_i_7` do REDCap. O universo é formado pelos registros presentes em T0. Valor `1` significa que o critério foi atendido; `0`, que não foi atendido. Ausência de valor é apresentada como **sem informação** e não é tratada como falha no critério.
+:::
+
+```{r grafico-criterios}
+criterios |>
+  select(
+    criterio,
+    Atende = n_atende,
+    `Não atende` = n_nao_atende,
+    `Sem informação` = n_sem_informacao
+  ) |>
+  pivot_longer(-criterio, names_to = "resultado", values_to = "n") |>
+  mutate(
+    criterio = factor(criterio, levels = rev(criterios$criterio)),
+    resultado = factor(resultado, levels = c("Atende", "Não atende", "Sem informação"))
+  ) |>
+  ggplot(aes(x = criterio, y = n, fill = resultado)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(values = c(
+    "Atende" = "#198754",
+    "Não atende" = "#dc3545",
+    "Sem informação" = "#d9dee3"
+  )) +
+  labs(x = NULL, y = "Participantes", fill = "Resultado") +
+  theme_minimal()
+```
+
+```{r tabela-criterios}
+criterios |>
+  select(
+    Critério = criterio,
+    Descrição = descricao,
+    `Form REDCap` = form_name,
+    Avaliadas = n_avaliadas,
+    Atende = n_atende,
+    `Não atende` = n_nao_atende,
+    `Sem informação` = n_sem_informacao,
+    `% atende entre avaliadas` = pct_atende_avaliadas
+  ) |>
+  kable(align = "lllrrrrr")
+```
