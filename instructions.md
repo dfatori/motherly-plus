@@ -1,3 +1,8 @@
+_INSTRUCTIONS OF PROJECT_
+_DELETE LATER_
+_DELETE LATER_
+_DELETE LATER_
+
 # Motherly+ RCT3 — Pre-Specified Statistical Analysis Plan
 
 ## 1. Overview
@@ -187,3 +192,7 @@ Session on 2026-08-28:
 - RCT publication example (Table 1): `example/Zuccolo-2024.pdf`
 - PSI-SF scoring reference: `example/psi/ParentingStressIndexPSI_Mother.pdf`
 - PSQI scoring reference: `example/psqi/psqi scoring.pdf`
+
+_DELETE LATER_
+_DELETE LATER_
+_DELETE LATER_

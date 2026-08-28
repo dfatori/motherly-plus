@@ -1,9 +1,9 @@
-# Motherly+ RCT3 — Pre-Specified Analysis & Operational Dashboard
+# Motherly Plus RCT
 
-This repository contains two independent components for the **Motherly+ RCT3**, a parallel-group randomized controlled trial testing single-session psychotherapy supported by a smartphone app (Motherly) for postpartum depression:
+This repository contains two independent components for the **Motherly Plus** randomized clinical trial, a study designed to test a single-session psychotherapy supported by a smartphone app (Motherly) for postpartum depression.
 
-1. **`scripts/`** — Pre-specified statistical analysis scripts for the RCT (primary purpose of this repository).
-2. **`dashboard/`** — Operational monitoring dashboard built as a Quarto website, kept strictly separate from the analysis pipeline.
+1. **`scripts/`** — Pre-specified statistical analysis scripts for the RCT;
+2. **`dashboard/`** — Operational dashboard.
 
 ## What this repository is
 
