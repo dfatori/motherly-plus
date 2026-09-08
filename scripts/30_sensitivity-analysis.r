@@ -21,18 +21,18 @@ library(knitr)
 baseline <- readRDS(here("outputs", "models", "00_baseline_analytic.rds"))
 long <- readRDS(here("outputs", "models", "00_long_analytic.rds"))
 
+# QIDS-C16: T1 and T3 only
 qids_long <- baseline %>%
-  select(record_id, group_f) %>%
+  dplyr::select(record_id, group_f) %>%
   left_join(
     long %>%
-      select(record_id, time, qidsc16) %>%
-      filter(!is.na(qidsc16)),
+      dplyr::select(record_id, time, qidsc16) %>%
+      filter(time %in% c(1, 3)),
     by = "record_id"
   ) %>%
   mutate(
-    time_f = factor(time, levels = c(1, 2, 3, 4), labels = c("T1", "T2", "T3", "T4"))
-  ) %>%
-  filter(!is.na(qidsc16))
+    time_f = factor(time, levels = c(1, 3), labels = c("T1", "T3"))
+  )
 
 #----------------------------------------------------------------------#
 # Sensitivity 1: Completers only (observed data at T1 and T3)
@@ -47,7 +47,7 @@ fit_completers <- geeglm(
   qidsc16 ~ group_f * time_f,
   id = record_id,
   family = gaussian,
-  corstr = "ar1",
+  corstr = "exchangeable",
   std.err = "san.se",
   data = completers
 )
@@ -68,7 +68,7 @@ as.data.frame(contrasts_completers) %>%
 
 qids_long_adj <- qids_long %>%
   left_join(
-    baseline %>% select(record_id, qidsc16_t1),
+    baseline %>% dplyr::select(record_id, qidsc16_t1),
     by = "record_id"
   )
 
@@ -76,7 +76,7 @@ fit_adjusted <- geeglm(
   qidsc16 ~ group_f * time_f + qidsc16_t1,
   id = record_id,
   family = gaussian,
-  corstr = "ar1",
+  corstr = "exchangeable",
   std.err = "san.se",
   data = qids_long_adj
 )
@@ -92,14 +92,14 @@ as.data.frame(contrasts_adjusted) %>%
   writeLines(here("outputs", "tables", "30_qids_baseline_adjusted_contrasts.html"))
 
 #----------------------------------------------------------------------#
-# Sensitivity 3: Unstructured working correlation
+# Sensitivity 3: Exchangeable working correlation
 #----------------------------------------------------------------------#
 
 fit_unstructured <- geeglm(
   qidsc16 ~ group_f * time_f,
   id = record_id,
   family = gaussian,
-  corstr = "unstructured",
+  corstr = "exchangeable",
   std.err = "san.se",
   data = qids_long
 )

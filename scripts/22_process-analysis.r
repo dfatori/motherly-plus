@@ -27,21 +27,15 @@ long <- readRDS(here("outputs", "models", "00_long_analytic.rds"))
 
 alliance <- long %>%
   filter(time == 2) %>%
-  select(record_id, starts_with("t2_waisrc_"), starts_with("t2_waisrt_")) %>%
+  dplyr::select(record_id, starts_with("waisrc_"), starts_with("waisrt_")) %>%
   mutate(
-    waisrc_total = rowSums(across(starts_with("t2_waisrc_") & !matches("goals|tasks|bond"))),
-    waisrc_goals = t2_waisrc_goals,
-    waisrc_tasks = t2_waisrc_tasks,
-    waisrc_bond = t2_waisrc_bond,
-    waisrt_total = rowSums(across(starts_with("t2_waisrt_") & !matches("goals|tasks|bond"))),
-    waisrt_goals = t2_waisrt_goals,
-    waisrt_tasks = t2_waisrt_tasks,
-    waisrt_bond = t2_waisrt_bond
+    waisrc_total = rowSums(across(starts_with("waisrc_") & !matches("goals|tasks|bond"))),
+    waisrt_total = rowSums(across(starts_with("waisrt_") & !matches("goals|tasks|bond")))
   )
 
 # Descriptive table
 alliance_desc <- alliance %>%
-  select(waisrc_total, waisrc_goals, waisrc_tasks, waisrc_bond,
+  dplyr::select(waisrc_total, waisrc_goals, waisrc_tasks, waisrc_bond,
          waisrt_total, waisrt_goals, waisrt_tasks, waisrt_bond) %>%
   pivot_longer(everything(), names_to = "scale", values_to = "score") %>%
   group_by(scale) %>%
@@ -61,9 +55,10 @@ alliance_desc %>%
 # Association with T3 QIDS-C16
 alliance_outcome <- alliance %>%
   left_join(
-    long %>% filter(time == 3) %>% select(record_id, qidsc16) %>% rename(qidsc16_t3 = qidsc16),
+    long %>% filter(time == 3) %>% dplyr::select(record_id, qidsc16) %>% rename(qidsc16_t3 = qidsc16),
     by = "record_id"
   ) %>%
+
   filter(!is.na(qidsc16_t3))
 
 waisrc_fit <- lm(qidsc16_t3 ~ waisrc_total, data = alliance_outcome)

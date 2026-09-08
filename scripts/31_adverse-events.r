@@ -21,7 +21,7 @@ baseline <- readRDS(here("outputs", "models", "00_baseline_analytic.rds"))
 long <- readRDS(here("outputs", "models", "00_long_analytic.rds"))
 
 # Raw REDCap data for clinical adverse-event fields not in analytic datasets
-redcap_files <- list.files(here("data", "trial"), pattern = "MotherlyRCT2025-Geral_DATA_.*\\.csv$", full.names = TRUE)
+redcap_files <- list.files(here("data", "trial"), pattern = "MotherlyRCT.*_DATA_.*\\.csv$", full.names = TRUE)
 if (length(redcap_files) == 0) stop("No REDCap CSV file found in data/trial/")
 latest_file <- sort(redcap_files, decreasing = TRUE)[1]
 rct_raw <- read_csv(latest_file, col_types = cols(.default = "?"), na = c("", "NA", " "))
@@ -34,11 +34,11 @@ rct_raw <- read_csv(latest_file, col_types = cols(.default = "?"), na = c("", "N
 #----------------------------------------------------------------------#
 
 ae_wide <- baseline %>%
-  select(record_id, group_f) %>%
+  dplyr::select(record_id, group_f) %>%
   left_join(
     long %>%
       filter(time %in% c(1, 3, 4)) %>%
-      select(record_id, time, qidsc16, qidssr16, qidsc16_item12, qidssr16_item12) %>%
+      dplyr::select(record_id, time, qidsc16, qidssr16, qidsc16_item12, qidssr16_item12) %>%
       pivot_wider(
         id_cols = record_id,
         names_from = time,
@@ -49,25 +49,24 @@ ae_wide <- baseline %>%
   left_join(
     rct_raw %>%
       filter(redcap_event_name == "t2_arm_1") %>%
-      select(record_id, pron_ideacao, pron_ideacao_plano),
+      dplyr::select(record_id, pron_ideacao, pron_ideacao_plano),
     by = "record_id"
   ) %>%
   left_join(
     rct_raw %>%
       filter(redcap_event_name == "t3_arm_1") %>%
-      select(record_id, t3_cgi_i),
+      dplyr::select(record_id, t3_cgi_i),
     by = "record_id"
   ) %>%
   left_join(
     rct_raw %>%
       filter(redcap_event_name == "t4_arm_1") %>%
-      select(record_id, enc_1___2, enc_1___3, dropout7),
+      dplyr::select(record_id, enc_1___2, enc_1___3, dropout7),
     by = "record_id"
   ) %>%
   mutate(
     ae_qidsc16 = ifelse(
-      (!is.na(qidsc16_3) & (qidsc16_3 - qidsc16_1) / qidsc16_1 >= 0.30) |
-      (!is.na(qidsc16_4) & (qidsc16_4 - qidsc16_1) / qidsc16_1 >= 0.30),
+      !is.na(qidsc16_3) & (qidsc16_3 - qidsc16_1) / qidsc16_1 >= 0.30,
       1, 0
     ),
     ae_qidssr16 = ifelse(
@@ -100,7 +99,7 @@ ae_wide <- baseline %>%
 #----------------------------------------------------------------------#
 
 ae_table <- ae_wide %>%
-  select(group_f, ae_qidsc16, ae_qidssr16, sae_qidsc16_item12,
+  dplyr::select(group_f, ae_qidsc16, ae_qidssr16, sae_qidsc16_item12,
          sae_qidssr16_item12, ae_ideation_session, ae_referral_ideation,
          ae_dropout_related, any_sae) %>%
   tbl_summary(

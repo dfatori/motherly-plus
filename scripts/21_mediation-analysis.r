@@ -23,11 +23,11 @@ long <- readRDS(here("outputs", "models", "00_long_analytic.rds"))
 
 # Build wide dataset with mediators at T1 and T2 and outcome at T3
 mediation_wide <- baseline %>%
-  select(record_id, group_f, qidsc16_t1) %>%
+  dplyr::select(record_id, group_f, qidsc16_t1) %>%
   left_join(
     long %>%
       filter(time %in% c(1, 2)) %>%
-      select(record_id, time, badssf, rpi) %>%
+      dplyr::select(record_id, time, badssf, rpi) %>%
       pivot_wider(
         id_cols = record_id,
         names_from = time,
@@ -39,7 +39,7 @@ mediation_wide <- baseline %>%
   left_join(
     long %>%
       filter(time == 3) %>%
-      select(record_id, qidsc16) %>%
+      dplyr::select(record_id, qidsc16) %>%
       rename(qidsc16_t3 = qidsc16),
     by = "record_id"
   ) %>%
@@ -55,13 +55,18 @@ mediation_wide <- baseline %>%
 #----------------------------------------------------------------------#
 
 run_mediation <- function(mediator_var, mediator_label) {
-  # Mediator model
-  med_formula <- as.formula(paste(mediator_var, "~ group_num + qidsc16_t1"))
-  med_model <- lm(med_formula, data = mediation_wide)
+  # Build models so their calls contain literal formulas (required by mediate bootstrap)
+  med_model <- do.call(
+    "lm",
+    list(formula = as.formula(paste(mediator_var, "~ group_num + qidsc16_t1")),
+         data = mediation_wide)
+  )
 
-  # Outcome model
-  out_formula <- as.formula(paste("qidsc16_t3 ~ group_num +", mediator_var, "+ qidsc16_t1"))
-  out_model <- lm(out_formula, data = mediation_wide)
+  out_model <- do.call(
+    "lm",
+    list(formula = as.formula(paste("qidsc16_t3 ~ group_num +", mediator_var, "+ qidsc16_t1")),
+         data = mediation_wide)
+  )
 
   # Mediation analysis
   med_out <- mediate(

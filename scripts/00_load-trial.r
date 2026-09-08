@@ -17,7 +17,7 @@ library(readr)
 
 redcap_files <- list.files(
   here("data", "trial"),
-  pattern = "MotherlyRCT2025-Geral_DATA_.*\\.csv$",
+  pattern = "MotherlyRCT.*_DATA_.*\\.csv$",
   full.names = TRUE
 )
 

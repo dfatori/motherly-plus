@@ -21,13 +21,14 @@ library(ggplot2)
 
 baseline <- readRDS(here("outputs", "models", "00_baseline_analytic.rds"))
 
-# Build wide dataset with QIDS-C16 at T1-T4
+# QIDS-C16 is clinician-rated and only collected at T1 and T3.
+# Build one row per participant with scores at both timepoints.
 qids_wide <- baseline %>%
   select(record_id, group, group_f) %>%
   left_join(
     readRDS(here("outputs", "models", "00_long_analytic.rds")) %>%
       select(record_id, time, qidsc16) %>%
-      filter(!is.na(qidsc16)) %>%
+      filter(time %in% c(1, 3)) %>%
       pivot_wider(
         id_cols = record_id,
         names_from = time,
@@ -37,7 +38,7 @@ qids_wide <- baseline %>%
     by = "record_id"
   )
 
-# Reshape to long
+# Convert to long format for repeated-measures GEE.
 qids_long <- qids_wide %>%
   pivot_longer(
     cols = starts_with("qidsc16_t"),
@@ -46,12 +47,12 @@ qids_long <- qids_wide %>%
   ) %>%
   mutate(
     time = as.integer(gsub("qidsc16_t", "", time)),
-    time_f = factor(time, levels = c(1, 2, 3, 4), labels = c("T1", "T2", "T3", "T4"))
-  ) %>%
-  filter(!is.na(qidsc16))
+    time_f = factor(time, levels = c(1, 3), labels = c("T1", "T3"))
+  )
 
 #----------------------------------------------------------------------#
 # Primary analysis: GEE with group x time interaction
+# ITT: all randomized participants retained; GEE uses available data.
 #----------------------------------------------------------------------#
 
 qids_fit <- geeglm(
@@ -65,14 +66,13 @@ qids_fit <- geeglm(
 
 summary(qids_fit)
 
-# Marginal means
+# Estimated marginal means and contrasts.
 qids_emm <- emmeans(qids_fit, ~ group_f * time_f)
 kable(qids_emm)
 
-# Overall test of interaction
 joint_tests(qids_emm)
 
-# Pairwise contrasts at each timepoint, FDR adjusted
+# Pairwise group contrasts at each timepoint, FDR adjusted.
 qids_contrasts <- contrast(
   qids_emm,
   method = "pairwise",
@@ -82,16 +82,16 @@ qids_contrasts <- contrast(
 )
 kable(qids_contrasts)
 
-# Primary contrast of interest: T3
+# Primary contrast of interest: Intervention vs Waitlist at T3
 qids_t3_contrast <- contrast(
   qids_emm,
-  list(t3_diff = c(0, 0, -1, 1, 0, 0, 0, 0)),
+  list(t3_diff = c(0, 0, -1, 1)),
   adjust = "fdr",
   infer = TRUE
 )
 kable(qids_t3_contrast)
 
-# Effect size: Cohen's d at T3
+# Cohen's d at T3 = mean difference / observed SD.
 qids_t3 <- as.data.frame(qids_emm) %>% filter(time_f == "T3")
 d_qids_t3 <- (qids_t3$emmean[qids_t3$group_f == "Intervention"] -
               qids_t3$emmean[qids_t3$group_f == "Waitlist"]) /
@@ -107,11 +107,12 @@ qids_emm_df <- as.data.frame(qids_emm)
 qids_plot <- ggplot(qids_emm_df, aes(x = time_f, y = emmean, color = group_f, group = group_f)) +
   geom_line(linewidth = 1, position = position_dodge(width = 0.2)) +
   geom_point(size = 4, position = position_dodge(width = 0.2)) +
-  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.15, linewidth = 1,
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0.15, linewidth = 1,
                 position = position_dodge(width = 0.2)) +
   scale_color_manual(values = c("Waitlist" = "#1b9e77", "Intervention" = "#d95f02")) +
+  scale_x_discrete(drop = FALSE) +
   labs(
-    title = "QIDS-C16 mean scores over time",
+    title = "QIDS-C16 mean scores at baseline (T1) and post-treatment (T3)",
     x = "Timepoint",
     y = "QIDS-C16 total score",
     color = "Group"
@@ -123,10 +124,20 @@ qids_plot <- ggplot(qids_emm_df, aes(x = time_f, y = emmean, color = group_f, gr
   )
 
 qids_plot
-ggsave(here("outputs", "figures", "10_qids_marginal_means.jpg"),
-       width = 7, height = 5, dpi = 300)
+tryCatch(
+  ggsave(here("outputs", "figures", "10_qids_marginal_means.png"),
+         width = 7, height = 5, dpi = 300, device = "png"),
+  error = function(e) {
+    message("ggsave failed (likely graphics API mismatch): ", conditionMessage(e))
+    message("Falling back to base png device.")
+    png(here("outputs", "figures", "10_qids_marginal_means.png"),
+        width = 7, height = 5, units = "in", res = 300)
+    print(qids_plot)
+    dev.off()
+  }
+)
 
-#----------------------------------------------------------------------#
+
 #----------------------------------------------------------------------#
 # Save outputs
 #----------------------------------------------------------------------#

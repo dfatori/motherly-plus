@@ -27,7 +27,7 @@ app_files <- list.files(
 
 if (length(app_files) == 0) {
   message("No app data file found in data/app/. Creating empty placeholder dataset.")
-  app_raw <- tibble(record_id = character())
+  app_raw <- tibble(record_id = integer())
 } else {
   latest_app_file <- sort(app_files, decreasing = TRUE)[1]
   message("Loading app data file: ", latest_app_file)

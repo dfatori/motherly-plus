@@ -21,19 +21,18 @@ library(knitr)
 baseline <- readRDS(here("outputs", "models", "00_baseline_analytic.rds"))
 long <- readRDS(here("outputs", "models", "00_long_analytic.rds"))
 
-# Build long QIDS-C16 dataset
+# Build long QIDS-C16 dataset (T1 and T3 only)
 qids_long <- baseline %>%
   select(record_id, group_f) %>%
   left_join(
     long %>%
       select(record_id, time, qidsc16) %>%
-      filter(!is.na(qidsc16)),
+      filter(time %in% c(1, 3)),
     by = "record_id"
   ) %>%
   mutate(
-    time_f = factor(time, levels = c(1, 2, 3, 4), labels = c("T1", "T2", "T3", "T4"))
-  ) %>%
-  filter(!is.na(qidsc16))
+    time_f = factor(time, levels = c(1, 3), labels = c("T1", "T3"))
+  )
 
 # Merge baseline moderators
 qids_long_mod <- qids_long %>%
@@ -65,7 +64,7 @@ run_moderation <- function(mod_var, mod_label) {
     qidsc16 ~ group_f * time_f * mod_c,
     id = record_id,
     family = gaussian,
-    corstr = "ar1",
+    corstr = "exchangeable",
     std.err = "san.se",
     data = df
   )
@@ -73,22 +72,32 @@ run_moderation <- function(mod_var, mod_label) {
   # Marginal means and T3 contrast
   emm <- emmeans(fit, ~ group_f * time_f | mod_c)
 
-  # Interaction test
-  int_test <- joint_tests(emm)
+  # Interaction test (try/catch because singularities can occur with binary moderators)
+  int_test <- tryCatch(
+    joint_tests(emm),
+    error = function(e) {
+      message("joint_tests failed for ", mod_label, ": ", conditionMessage(e))
+      NULL
+    }
+  )
 
   cat("\n===", mod_label, "===\n")
   print(summary(fit))
-  cat("\nInteraction test:\n")
-  print(int_test)
+  if (!is.null(int_test)) {
+    cat("\nInteraction test:\n")
+    print(int_test)
+  }
 
   # Save
   saveRDS(fit, here("outputs", "models", paste0("20_moderation_", mod_var, "_fit.rds")))
 
-  int_test_df <- as.data.frame(int_test)
-  write_csv(int_test_df, here("outputs", "tables", paste0("20_moderation_", mod_var, "_joint_tests.csv")))
-  int_test_df %>%
-    knitr::kable(format = "html", caption = paste(mod_label, "moderation joint tests")) %>%
-    writeLines(here("outputs", "tables", paste0("20_moderation_", mod_var, "_joint_tests.html")))
+  if (!is.null(int_test)) {
+    int_test_df <- as.data.frame(int_test)
+    write_csv(int_test_df, here("outputs", "tables", paste0("20_moderation_", mod_var, "_joint_tests.csv")))
+    int_test_df %>%
+      knitr::kable(format = "html", caption = paste(mod_label, "moderation joint tests")) %>%
+      writeLines(here("outputs", "tables", paste0("20_moderation_", mod_var, "_joint_tests.html")))
+  }
 
   model_summary_df <- broom::tidy(fit)
   write_csv(model_summary_df, here("outputs", "tables", paste0("20_moderation_", mod_var, "_model_summary.csv")))

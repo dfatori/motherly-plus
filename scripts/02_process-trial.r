@@ -64,7 +64,7 @@ baseline <- rct_raw %>%
     qidsc16_t1 = as.numeric(t1_qidsc16_total),
     qidssr16_t1 = as.numeric(t1_qidssr16_total),
     gad7_t1 = as.numeric(t1_total_gad),
-    sds_t1 = as.numeric(t1_total_sds),
+    sds_t1 = rowSums(across(c(t1_sds1, t1_sds2, t1_sds3), as.numeric), na.rm = FALSE),
     epds_t1 = as.numeric(t1_total_epds),
     cgi_s_t1 = as.numeric(t1_cgi_s)
   )
@@ -224,16 +224,20 @@ baseline <- baseline %>%
 extract_timepoint <- function(df, event_name, time_code) {
   df %>%
     filter(redcap_event_name == event_name) %>%
+    mutate(
+      # SDS total: same field names are reused across events in REDCap
+      total_sds = rowSums(across(c(t1_sds1, t1_sds2, t1_sds3), as.numeric), na.rm = FALSE)
+    ) %>%
     select(
       record_id,
-      starts_with("qidsc16_total"), starts_with("qidssr16_total"),
-      starts_with("total_gad"), starts_with("total_sds"),
-      starts_with("total_epds"),
+      starts_with("t1_qidsc16_total"), starts_with("t1_qidssr16_total"),
+      starts_with("t1_total_gad"), starts_with("total_sds"),
+      starts_with("t1_total_epds"),
       starts_with("t1_badssf_total"), starts_with("t1_total_rpi"),
       starts_with("t3_cgi_i"),
       starts_with("t2_waisrc_goals"), starts_with("t2_waisrc_tasks"), starts_with("t2_waisrc_bond"),
       starts_with("t2_waisrt_goals"), starts_with("t2_waisrt_tasks"), starts_with("t2_waisrt_bond"),
-      starts_with("qidsc16_12"), starts_with("qidssr16_12")
+      starts_with("t1_qidsc16_12"), starts_with("t1_qidssr16_12")
     ) %>%
     mutate(time = time_code)
 }
@@ -246,11 +250,11 @@ tp4 <- extract_timepoint(rct_raw, "t4_arm_1", 4)
 # Combine and rename to standardized names
 rct_long <- bind_rows(tp1, tp2, tp3, tp4) %>%
   rename(
-    qidsc16 = qidsc16_total,
-    qidssr16 = qidssr16_total,
-    gad7 = total_gad,
+    qidsc16 = t1_qidsc16_total,
+    qidssr16 = t1_qidssr16_total,
+    gad7 = t1_total_gad,
     sds = total_sds,
-    epds = total_epds,
+    epds = t1_total_epds,
     badssf = t1_badssf_total,
     rpi = t1_total_rpi,
     cgi_i = t3_cgi_i,
@@ -260,8 +264,8 @@ rct_long <- bind_rows(tp1, tp2, tp3, tp4) %>%
     waisrt_goals = t2_waisrt_goals,
     waisrt_tasks = t2_waisrt_tasks,
     waisrt_bond = t2_waisrt_bond,
-    qidsc16_item12 = qidsc16_12,
-    qidssr16_item12 = qidssr16_12
+    qidsc16_item12 = t1_qidsc16_12,
+    qidssr16_item12 = t1_qidssr16_12
   )
 
 #----------------------------------------------------------------------#

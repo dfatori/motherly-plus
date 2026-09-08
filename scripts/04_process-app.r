@@ -31,7 +31,7 @@ app_raw <- readRDS(here("outputs", "models", "01_app_raw.rds"))
 
 if (nrow(app_raw) == 0) {
   app_processed <- tibble(
-    record_id = character(),
+    record_id = integer(),
     app_session_count = integer(),
     app_total_minutes = numeric(),
     app_active_days = integer(),
