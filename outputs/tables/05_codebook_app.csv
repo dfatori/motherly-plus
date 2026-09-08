@@ -1,0 +1,7 @@
+variable,description,type,values
+record_id,Participant identifier,character,
+app_session_count,Number of app sessions,integer,0+
+app_total_minutes,Total time spent in app (minutes),numeric,0+
+app_active_days,Number of distinct days with app use,integer,0+
+app_modules_accessed,Count of unique modules opened,integer,0+
+app_completed_activities,Count of completed in-app activities,integer,0+
