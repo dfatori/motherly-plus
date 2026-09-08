@@ -19,7 +19,6 @@ motherly-plus/
 │   ├── participantes/         # Generated per-participant .qmd pages (not versioned)
 │   ├── _site/                 # Generated static website (not versioned)
 │   └── *.qmd                  # Quarto source pages
-├── example/                   # References for scripts [DELETE LATER]
 ├── outputs/                   # Generated analysis outputs
 │   ├── figures/               # Plots and images (prefixed by script number)
 │   ├── models/                # RDS datasets and fitted models (prefixed by script number)
@@ -48,7 +47,7 @@ motherly-plus/
 ## Requirements
 
 - R >= 4.2
-- R packages used by the analysis scripts (installed on first run if needed): `tidyverse`, `here`, `geepack`, `emmeans`, `multcomp`, `broom`, `psych`, `mediation`, `processR` or equivalent (see individual scripts for `library()` calls).
+- R packages used by the analysis scripts (see `library()` calls in each script): `tidyverse`, `here`, `geepack`, `emmeans`, `broom`, `knitr`, `gtsummary`, `flextable`, `mediation`, `MASS`.
 - For the dashboard: [Quarto](https://quarto.org/docs/get-started/), plus R packages `dplyr`, `tidyr`, `ggplot2`, `knitr`, `curl`, `keyring`.
 
 ## Data flow
@@ -56,7 +55,7 @@ motherly-plus/
 ```
 REDCap export
     ↓
-data/trial/MotherlyRCT2025*-Geral_DATA_YYYY-MM-DD_HHMM.csv
+data/trial/MotherlyRCT2026_DATA_YYYY-MM-DD_HHMM.csv
     ↓
 ┌─────────────────────┐     ┌─────────────────────────────┐
 │ scripts/            │     │ dashboard/                  │
@@ -73,9 +72,10 @@ data/trial/MotherlyRCT2025*-Geral_DATA_YYYY-MM-DD_HHMM.csv
 ## How to run the analyses
 
 1. Export REDCap data as **CSV with field names**;
-2. Save the file to `data/trial/MotherlyRCT2025-Geral_DATA_YYYY-MM-DD_HHMM.csv`;
-3. Save Motherly app usage data to `data/app/`;
-4. Run all analysis scripts from the R console with the working directory at the repository root:
+2. Save the file to `data/trial/MotherlyRCT2026_DATA_YYYY-MM-DD_HHMM.csv`;
+3. (Optional) Save the REDCap DataDictionary and R codebook to `data/trial/`;
+4. Save Motherly app usage data to `data/app/`;
+5. Run all analysis scripts from the R console with the working directory at the repository root:
 
    ```r
    source("scripts/99_master-run.r")
@@ -97,12 +97,12 @@ This prepares the data, generates per-participant pages, renders the Quarto site
 
 ## Key analysis plan
 
-- **Primary analysis**: GEE for QIDS-C16 at T3 (`group × time`, AR1 correlation, robust sandwich SEs).
-- **Secondary analyses**: GEEs for QIDS-SR16, GAD-7, SDS, EPDS, PSQI, PSI-SF, and ordinal regression for CGI-I.
-- **Mediation**: Parallel mediation by BADS-SF and RPI.
-- **Moderation**: Baseline sociodemographic and clinical moderators.
-- **Process analysis**: Therapeutic alliance (WAI-SR) and app engagement.
-- **Sensitivity**: Completers-only, baseline-adjusted, and unstructured correlation models.
+- **Primary analysis**: GEE for QIDS-C16 at T3 (`group × time`, AR1/exchangeable correlation, robust sandwich SEs).
+- **Secondary analyses**: GEEs for QIDS-SR16, GAD-7, SDS, and EPDS; ordinal regression for CGI-I (single timepoint). PSQI and PSI-SF will be added once item-level T2–T4 data are available.
+- **Mediation**: Parallel mediation by BADS-SF and RPI change (T1 to T2).
+- **Moderation**: Baseline sociodemographic and clinical moderators of the treatment effect on QIDS-C16.
+- **Process analysis**: Therapeutic alliance (WAI-SR) and app engagement (placeholder).
+- **Sensitivity**: Completers-only, baseline-adjusted, and exchangeable correlation models for QIDS-C16.
 - **Adverse events**: ≥30% increase in QIDS-16 or QIDS item 12 ≥ 2, plus clinical AE fields.
 
 ## Dashboard
@@ -116,7 +116,7 @@ The operational monitoring dashboard lives in `dashboard/` and is kept **strictl
 
 ## Data governance and privacy
 
-- Never commit identifiable participant data, raw REDCap CSVs, app usage exports, or dashboard RDS files to version control. The `.gitignore` file already excludes `data/trial/*.csv`, `data/app/*`, `dashboard/data/*.rds`, `dashboard/participantes/*.qmd`, and `dashboard/_site/`.
+- Never commit identifiable participant data, raw REDCap CSVs, app usage exports, or dashboard RDS files to version control. The `.gitignore` file excludes real `data/trial/*.csv`, `data/app/*`, `dashboard/data/*.rds`, `dashboard/participantes/*.qmd`, and `dashboard/_site/`. It explicitly allows the simulated dataset and REDCap metadata (`MotherlyRCT2026_DATA_simulated.csv`, `MotherlyRCT2026_DataDictionary_*.csv`, `MotherlyRCT2026_R_*.r`).
 - Dashboard pages contain sensitive health information; publish only behind access control (the production dashboard uses Apache Basic Auth on InfinityFree).
 - Do not store FTP passwords, `.htpasswd` contents, or API tokens in the repository; the dashboard uses `keyring` for the FTP password.
 

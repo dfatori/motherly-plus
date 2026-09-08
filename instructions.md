@@ -123,11 +123,6 @@ All analysis output filenames are prefixed with the script number that generated
 
 The `dashboard/` directory contains a Quarto-based operational dashboard that is **independent** of the pre-specified analysis scripts. It is not part of the inferential analysis plan and must not be cited as such.
 
-### Purpose and scope
-- **Purpose**: monitor recruitment, randomization, assessment completion, follow-up windows, and clinical/operational alerts during trial execution.
-- **Scope**: descriptive counts, percentages, and status flags. No hypothesis tests, no effect sizes, no adjusted models.
-- **Target audience**: study coordination team, not the scientific reader of the final report.
-
 ### Data flow
 1. Reads the latest REDCap CSV export from `data/trial/`.
 2. Optionally reads the REDCap DataDictionary from `data/trial/` to group fields by instrument/form.
@@ -150,11 +145,10 @@ See `dashboard/README.md` and `dashboard/PROJETO_HANDOFF.md` for setup, business
 
 ## 8. Important notes
 
-- Randomization is performed by an independent statistician in REDCap; the analysis scripts do **not** randomize.
 - REDCap data are exported in long format (`record_id` + `redcap_event_name`).
 - The current preliminary dataset includes only T0–T3; T4 will be added when collected.
 - Scripts must be reproducible from the exported REDCap CSV.
-- The `dashboard/` component is independent of `scripts/`; it uses the same raw `data/trial/` CSV but writes derived files only to `dashboard/data/`. It must not be used for inferential analyses.
+- The `dashboard/` component is independent of `scripts/`; it uses the same raw `data/trial/` CSV but writes derived files only to `dashboard/data/`.
 
 ## 9. Items requiring verification
 
@@ -192,7 +186,3 @@ Session on 2026-08-28:
 - RCT publication example (Table 1): `example/Zuccolo-2024.pdf`
 - PSI-SF scoring reference: `example/psi/ParentingStressIndexPSI_Mother.pdf`
 - PSQI scoring reference: `example/psqi/psqi scoring.pdf`
-
-_DELETE LATER_
-_DELETE LATER_
-_DELETE LATER_
