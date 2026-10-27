@@ -5,7 +5,7 @@ for the Motherly+ RCT3. They were moved here because moderation, mediation, and
 process (therapeutic alliance / app engagement) analyses will **not** be
 pre-registered.
 
-They are kept for reference only and are **not** run by `scripts/99_master-run.r`.
+They are kept for reference only and are **not** run by `scripts/run-all.r`.
 If any of these analyses are later conducted, they must be reported as
 **post-hoc / exploratory**, not confirmatory.
 

@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------#
-# Project: Motherly+ RCT3
+# Project: Motherly Plus
 # Script: 21_mediation-analysis.r
 # Description: Parallel mediation of treatment effect on QIDS-C16 at T3
 #              through BADS-SF and RPI change (T1 to T2)
@@ -18,8 +18,8 @@ library(knitr)
 # Load data
 #----------------------------------------------------------------------#
 
-baseline <- readRDS(here("outputs", "models", "00_baseline_analytic.rds"))
-long <- readRDS(here("outputs", "models", "00_long_analytic.rds"))
+baseline <- readRDS(here("outputs", "models", "02_baseline_analytic.rds"))
+long <- readRDS(here("outputs", "models", "02_long_analytic.rds"))
 
 # Build wide dataset with mediators at T1 and T2 and outcome at T3
 mediation_wide <- baseline %>%

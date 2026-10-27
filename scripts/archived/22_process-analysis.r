@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------#
-# Project: Motherly+ RCT3
+# Project: Motherly Plus
 # Script: 22_process-analysis.r
 # Description: Treatment-specific process analyses
 #              (therapeutic alliance; app engagement placeholder)
@@ -17,8 +17,8 @@ library(knitr)
 # Load data
 #----------------------------------------------------------------------#
 
-baseline <- readRDS(here("outputs", "models", "00_baseline_analytic.rds"))
-long <- readRDS(here("outputs", "models", "00_long_analytic.rds"))
+baseline <- readRDS(here("outputs", "models", "02_baseline_analytic.rds"))
+long <- readRDS(here("outputs", "models", "02_long_analytic.rds"))
 
 #----------------------------------------------------------------------#
 # Therapeutic alliance (WAI-SR) at T2

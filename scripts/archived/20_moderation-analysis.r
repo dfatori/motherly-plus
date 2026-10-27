@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------#
-# Project: Motherly+ RCT3
+# Project: Motherly Plus
 # Script: 20_moderation-analysis.r
 # Description: Moderation of treatment effect on QIDS-C16 at T3
 #----------------------------------------------------------------------#
@@ -18,8 +18,8 @@ library(knitr)
 # Load data
 #----------------------------------------------------------------------#
 
-baseline <- readRDS(here("outputs", "models", "00_baseline_analytic.rds"))
-long <- readRDS(here("outputs", "models", "00_long_analytic.rds"))
+baseline <- readRDS(here("outputs", "models", "02_baseline_analytic.rds"))
+long <- readRDS(here("outputs", "models", "02_long_analytic.rds"))
 
 # Build long QIDS-C16 dataset (T1 and T3 only)
 qids_long <- baseline %>%

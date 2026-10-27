@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------#
-# Project: Motherly+ RCT3
+# Project: Motherly Plus
 # Script: 03_codebook-trial.r
 # Description: Generate codebook of trial analytic variables
 #----------------------------------------------------------------------#
@@ -16,7 +16,7 @@ library(knitr)
 # Load analytic baseline dataset
 #----------------------------------------------------------------------#
 
-baseline <- readRDS(here("outputs", "models", "00_baseline_analytic.rds"))
+baseline <- readRDS(here("outputs", "models", "02_baseline_analytic.rds"))
 
 #----------------------------------------------------------------------#
 # Generate codebook

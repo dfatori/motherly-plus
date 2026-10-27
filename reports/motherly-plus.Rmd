@@ -1,0 +1,290 @@
+---
+title: "Motherly Plus: Study Protocol of a Randomized Controlled Trial Evaluating a Smartphone-Assisted Single-Session Psychotherapy Intervention for Postpartum Depression"
+subtitle: "Motherly Plus: Results report"
+output:
+  html_document:
+    theme: default
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    number_sections: true
+    df_print: paged
+    self_contained: true
+---
+
+<style>
+body, h1, h2, h3, h4, h5, h6,
+.toc, #TOC, table, th, td, caption,
+code, pre, kbd, .tocify {
+  font-family: Arial, Helvetica, "Helvetica Neue", sans-serif !important;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE,
+                      fig.align = "center", out.width = "85%")
+
+library(here)
+library(readr)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(gtsummary)
+
+tables_dir  <- here("outputs", "tables")
+figures_dir <- here("outputs", "figures")
+models_dir  <- here("outputs", "models")
+
+# This report assembles pre-produced outputs; it does NOT re-fit any model.
+
+# --- helpers --------------------------------------------------------------
+
+fmt_p <- function(p) {
+  out <- ifelse(is.na(p), "—",
+           ifelse(p < 0.001, "<0.001", formatC(p, format = "f", digits = 3)))
+  ifelse(!is.na(p) & p < 0.05, paste0("<strong>", out, "</strong>"), out)
+}
+
+styled <- function(tbl, caption) {
+  kbl(tbl, caption = caption, escape = FALSE,
+      align = c("l", rep("c", ncol(tbl) - 1))) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                  full_width = FALSE, position = "center")
+}
+
+# Marginal means at all timepoints. Baseline (T1) is the model intercept and
+# is identical in both groups by construction.
+show_means <- function(file, caption, baseline_note = TRUE) {
+  read_csv(file.path(tables_dir, file), show_col_types = FALSE) %>%
+    transmute(
+      Group     = group_f,
+      Timepoint = time_f,
+      Mean      = round(emmean, 2),
+      SE        = round(SE, 2),
+      `95% CI`  = sprintf("%.2f, %.2f", lower.CL, upper.CL)
+    ) %>%
+    styled(if (baseline_note) paste(caption, "Baseline (T1) is the same in both groups by model construction.") else caption)
+}
+
+show_contrasts <- function(file, caption) {
+  read_csv(file.path(tables_dir, file), show_col_types = FALSE) %>%
+    transmute(
+      Contrast   = contrast,
+      Timepoint  = time_f,
+      Estimate   = round(estimate, 2),
+      SE         = round(SE, 2),
+      `95% CI`   = sprintf("%.2f, %.2f", lower.CL, upper.CL),
+      `Cohen's d (95% CI)` = sprintf("%.2f (%.2f, %.2f)", cohen_d, d_lower, d_upper),
+      p          = fmt_p(p.value)
+    ) %>%
+    styled(caption)
+}
+
+show_figure <- function(file) {
+  knitr::include_graphics(file.path(figures_dir, file))
+}
+
+# Make GEE term names human-readable
+relabel_terms <- function(x) {
+  x <- gsub("\\(Intercept\\)", "Intercept (baseline, both groups)", x)
+  x <- sub("^t([34]):int$", "Group \u00d7 Time T\\1 (Intervention vs. Waitlist)", x)
+  x <- sub("^t([34])$", "Time T\\1 (change from T1, Waitlist)", x)
+  x
+}
+
+# Pooled GEE model coefficients
+show_model <- function(file, caption) {
+  read_csv(file.path(tables_dir, file), show_col_types = FALSE) %>%
+    transmute(
+      Term       = relabel_terms(term),
+      Estimate   = round(estimate, 3),
+      SE         = round(std.error, 3),
+      `95% CI`   = sprintf("%.3f, %.3f", conf.low, conf.high),
+      p          = fmt_p(p.value),
+      FMI        = round(fmi, 2)
+    ) %>%
+    styled(caption)
+}
+
+# Tables (a, b, c) and figure for one continuous outcome
+outcome_section <- function(prefix, heading, short, table_no, figure_no) {
+  cat("\n\n---\n\n## ", heading, "\n\n", sep = "")
+  cat(as.character(show_model(paste0(prefix, "_model_summary.csv"),
+        sprintf("Table %sa. %s GEE model coefficients (pooled).", table_no, short))), "\n\n")
+  cat(as.character(show_means(paste0(prefix, "_marginal_means.csv"),
+        sprintf("Table %sb. %s estimated marginal means.", table_no, short))), "\n\n")
+  cat(as.character(show_contrasts(paste0(prefix, "_contrasts.csv"),
+        sprintf("Table %sc. %s group contrasts by timepoint.", table_no, short))), "\n\n")
+  cat(sprintf("![Figure %s. %s estimated marginal means over time, by group.](%s){width=85%%}\n\n",
+              figure_no, short, file.path(figures_dir, paste0(prefix, "_marginal_means.png"))))
+}
+```
+
+---
+
+# Overview of analysis plan
+
+- **Groups:** Waitlist (Control) vs. Intervention (Motherly Plus).
+- **Timepoints:** T1 (baseline), T2 (week 2), T3 (week 4, post-treatment), T4 (week 8, follow-up).
+- **Primary outcome:**
+    - Quick Inventory of Depressive Symptomatology, Clinician-Rated (QIDS-C16) total score at T3
+- **Secondary outcomes (T3 and T4, unless noted):**
+    - Quick Inventory of Depressive Symptomatology, Self-Report (QIDS-SR16)
+    - Generalized Anxiety Disorder-7 (GAD-7)
+    - Pittsburgh Sleep Quality Index (PSQI)
+    - Parenting Stress Index – Short Form (PSI-SF): parental distress, parent-child dysfunctional interaction and total stress
+    - Sheehan Disability Scale (SDS)
+    - Edinburgh Postnatal Depression Scale (EPDS)
+    - Clinical Global Impression – Improvement (CGI-I), T3 only
+- **Analysis:**
+    - Intention-to-treat: all randomized participants.
+    - Missing data: described before the analyses (availability of each outcome by group). Missing values were then handled by multiple imputation by chained equations (MICE, 100 imputations), with results pooled by Rubin's rules.
+    - Model: generalized estimating equations (GEE) with AR1 working correlation and robust standard errors, fitted as
+      `outcome ~ time + time × group` (no group main effect; Twisk et al., 2018, equation 2d).
+      Baseline (T1) is the intercept and is assumed equal in both groups by randomization, so the effect of the intervention at each follow-up is the `Group × Time` coefficient.
+    - CGI-I (T3 only, no baseline) was analyzed as a continuous score (1–7) with a linear regression on group.
+    - Two-sided α = 0.05; 95% confidence intervals; Cohen's d = group contrast divided by the pooled within-group standard deviation at that timepoint.
+    - A complete-case analysis (no imputation) of every outcome is reported separately.
+
+In all contrasts the comparison is **Waitlist − Intervention**, so a
+**positive estimate (and positive d) favors the intervention** (higher symptom
+score in the waitlist group). The `Group × Time` coefficients in the model
+tables have the opposite sign (Intervention − Waitlist), so a negative
+coefficient also favors the intervention. FMI is the fraction of missing
+information of each pooled parameter.
+
+---
+
+---
+
+<div style="background-color:#fff3cd; color:#b00020; border:4px solid #b00020; border-radius:6px; padding:24px; margin:24px 0; text-align:center; font-size:30px; font-weight:bold; line-height:1.3;">
+⚠ WARNING: FROM THIS POINT ON, ALL RESULTS ARE FROM SIMULATED DATA
+</div>
+
+---
+
+---
+
+# Participants and baseline characteristics
+
+```{r table1}
+readRDS(file.path(models_dir, "04_table1_gtsummary.rds"))
+```
+
+---
+
+# Missing data
+
+Description of the observed data, before imputation. A value is missing when a
+randomized participant has no value at a timepoint where the instrument is
+scheduled.
+
+```{r missing-availability}
+readRDS(file.path(models_dir, "05_availability_gtsummary.rds")) %>%
+  modify_caption("**Table 2. Availability of outcome data by group.** Values are n (%) of randomized participants with the outcome observed.")
+```
+
+---
+
+# Primary outcome: Quick Inventory of Depressive Symptomatology, Clinician-Rated (QIDS-C16), at T3
+
+GEE model coefficients (pooled over the imputed datasets). The
+`Group × Time` term is the effect of the intervention at that timepoint
+(Intervention − Waitlist): a negative coefficient indicates greater symptom
+reduction in the intervention group. Significant *p*-values (< 0.05) are shown
+in **bold**.
+
+```{r primary-model}
+show_model("07_qids_model_summary.csv", "Table 3a. QIDS-C16 GEE model coefficients (pooled).")
+```
+
+```{r primary-means}
+show_means("07_qids_marginal_means.csv", "Table 3b. QIDS-C16 estimated marginal means.")
+```
+
+```{r primary-contrasts}
+show_contrasts("07_qids_contrasts.csv", "Table 3c. QIDS-C16 group contrast at T3.")
+```
+
+```{r fig-primary, fig.cap="Figure 1. QIDS-C16 estimated marginal means at baseline (T1) and post-treatment (T3), by group."}
+show_figure("07_qids_marginal_means.png")
+```
+
+---
+
+# Secondary outcomes
+
+```{r secondary, results='asis'}
+outcome_section("08_qidssr16", "Quick Inventory of Depressive Symptomatology, Self-Report (QIDS-SR16)", "QIDS-SR16", 4, 2)
+outcome_section("08_gad7", "Generalized Anxiety Disorder-7 (GAD-7)", "GAD-7", 5, 3)
+outcome_section("08_psqi", "Pittsburgh Sleep Quality Index (PSQI)", "PSQI", 6, 4)
+outcome_section("08_psi_pd", "Parenting Stress Index – Short Form (PSI-SF): parental distress", "PSI-SF parental distress", 7, 5)
+outcome_section("08_psi_pcdi", "Parenting Stress Index – Short Form (PSI-SF): parent-child dysfunctional interaction", "PSI-SF parent-child dysfunctional interaction", 8, 6)
+outcome_section("08_psi_total", "Parenting Stress Index – Short Form (PSI-SF): total stress", "PSI-SF total stress", 9, 7)
+outcome_section("08_sds", "Sheehan Disability Scale (SDS)", "SDS", 10, 8)
+outcome_section("08_epds", "Edinburgh Postnatal Depression Scale (EPDS)", "EPDS", 11, 9)
+```
+
+---
+
+## Clinical Global Impression – Improvement (CGI-I) at T3
+
+Clinical Global Impression – Improvement is measured at T3 and has no baseline value. It is scored from 1 (very much improved) to 7 (very much worse) and analyzed as a continuous outcome, with a linear regression on group in each imputed dataset (pooled). The contrast is Waitlist − Intervention, so a positive estimate favors the intervention (lower score = more improvement).
+
+```{r cgi-means}
+show_means("08_cgi_marginal_means.csv", "Table 12a. CGI-I estimated marginal means at T3.", baseline_note = FALSE)
+```
+
+```{r cgi-contrasts}
+show_contrasts("08_cgi_contrasts.csv", "Table 12b. CGI-I group contrast at T3.")
+```
+
+```{r fig-cgi, fig.cap="Figure 10. CGI-I estimated marginal means at post-treatment (T3), by group. Scores range from 1 (very much improved) to 7 (very much worse)."}
+show_figure("08_cgi_marginal_means.png")
+```
+
+---
+
+# Complete-case analysis
+
+Analysis without imputation. For each outcome, only participants observed at
+**every** timepoint of that outcome are included (participants with any missing
+value are excluded before fitting, so they do not contribute even their
+baseline). The models are the same as in the intention-to-treat analyses and
+are fitted once on the observed data (CGI-I: linear regression on group). *n* is the number analyzed in the
+Waitlist (W) and Intervention (I) groups, and *Excluded* is the
+number of randomized participants left out.
+
+```{r cc-contrasts}
+read_csv(file.path(tables_dir, "09_cc_contrasts.csv"), show_col_types = FALSE) %>%
+  transmute(
+    Outcome    = outcome,
+    Timepoint  = time_f,
+    `n (W / I)` = sprintf("%d / %d", n_waitlist, n_intervention),
+    Excluded   = n_excluded,
+    Estimate   = round(estimate, 2),
+    SE         = round(SE, 2),
+    `95% CI`   = sprintf("%.2f, %.2f", lower.CL, upper.CL),
+    `Cohen's d (95% CI)` = sprintf("%.2f (%.2f, %.2f)", cohen_d, d_lower, d_upper),
+    p          = fmt_p(p.value)
+  ) %>%
+  styled("Table 13. Complete-case group contrasts (Waitlist − Intervention) by timepoint.")
+```
+
+---
+
+# Adverse events
+
+**Table 14. Adverse events by group.**
+
+```{r ae-table}
+readRDS(file.path(models_dir, "10_ae_table_gtsummary.rds"))
+```
+
+```{r session, results='asis'}
+cat("<details><summary>Session info</summary><pre>")
+cat(paste(capture.output(sessionInfo()), collapse = "\n"))
+cat("</pre></details>")
+```
+
+---
