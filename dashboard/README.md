@@ -6,8 +6,7 @@ Componente separado do repositório `motherly-plus` para acompanhamento operacio
 
 | Componente | Local | Propósito |
 |---|---|---|
-| Dados brutos do trial | `../data/trial/` | CSV exportado do REDCap (compartilhado) |
-| Dados do app | `../data/app/` | Uso do app (compartilhado) |
+| Dados brutos do trial | `../data/` | CSV exportado do REDCap (compartilhado) |
 | Análises estatísticas | `../scripts/` | Código pré-especificado do RCT |
 | **Dashboard** | **`./`** | **Monitoramento operacional e site Quarto** |
 | RDS do dashboard | `./data/` | Cache gerado pelos scripts `R/` |
@@ -15,8 +14,8 @@ Componente separado do repositório `motherly-plus` para acompanhamento operacio
 ## Atualização
 
 1. Exportar CSV do REDCap com **field names**.
-2. Salvar em `../data/trial/MotherlyRCT2025*_DATA_YYYY-MM-DD_HHMM.csv`.
-3. (Recomendado) Exportar o DataDictionary do REDCap para `../data/trial/MotherlyRCT2025*_DataDictionary_YYYY-MM-DD.csv`. Sem ele, a completude por instrumento fica indisponível.
+2. Salvar em `../data/MotherlyRCT2025*_DATA_YYYY-MM-DD_HHMM.csv`.
+3. (Recomendado) Exportar o DataDictionary do REDCap para `../data/MotherlyRCT2025*_DataDictionary_YYYY-MM-DD.csv`. Sem ele, a completude por instrumento fica indisponível.
 4. Rodar o pipeline:
 
 ```r
@@ -41,7 +40,7 @@ quarto render
 
 ## Scripts
 
-- `R/preparar_dados.R`: lê o CSV mais recente de `../data/trial/`, calcula completude, status das avaliações e indicadores, e salva RDS em `./data/`.
+- `R/preparar_dados.R`: lê o CSV mais recente de `../data/`, calcula completude, status das avaliações e indicadores, e salva RDS em `./data/`.
 - `R/gerar_participantes.R`: lê os RDS de `./data/` e gera uma página `.qmd` por participante em `./participantes/`.
 - `R/atualizar_dashboard.R`: orquestra preparação, geração de páginas, `quarto render` e publicação FTP.
 

@@ -81,7 +81,7 @@ c:\science\motherly-plus
 REDCap (exportação CSV com field names)
     ↓
 R/preparar_dados.R
-    → lê CSV de dados + DataDictionary de ../data/trial/
+    → lê CSV de dados + DataDictionary de ../data/
     → extrai demografia, escores
     → calcula pct_completude_evento e pct_completude_form
     → calcula status e completude somente a partir dos dados REDCap
@@ -116,7 +116,7 @@ Hoje os dados vêm de exportação manual de CSV do REDCap. Em breve, assim que 
 
 1. Conectar na API do REDCap usando token.
 2. Baixar os dados automaticamente.
-3. Salvar os arquivos em `data/trial/`.
+3. Salvar os arquivos em `data/`.
 4. Rodar o restante do pipeline normalmente.
 
 Isso eliminará a necessidade de exportar CSV manualmente e permitirá automatizar a atualização diária. O pacote `REDCapR` é a opção mais comum no R para essa integração.
@@ -281,8 +281,8 @@ Para adicionar novas informações na página individual, basta incluir o placeh
 Quando chegar um novo arquivo do REDCap:
 
 1. Exportar do REDCap no formato **CSV com field names**.
-2. Salvar o arquivo em `data/trial/`, substituindo ou mantendo o anterior (o script sempre pega o mais recente).
-3. (Recomendado) Salvar o DataDictionary em `data/trial/` para completude por instrumento.
+2. Salvar o arquivo em `data/`, substituindo ou mantendo o anterior (o script sempre pega o mais recente).
+3. (Recomendado) Salvar o DataDictionary em `data/` para completude por instrumento.
 4. Rodar:
    ```powershell
    & "C:\Program Files\R\R-4.2.2\bin\Rscript.exe" "dashboard\R\atualizar_dashboard.R"
@@ -309,10 +309,8 @@ dashboard/.quarto/
 .quarto/
 
 # Dados sensíveis (nunca versionar)
-data/trial/*.csv
-data/trial/*.xlsx
-data/app/*.csv
-data/app/*.xlsx
+data/*.csv
+data/*.xlsx
 data/*.csv
 data/*.rds
 data/*.xlsx

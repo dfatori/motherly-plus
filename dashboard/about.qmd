@@ -28,8 +28,8 @@ Este dashboard foi desenvolvido para monitoramento operacional do ensaio clínic
 ## Como atualizar
 
 1. Exportar dados do REDCap em formato CSV com **field names**.
-2. Salvar em `../data/trial/MotherlyRCT2025*_DATA_YYYY-MM-DD_HHMM.csv`.
-3. (Opcional) Salvar o DataDictionary em `../data/trial/MotherlyRCT2025*_DataDictionary_YYYY-MM-DD.csv`.
+2. Salvar em `../data/MotherlyRCT2025*_DATA_YYYY-MM-DD_HHMM.csv`.
+3. (Opcional) Salvar o DataDictionary em `../data/MotherlyRCT2025*_DataDictionary_YYYY-MM-DD.csv`.
 4. Rodar `dashboard/R/preparar_dados.R`.
 5. Rodar `dashboard/R/gerar_participantes.R`.
 6. Renderizar o site com Quarto: `cd dashboard && quarto render`.

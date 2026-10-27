@@ -1,0 +1,985 @@
+﻿"Variable / Field Name","Form Name","Section Header","Field Type","Field Label","Choices, Calculations, OR Slider Labels","Field Note","Text Validation Type OR Show Slider Number","Text Validation Min","Text Validation Max",Identifier?,"Branching Logic (Show field only if...)","Required Field?","Custom Alignment","Question Number (surveys only)","Matrix Group Name","Matrix Ranking?","Field Annotation"
+record_id,recrutamento_t0,,text,"Record ID",,,,,,,,,,,,,
+t0_start_recrutamento,recrutamento_t0,,text,"Start Time",,,datetime_seconds_dmy,,,,,,LH,,,," @NOW @HIDDEN-SURVEY"
+t0_data,recrutamento_t0,,text,"Data de preenchimento",,,datetime_dmy,,,,,y,LV,,,," @HIDDEN-SURVEY @READONLY-SURVEY @READONLY-FORM @READONLY-APP @READONLY @NOW"
+t0_ref,recrutamento_t0,,radio,"Como você ficou sabendo do estudo?","1, Grupos de Whatsapp | 2, Grupos de Facebook | 3, Post ou story no Instagram | 4, Profissional me indicou | 5, Reportagem ou matéria na internet | 6, Email | 7, Amiga ou colega me indicou | 8, Outros",,,,,,,y,LV,,,,
+t0_android,recrutamento_t0,,radio,"Qual é o modelo do seu celular?","0, Apple (iPhone) | 1, Samsung | 2, Motorola | 3, Apple | 4, Xiaomi | 5, LG | 6, Sony | 7, Realme | 8, Oppo | 9, Asus | 10, Huawei | 11, Infinix | 12, Positivo | 13, Multilaser | 14, Outro",,,,,,,y,LV,,,,
+t0_modelo_cel,recrutamento_t0,,text,"Qual o modelo do seu celular?",,,,,,,,y,LH,,,,
+t0_data_nasc_mae,recrutamento_t0,,text,"Qual a sua data de nascimento?",,"Clique no desenho do calendário para selecionar sua data de nascimento.",date_dmy,,,,,y,LH,,,,
+t0_idade,recrutamento_t0,,calc,"Idade (em anos)","rounddown(
+datediff([t0_data_nasc_mae], [t0_data], ""y"", ""dmy"", true)
+)",,,,,,,y,LH,,,,
+t0_data_nasc_bebe,recrutamento_t0,,text,"Qual a data de nascimento do seu bebê? Filho(a) mais novo(a).
+",,"Clique no desenho do calendário para selecionar a data de nascimento do seu bebê.",date_dmy,,,,,y,LH,,,,
+t0_idade_bebe,recrutamento_t0,,calc,"Idade bebê (em meses)","datediff([t0_data_nasc_bebe], [t0_data], ""M"", ""dmy"", true)",,,,,,,y,LH,,,,
+t0_estado,recrutamento_t0,,dropdown,"Qual Estado você mora atualmente?
+","1, Acre | 2, Alagoas | 3, Amapá | 4, Amazonas | 5, Bahia | 6, Ceará | 7, Distrito Federal (Brasília) | 8, Espírito Santo | 9, Goiás | 10, Maranhão | 11, Mato Grosso | 12, Mato Grosso do Sul | 13, Minas Gerais | 14, Pará | 15, Paraíba | 16, Paraná | 17, Pernambuco | 18, Piauí | 19, Rio de Janeiro | 20, Rio Grande do Norte | 21, Rio Grande do Sul | 22, Rondônia | 23, Roraima | 24, Santa Catarina | 25, São Paulo | 26, Sergipe | 27, Tocantins",,,,,,,y,LV,,,,
+t0_cidade,recrutamento_t0,,text,"Qual cidade você mora atualmente?",,,,,,,,y,LV,,,,
+t0_disponivel1,recrutamento_t0,,radio,"Você tem disponibilidade para ser avaliada por meio de uma entrevista à distância de aproximadamente 2 horas em dois momentos durante 2 meses?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t0_diag1,recrutamento_t0,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Você já recebeu algum diagnóstico psiquiátrico ou psicológico na vida (por exemplo, depressão, ansiedade ou algum outro problema de saúde mental)?</p></div>","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t0_diag1a,recrutamento_t0,,radio,"Qual foi esse diagnóstico?  ","1, Depressão | 2, Transtorno Bipolar | 3, Esquizofrenia ou Psicose | 4, Transtorno Alimentar (como anorexia ou bulimia) | 5, Abuso ou dependência de álcool | 6, Abuso ou dependência de substância ou droga | 7, Autismo ou transtorno do espectro do autismo | 8, Transtorno obsessivo-compulsivo ou TOC | 9, Outro",,,,,,"[t0_diag1] = 1",y,LV,,,,
+t0_diag1b,recrutamento_t0,,text,"Qual foi esse diagnóstico?
+",,,,,,,"[t0_diag1a] = 9",y,LV,,,,
+t0_diag2,recrutamento_t0,,radio,"Durante a sua gestação mais recente e o momento atual, você recebeu algum desses diagnósticos psiquiátricos ou psicológicos:
+
+Transtorno Bipolar
+Esquizofrenia ou Psicose
+Transtorno Alimentar (como anorexia ou bulimia)
+Abuso ou dependência de álcool
+Abuso ou dependência de substância ou droga
+Autismo ou transtorno do espectro do autismo
+Transtorno obsessivo-compulsivo ou TOC
+","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t0_tto1,recrutamento_t0,,radio,"Atualmente, você está em tratamento para algum diagnóstico psiquiátrico ou psicológico (por exemplo, depressão, ansiedade ou algum outro problema de saúde mental)?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t0_tto1a,recrutamento_t0,,radio,"Que tratamento você está fazendo?","0, Medicamentoso | 1, Psicoterapia | 2, Outro",,,,,,"[t0_tto1] = '1'",y,LV,,,,
+t0_tto1b,recrutamento_t0,,text,"Descreva o tratamento.",,,,,,,"[t0_tto1a] = '2'",y,LV,,,,
+t0_tto1c,recrutamento_t0,,radio," Esse tratamento que você está fazendo é para depressão?","0, Não | 1, Sim",,,,,,"[t0_tto1] = '1'",y,LV,,,,
+t0_saude,recrutamento_t0,,radio,"Como você avalia a sua saúde atualmente?","0, Muito ruim | 1, Ruim | 2, Razoável | 3, Boa | 4, Muito boa",,,,,,,y,LV,,,,
+t0_qidssr16_txt,recrutamento_t0,,descriptive,"Por favor, marque as respostas para cada item que melhor descrevem você nos últimos 7 dias.",,,,,,,,,,,,,
+t0_qidssr16_1,recrutamento_t0,,radio,"Pegar no Sono:","0, Nunca levo mais do que 30 minutos para pegar no sono. | 1, Levo pelo menos 30 minutos para pegar no sono, menos da metade das vezes (3 dias ou menos nos últimos 7 dias). | 2, Levo pelo menos 30 minutos para pegar no sono, mais da metade das vezes (4 dias ou mais nos últimos 7 dias). | 3, Levo mais de uma hora para pegar no sono, mais da metade das vezes (4 dias ou mais nos últimos 7 dias).",,,,,,,y,LV,,,,
+t0_qidssr16_2,recrutamento_t0,,radio,"Sono durante a noite:","0, Não acordo durante a noite. | 1, Tenho um sono leve e agitado, acordando por períodos curtos em cada noite. | 2, Acordo pelo menos uma vez por noite, mas volto a dormir com facilidade. | 3, Acordo mais do que uma vez por noite e fico acordado(a) por 20 minutos ou mais, mais da metade das vezes (4 dias ou mais nos últimos 7 dias).",,,,,,,y,LV,,,,
+t0_qidssr16_3,recrutamento_t0,,radio,"Acordar cedo demais:","0, Na maioria das vezes, acordo até 30 minutos antes do que preciso para levantar. | 1, Mais da metade das vezes (4 dias ou mais nos últimos 7 dias), acordo mais de 30 minutos antes do que preciso para levantar. | 2, Quase sempre acordo pelo menos em torno de uma hora antes da hora que eu preciso, mas acabo voltando a dormir. | 3, Acordo pelo menos uma hora antes do que preciso e não consigo voltar a dormir.",,,,,,,y,LV,,,,
+t0_qidssr16_4,recrutamento_t0,,radio,"Dormir demais:","0, Durmo até 7-8 horas por noite, sem cochilos durante o dia. | 1, Durmo até 10 horas num período de 24 horas, incluindo cochilos. | 2, Durmo até 12 horas num período de 24 horas, incluindo cochilos. | 3, Durmo mais do que 12 horas num período de 24 horas, incluindo cochilos.",,,,,,,y,LV,,,,
+t0_qidssr16_5,recrutamento_t0,,radio,"Sentir-se triste:","0, Não me sinto triste. | 1, Sinto-me triste menos da metade das vezes (3 dias ou menos nos últimos 7 dias). | 2, Sinto-me triste mais da metade das vezes (4 dias ou mais nos últimos 7 dias). | 3, Sinto-me triste quase o tempo todo.",,,,,,,y,LV,,,,
+t0_qidssr16_txt2,recrutamento_t0,,radio,"- Com relação ao seu apetite:","0, Meu apetite habitual não mudou. | 1, Meu apetite diminuiu. | 2, Meu apetite aumentou.",,,,,,,y,LV,,,,
+t0_qidssr16_6,recrutamento_t0,,radio,"Apetite Diminuído
+","1, Como com menor frequência ou menores quantidades de comida que o habitual. | 2, Como muito menos que o habitual e só com um esforço pessoal. | 3, Como raramente num período de 24 horas e só com um esforço pessoal extremo ou quando outros me convencem a comer.",,,,,,"[t0_qidssr16_txt2] = '1'",y,LV,,,,
+t0_qidssr16_7,recrutamento_t0,,radio,"Apetite Aumentado","1, Sinto necessidade de comer mais frequentemente do que o habitual. | 2, Regularmente, como com mais frequência e/ou em maiores quantidades do que o habitual. | 3, Sinto-me compelido a comer demais tanto nas refeições como entre elas.",,,,,,"[t0_qidssr16_txt2] = '2'",y,LV,,,,
+t0_qidssr16_txt3,recrutamento_t0,,radio,"- Com relação ao seu peso (nas últimas 2 semanas):","0, Não tive qualquer mudança no meu peso. | 1, Perdi peso. | 2, Ganhei peso.",,,,,,,y,LV,,,,
+t0_qidssr16_8,recrutamento_t0,,radio,"Perda de peso (nas duas últimas semanas)
+","1, Sinto-me como se tivesse tido uma pequena perda de peso. | 2, Perdi 1 quilo ou mais. | 3, Perdi 2,5 quilos ou mais.",,,,,,"[t0_qidssr16_txt3] = '1'",y,LV,,,,
+t0_qidssr16_9,recrutamento_t0,,radio,"Aumento de peso (nas duas últimas semanas)
+","1, Sinto-me como se tivesse tido um pequeno aumento de peso. | 2, Engordei 1 quilo ou mais. | 3, Engordei 2,5 quilos ou mais",,,,,,"[t0_qidssr16_txt3] = '2'",y,LV,,,,
+t0_qidssr16_10,recrutamento_t0,,radio,"Concentração / Tomar decisões:","0, Não houve mudança na minha capacidade habitual de me concentrar ou de tomar decisões. | 1, Ocasionalmente, me sinto indeciso(a) ou acho que minha atenção flutua. | 2, Na maior parte do tempo, me esforço para prestar atenção ou para tomar decisões. | 3, Não consigo me concentrar o suficiente para ler ou não consigo tomar nem mesmo decisões pequenas.",,,,,,,y,LV,,,,
+t0_qidssr16_11,recrutamento_t0,,radio,"Visão de Mim Mesmo:","0, Considero-me tão valioso(a) e merecedor(a) como os outros. | 1, Recrimino-me mais do que o habitual. | 2, Acredito muito que causo problemas para os outros. | 3, Penso quase constantemente sobre pequenos e grandes defeitos em mim mesmo(a).",,,,,,,y,LV,,,,
+t0_qidssr16_12,recrutamento_t0,,radio,"Ideias de Morte e Suicídio:","0, Não penso em suicídio ou morte. | 1, Sinto que a vida é vazia e me pergunto se vale a pena viver. | 2, Penso em suicídio ou morte várias vezes por semana durante vários minutos. | 3, Penso em suicídio ou morte várias vezes por dia com algum detalhe, ou fiz planos específicos de suicídio, ou realmente tentei me matar.",,,,,,,y,LV,,,,
+t0_qidssr16_13,recrutamento_t0,,radio,"Interesse geral:","0, Não houve mudanças do habitual quanto ao interesse que tenho em outras pessoas e atividades. | 1, Noto que estou menos interessado(a) em pessoas ou em atividades. | 2, Acho que tenho interesse em apenas uma ou duas das atividades a que me dedicava anteriormente. | 3, Não tenho praticamente interesse nenhum nas atividades a que me dedicava anteriormente.",,,,,,,y,LV,,,,
+t0_qidssr16_14,recrutamento_t0,,radio,"Nível de energia:","0, Não há mudanças no meu nível habitual de energia. | 1, Fico cansado(a) mais facilmente do que o habitual. | 2, Tenho que fazer um grande esforço para começar ou acabar minhas atividades diárias habituais (por exemplo, fazer compras, lição de casa, cozinhar ou trabalhar). | 3, Eu não consigo realmente desempenhar a maioria das minhas atividades diárias, porque simplesmente não tenho energia.",,,,,,,y,LV,,,,
+t0_qidssr16_15,recrutamento_t0,,radio,"Sentir lentidão:","0, Penso, falo e me movimento na minha velocidade habitual. | 1, Acho que o meu pensamento está mais lento ou a minha voz parece sem brilho ou monótona. | 2, Levo vários segundos para responder à maioria das perguntas e tenho certeza que o meu pensamento está lento. | 3, Sinto-me frequentemente incapaz de responder a perguntas sem um esforço extremo.",,,,,,,y,LV,,,,
+t0_qidssr16_16,recrutamento_t0,,radio,"Sentir-se agitado:
+","0, Não me sinto agitado(a). | 1, Fico frequentemente irrequieto(a), torcendo as mãos ou precisando trocar a posição em que estou sentado(a). | 2, Tenho impulsos de me movimentar e estou bastante agitado(a). | 3, Há ocasiões em que fico incapaz de permanecer sentado(a) e preciso andar de um lado para o outro.",,,,,,,y,LV,,,,
+t0_qidssr16_total,recrutamento_t0,,calc,"Somatória dos itens","max (
+[t0_qidssr16_1],
+[t0_qidssr16_2],
+[t0_qidssr16_3],
+[t0_qidssr16_4]
+)
++
+[t0_qidssr16_5]
++
+max (
+  if([t0_qidssr16_6]="""",0,[t0_qidssr16_6]),
+  if([t0_qidssr16_7]="""",0,[t0_qidssr16_7]),
+  if([t0_qidssr16_8]="""",0,[t0_qidssr16_8]),
+  if([t0_qidssr16_9]="""",0,[t0_qidssr16_9])
+)
++
+sum (
+[t0_qidssr16_10],
+[t0_qidssr16_11],
+[t0_qidssr16_12],
+[t0_qidssr16_13],
+[t0_qidssr16_14]
+)
++
+max (
+[t0_qidssr16_15],
+[t0_qidssr16_16]
+)",,,,,,,,LV,,,," @HIDDEN"
+t0_criterio_i_txt,recrutamento_t0,,descriptive,"Critérios de Inclusão
+",,,,,,,,,,,,," @HIDDEN"
+t0_criterio_i_1,recrutamento_t0,,calc,"Critério de inclusão 1: Idade 18-40 anos de idade","if([t0_idade] >= 18 and [t0_idade] <= 40, 1, 0)",,,,,,,,LV,,,," @HIDDEN"
+t0_criterio_i_2,recrutamento_t0,,calc,"Critério de inclusão 2: Até 12 meses após o parto.
+","if([t0_idade_bebe] >= 0 and [t0_idade_bebe] <= 12, 1, 0)",,,,,,,,LV,,,," @HIDDEN"
+t0_criterio_i_3,recrutamento_t0,,calc,"Critério de inclusão 3: Pontuação igual ou maior que 13 na QIDS-SR16
+","if([t0_qidssr16_total] >= 13, 1, 0)",,,,,,,,LV,,,," @HIDDEN"
+t0_criterio_i_6,recrutamento_t0,,calc,"Critério de inclusão 6: Possuir um smartphone funcional com Android para uso pessoal.","if([t0_android] >= 1, 1, 0)",,,,,,,,LV,,,," @HIDDEN"
+t0_criterio_i_7,recrutamento_t0,,calc,"Critério de inclusão 7: Não estar em tratamento farmacológico e/ou psicoterápico nas últimas quatro semanas","if([t0_tto1] = 0, 1, 0)",,,,,,,,LV,,,," @HIDDEN"
+t0_criterio_e_txt,recrutamento_t0,,descriptive,"Critérios de Exclusão ",,,,,,,,,,,,," @HIDDEN"
+t0_criterio_e_2,recrutamento_t0,,calc," Critério de exclusão 2: Diagnóstico de transtorno mental grave e/ou crônico (ex. esquizofrenia, transtorno bipolar).","if([t0_diag2] = 1, 1, 0)",,,,,,,,LV,,,," @HIDDEN"
+t0_criterio_e_3,recrutamento_t0,,calc,"Critério de exclusão 3: Ideação suicida ou tentativa de suicídio prévia.","if(
+[t0_qidssr16_12] = '0' or [t0_qidssr16_12] = '1',
+0, 1)",,,,,,,,LV,,,," @HIDDEN"
+t0_criterio_i_tot1,recrutamento_t0,,calc,"Critérios de inclusão avaliados no formulário de recrutamento.
+","sum(
+[t0_criterio_i_1], [t0_criterio_i_2],[t0_criterio_i_3],
+[t0_criterio_i_6],[t0_criterio_i_7]
+)",,,,,,,,LV,,,," @HIDDEN"
+t0_criterio_e_tot1,recrutamento_t0,,calc,"Critérios de exclusão avaliados no formulário de recrutamento.","sum(
+[t0_criterio_e_2], [t0_criterio_e_3]
+)",,,,,,,,LV,,,," @HIDDEN"
+t0_criterios_tot1,recrutamento_t0,,calc,"Diferença entre critérios de inclusão e exclusão.
+","[t0_criterio_i_tot1] - [t0_criterio_e_tot1]",,,,,,,,LV,,,," @HIDDEN"
+t0_elegibilidade1,recrutamento_t0,,calc,"Diferença entre critérios de inclusão e exclusão.
+","if (
+[t0_criterios_tot1] = 5, 1, 0
+)",,,,,,,,LV,,,," @HIDDEN"
+t0_start_recrutamento1,recrutamento_1_t0,,text,"Start Time",,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN-SURVEY"
+t0_recrutamento_dur_sec,recrutamento_1_t0,,calc,"Time for t0_recrutamento (in seconds)","datediff([t0_start_recrutamento],[t0_start_recrutamento1],""s"",""dmy"",1)",,,,,,,,,,,," @NOW @HIDDEN-SURVEY"
+texto_exclusao,recrutamento_1_t0,,descriptive,"<div class=""rich-text-field-label""><h5 style=""background-color: #886cd0; padding: 10px 10px; border: 1px solid; text-align: center; color: #f7ede3;"">Agradecemos por dedicar seu tempo e preencher o questionário. Após a avaliação de elegibilidade, foi verificado que você não atende aos critérios de inclusão deste estudo.</h5> <h5 style=""line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt; text-align: center;""> </h5> <p style=""text-align: justify;""><span style=""font-size: 12pt; font-weight: normal;"">A elegibilidade está relacionada exclusivamente aos critérios metodológicos do estudo e não constitui uma avaliação da gravidade ou da relevância de sua condição clínica. Caso deseje buscar atendimento em saúde mental, seguem informações sobre serviços gratuitos disponíveis.</span></p> <p style=""text-align: justify;""> </p> <p style=""text-align: justify;""><span style=""font-size: 12pt; font-weight: normal;"">Caso você esteja buscando atendimentos de saúde mental, consulte a cartilha abaixo para obter mais informações de serviços disponíveis.</span></p> <p style=""text-align: justify;""> </p> <p style=""text-align: justify;"">Sistema Único de Saúde (SUS)</p> <p style=""text-align: justify;""><span style=""font-size: 12pt; font-weight: normal;"">A Unidade Básica de Saúde (UBS) é, em geral, a principal porta de entrada para o cuidado em saúde. Nela é possível realizar uma avaliação inicial e, quando indicado, receber encaminhamento para serviços especializados, incluindo atendimento psicológico e psiquiátrico.</span></p> <p style=""text-align: justify;""><span style=""font-size: 12pt; font-weight: normal;"">Você pode buscar a UBS mais perto de você neste link <a href=""https://buscasaude.prefeitura.sp.gov.br/"" target=""_blank"" rel=""noopener"">https://buscasaude.prefeitura.sp.gov.br/</a></span></p> <p style=""text-align: justify;"">Mapa da Saúde Mental</p> <p style=""text-align: justify;""><span style=""font-size: 12pt; font-weight: normal;"">O Mapa da Saúde Mental é uma plataforma que reúne serviços de saúde mental gratuitos e de baixo custo disponíveis em diferentes regiões do Brasil.</span></p> <p style=""text-align: justify;""><span style=""font-size: 12pt; font-weight: normal;"">Acesso: <a href=""https://mapasaudemental.com.br/"" target=""_blank"" rel=""noopener"">https://mapasaudemental.com.br/</a></span></p> <div style=""background-color: #886cd0; border: 1px solid; padding: 12px 16px; margin-top: 8pt;""> <p style=""text-align: center; font-weight: 500; margin: 0 0 10px; color: #f7ede3;"">CONTATOS PARA URGÊNCIA</p> <p style=""margin: 0 0 8px; color: #f7ede3;""><strong>193 - Bombeiros</strong><br><span style=""font-weight: normal;"">Situações com risco de violência ou ameaça à segurança.</span></p> <p style=""margin: 0 0 8px; color: #f7ede3;""><strong>190 - Polícia</strong><br><span style=""font-weight: normal;"">Situações com risco de violência ou ameaça à segurança.</span></p> <p style=""margin: 0 0 8px; color: #f7ede3;""><strong>192 - SAMU</strong><br><span style=""font-weight: normal;"">Urgências e emergências clínicas ou psiquiátricas.</span></p> <p style=""margin: 0; color: #f7ede3;""><strong>188 - CVV</strong><br><span style=""font-weight: normal;"">Apoio emocional gratuito e prevenção do suicídio 24 horas.</span></p> </div></div>",,,,,,,"[t0_elegibilidade1] = '0'",,,,,,
+texto_inclusao,recrutamento_1_t0,,descriptive,"<div class=""rich-text-field-label""><div style=""background-color: #886cd0; padding: 10px 10px; border: 1px solid; text-align: justify;""><span style=""font-size: 20px; color: #f7ede3;""> Você foi selecionada para participar de nosso estudo.<br><br><span style=""font-weight: normal;"">Obrigado pelo seu tempo e interesse em responder as perguntas! Um profissional da nossa equipe irá entrar em contato com você para fazer uma avaliação mais detalhada e iniciar sua participação no estudo. Aguarde o contato dessa profissional para baixar e instalar o aplicativo! Para que essa profissional possa entrar em contato contigo precisamos de alguns dados: </span></span></div></div>",,,,,,,"[t0_elegibilidade1] = '1'",,,,,,
+t0_nome,recrutamento_1_t0,,text,"Qual seu nome completo?",,,,,,y,"[t0_elegibilidade1] = '1'",y,LV,,,,
+t0_email,recrutamento_1_t0,,text,"Qual o seu email?",,,,,,,"[t0_elegibilidade1] = '1'",y,LV,,,,
+t0_celular,recrutamento_1_t0,,text,"Qual o número do seu celular? Indicar DDD.",,,,,,,"[t0_elegibilidade1] = '1'",y,LV,,,,
+t0_celular_2,recrutamento_1_t0,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Tem algum número de celular de algum conhecido caso não seja possível entrar em contato com você?</p></div>","0, Não | 1, Sim",,,,,,"[t0_elegibilidade1] = '1'",y,LH,,,,
+t0_celular_2a_nome,recrutamento_1_t0,,text,"Qual é o nome dessa pessoa?",,,,,,,"[t0_celular_2] = '1'",y,LV,,,,
+t0_celular_2a_relacao,recrutamento_1_t0,,text,"Qual é a sua relação com essa pessoa?",,,,,,,"[t0_celular_2] = '1'",y,LV,,,,
+t0_celular_2a,recrutamento_1_t0,,text,"Qual o número de celular dessa pessoa?",,,,,,,"[t0_celular_2] = '1'",y,LV,,,,
+t0_celular_3,recrutamento_1_t0,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Tem mais algum número de celular de algum conhecido caso não seja possível entrar em contato com você?</p></div>","0, Não | 1, Sim",,,,,,"[t0_celular_2] = '1'",y,LH,,,,
+t0_celular_3a_nome,recrutamento_1_t0,,text,"Qual é o nome dessa pessoa?",,,,,,,"[t0_celular_3] = '1'",y,LV,,,,
+t0_celular_3a_relacao,recrutamento_1_t0,,text,"Qual é a sua relação com essa pessoa?",,,,,,,"[t0_celular_3] = '1'",y,LV,,,,
+t0_celular_3a,recrutamento_1_t0,,text,"Qual o número de celular dessa pessoa?",,,,,,,"[t0_celular_3] = '1'",y,LV,,,,
+t0_disponib,recrutamento_1_t0,,checkbox,"Indique os dias da semana e horários ideais para agendar com você a primeira avaliação:
+
+Marque o máximo de opções possíveis, por favor.","1, Segunda-feira - manhã (8h às 12h) | 2, Segunda-feira - tarde (13h às 18h) | 3, Segunda-feira - noite (19h às 21h) | 4, Terça-feira - manhã (8h às 12h) | 5, Terça-feira - tarde (13h às 18h) | 6, Terça-feira - noite (19h às 21h) | 7, Quarta-feira - manhã (8h às 12h) | 8, Quarta-feira - tarde (13h às 18h) | 9, Quarta-feira - noite (19h às 21h) | 10, Quinta-feira - manhã (8h às 12h) | 11, Quinta-feira - tarde (13h às 18h) | 12, Quinta-feira - noite (19h às 21h) | 13, Sexta-feira - manhã (8h às 12h) | 14, Sexta-feira - tarde (13h às 18h) | 15, Sexta-feira - noite (19h às 21h) | 16, Sábado - manhã (8h às 12h) | 17, Sábado - tarde (13h às 18h) | 18, Sábado - noite (19h às 21h) | 19, Domingo - manhã (8h às 12h) | 20, Domingo - tarde (13h às 18h) | 21, Domingo- noite (19h às 21h)",,,,,,"[t0_elegibilidade1] = '1'",y,LV,,,,
+t0_recrutamento1_dur_sec,mini,,calc,"Time for t0_recrutamento1 (in seconds)","datediff([t0_start_recrutamento1],[t0_start_mini],""s"",""dmy"",1)",,,,,,,,,,,," @NOW @HIDDEN-SURVEY"
+t0_start_mini,mini,,text,"Start time",,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN-SURVEY"
+t0_mini_txt,mini,,descriptive,"<div class=""rich-text-field-label""><p>Entrevista por telefone</p> <p><span style=""font-weight: normal;""><em>Entrevista de confirmação de critérios e verificação de demais critérios não avaliados no formulário online.</em></span></p></div>",,,,,,,,,,,,,
+t0_mini_txt_2,mini,,descriptive,"<div class=""rich-text-field-label""><p>A. EPISÓDIO DEPRESSIVO MAIOR</p> <p><span style=""font-weight: normal;"">Rastreamento (nas duas últimas semanas):</span></p></div>",,,,,,,,,,,,,
+t0_mini_a1,mini,,radio," A1. Nas duas últimas semanas, sentiu-se triste, desanimado(a), deprimido(a), durante a maior parte do dia, quase todos os dias?
+","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t0_mini_a2,mini,,radio,"A2. Nas duas últimas semanas, quase todo tempo, teve o sentimento de não ter mais gosto por nada, de ter perdido o interesse e o prazer pelas coisas que lhe agradam habitualmente?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t0_mini_a12_total,mini,,calc,"Módulo A1 e A2","sum ([t0_mini_a1],  [t0_mini_a2])",,,,,,,,LV,,,,
+t0_mini_a,mini,,radio,"A1 OU A2 são cotadas Sim?","0, Não (Encerrar Módulo) | 1, Sim (Continuar para A3)",,,,,,,y,LV,,,," @HIDDEN"
+t0_mini_txt_3,mini,,descriptive,"<div class=""rich-text-field-label""><p>A3. Sintomas do Episódio</p> <p><span style=""font-weight: normal;"">Durante as duas últimas semanas, quando se sentia deprimido(a) / sem interesse pela maioria das coisas:</span></p></div>",,,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",,,,,,
+t0_mini_a3a,mini,,radio,"a. O seu apetite mudou de forma significativa, ou o seu peso aumentou ou diminuiu sem que o tenha desejado? (variação de ± 5% ao longo do mês, isto é, ± 3,5 Kg, para uma pessoa de 65 Kg).
+","0, Não | 1, Sim",,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",y,LV,,,,
+t0_mini_a3b,mini,,radio,"b. Teve problemas de sono quase todas as noites (dificuldade de pegar no sono, acordar no meio da noite ou muito cedo, dormir demais)?","0, Não | 1, Sim",,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",y,LV,,,,
+t0_mini_a3c,mini,,radio,"c. Falou ou movimentou-se mais lentamente do que de costume ou, pelo contrário, sentiu-se agitado(a) e incapaz de ficar sentado quieto(a), quase todos os dias?","0, Não | 1, Sim",,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",y,LV,,,,
+t0_mini_a3d,mini,,radio,"d. Sentiu-se a maior parte do tempo cansado(a), sem energia, quase todos os dias?","0, Não | 1, Sim",,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",y,LV,,,,
+t0_mini_a3e,mini,,radio,"e. Sentiu-se sem valor ou culpado(a), quase todos os dias?","0, Não | 1, Sim",,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",y,LV,,,,
+t0_mini_a3f,mini,,radio,"f. Teve dificuldade de concentrar-se ou de tomar decisões, quase todos os dias?","0, Não | 1, Sim",,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",y,LV,,,,
+t0_mini_a3g,mini,,radio,"g. Teve, por várias vezes, pensamentos ruins como, por exemplo, pensar que seria melhor estar morto(a) ou pensar em fazer mal a si mesmo(a)?","0, Não | 1, Sim",,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",y,LV,,,,
+t0_mini_a3_total,mini,,calc,"A3 total","sum([t0_mini_a3a],[t0_mini_a3b],[t0_mini_a3c],[t0_mini_a3d],
+         [t0_mini_a3e],[t0_mini_a3f],[t0_mini_a3g])",,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",,LV,,,,
+t0_mini_a4_1,mini,,radio,"Há pelo menos 3 respostas ""SIM"" em A3? (Ou 4 respostas se A1 ou A2 foram ""NÃO"")","0, Não | 1, Sim (Episódio depressivo maior atual)",,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",,LV,,,," @HIDDEN"
+t0_mini_a4,mini,,calc,"Episódio depressivo maior atual? (1 = SIM; 0 = NÃO)","if(
+    [t0_mini_a12_total] = 0,
+    0,
+    if(
+        [t0_mini_a12_total] = """" 
+        OR 
+        [t0_mini_a3_total] = """",
+        """",
+        if(
+            (
+                ([t0_mini_a12_total] = 2)
+                AND
+                ([t0_mini_a3_total] >= 3)
+            )
+            OR
+            (
+                ([t0_mini_a12_total] = 1)
+                AND
+                ([t0_mini_a3_total] >= 4)
+            ),
+            1,
+            0
+        )
+    )
+)",,,,,,,,LV,,,,
+t0_mini_a5a,mini,,radio," A5a. Ao longo da sua vida, teve outros períodos de 2 semanas ou mais, em que se sentiu deprimido(a) ou sem interesse pela maioria das coisas e durante os quais teve os problemas dos quais falamos (sintomas de A3a a A3g)?","0, Não | 1, Sim",,,,,,"([t0_mini_a12_total] <> '0') AND
+([t0_mini_a12_total] <> '')",y,LV,,,,
+t0_mini_a5b,mini,,radio,"A5b. Entre esses períodos de depressão que apresentou ao longo de sua vida, alguma vez teve um intervalo de pelo menos 2 meses em que não apresentou nenhum problema de depressão ou de perda de interesse?","0, Não | 1, Sim",,,,,,"[t0_mini_a5a]  = '1'",y,LV,,,,
+t0_mini_a5,mini,,calc,"Episódio depressivo maior recorrente? (1 = SIM; 0 = NÃO)","if(
+    [t0_mini_a12_total] = 0,
+    0,
+    if(
+        ([t0_mini_a5a] = 0 AND [t0_mini_a5b] = """"),
+        0,
+        if(
+            [t0_mini_a5b] = """",
+            """",
+            if([t0_mini_a5b] = 1, 1, 0)
+        )
+    )
+)",,,,,,,y,LV,,,,
+t0_mini_a5_b,mini,,radio,"A5b é cotada Sim?","0, Não | 1, Sim (Episódio depressivo maior recorrente)",,,,,,"[t0_mini_a5a]  = '1'",,LV,,,," @HIDDEN"
+t0_mini_txt_4,mini,,descriptive,"<div class=""rich-text-field-label""><p>C. RISCO DE SUICÍDIO</p> <p dir=""ltr"">Durante o último mês:</p></div>",,,,,,,,,,,,,
+t0_mini_c1,mini,,radio,"C1. Pensou que seria melhor estar morto(a) ou desejou estar morto(a)?
+","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t0_mini_c2,mini,,radio,"C2. Quis fazer mal a si mesmo(a)?","0, Não | 2, Sim",,,,,,,y,LV,,,,
+t0_mini_c3,mini,,radio,"C3. Pensou em suicídio?","0, Não | 6, Sim",,,,,,,y,LV,,,,
+t0_mini_c4,mini,,radio," C4. Pensou numa maneira de se suicidar?","0, Não | 10, Sim",,,,,,,y,LV,,,,
+t0_mini_c5,mini,,radio,"C5. Tentou o suicídio?","0, Não | 10, Sim",,,,,,,y,LV,,,,
+t0_mini_c6,mini,,radio,"C6. Ao longo da sua vida, já fez alguma tentativa de suicídio?","0, Não | 4, Sim",,,,,,,y,LV,,,,
+t0_mini_c_soma,mini,,calc,"Soma C","sum (
+[t0_mini_c1], [t0_mini_c2],[t0_mini_c3], 
+[t0_mini_c4], [t0_mini_c5], [t0_mini_c6]
+)",,,,,,,y,LV,,,,
+t0_mini_c_class,mini,,calc,"Classificação de risco de suicídio (1-5=baixo, 6-9=moderado, >10=alto).","if(
+  [t0_mini_c_soma] <= 5, 0,
+  if(
+    [t0_mini_c_soma] >= 6 and [t0_mini_c_soma] <= 9, 1,
+    if(
+      [t0_mini_c_soma] > 9, 2,
+      """"
+    )
+  )
+)",,,,,,,y,LV,,,,
+t0_criterio_e_txt2,mini,,descriptive,"Verificação de critérios de elegibilidade de inclusão.
+
+Critérios de inclusão 
+",,,,,,,,,,,,,
+t0_criterio_e_3b,mini,,calc,"Critério de exclusão 3: Ideação suicida ou tentativa de suicídio prévia (verificando pela segunda vez).","if([t0_mini_c_soma] >= 6 or [t0_mini_c6] = '4', 1, 0)",,,,,,,y,LV,,,,
+t0_criterio_i_4,mini,,calc,"Critério de inclusão 4: Preenche critérios para transtorno depressivo maior segundo DSM-5-TR.","if ([t0_mini_a4] = 1, 1, 0)",,,,,,,y,LV,,,,
+t0_criterio_i_5,mini,,radio,"Critério de inclusão 5: Atesto que a participante é alfabetizada.","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t0_criterio_e_txt3,mini,,descriptive,"Verificação de critérios de elegibilidade de inclusão.
+
+Critérios de inclusão 
+",,,,,,,,,,,,,
+t0_criterio_e_1,mini,,radio,"Critério de exclusão 1: Participante aparenta possuir deficiência intelectual, visual ou auditiva, ou doenças crônicas, que impossibilite uso de celular ou compreensão das intervenções.","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t0_criterio_e_4,mini,,radio,"Critério de exclusão 4: Mulheres que tiveram perda gestacional (abortamento espontâneo) na gestação mais recente ou morte neonatal precoce","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t0_criterio_e_5,mini,,radio,"Critério de exclusão 5: Depressão refratária (não respondeu previamente a pelo menos 2 tratamentos baseados em evidências)","0, Não | 1, Sim, já tentou previamente duas alternativas de tratamento médico ou psicológico, por pelo menos 1 mês ou mais, e não surtiu efeito)",,,,,,,y,LV,,,,
+t0_criterio_i_tot2,mini,,calc,"Critérios de inclusão avaliados na entrevista.","sum([t0_criterio_i_4],[t0_criterio_i_5])",,,,,,,y,LV,,,,
+t0_criterio_e_tot2,mini,,calc,"Critérios de exclusão avaliados na entrevista.","sum([t0_criterio_e_1], [t0_criterio_e_3b], [t0_criterio_e_4], [t0_criterio_e_5])",,,,,,,y,LV,,,,
+t0_criterios_tot2,mini,,calc,"Diferença entre critérios de inclusão e exclusão.","[t0_criterio_i_tot2] - [t0_criterio_e_tot2]",,,,,,,y,LV,,,,
+t0_elegibilidade2,mini,,calc,"Situação de elegibilidade dos critérios verificados na entrevista.","if([t0_criterios_tot2] = 2, 1, 0)",,,,,,,y,LV,,,,
+rand_number,randomizacao,,text,Randomizacao,,,,,,y,,,,,,,
+t0_start_tcle,tcle,,text,"Start time",,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN-SURVEY"
+tcle_data,tcle,,text,"Data de preenchimento",,,date_dmy,2020-08-01,2020-12-30,,,y,LH,,,," @READONLY-SURVEY @READONLY-FORM @READONLY-APP @READONLY @TODAY"
+tcle_titulo,tcle,,descriptive,"<div class=""rich-text-field-label""><p style=""text-align: center;""><span style=""font-size: 12pt;"">HOSPITAL DAS CLÍNICAS DA FACULDADE DE MEDICINA DA UNIVERSIDADE DE SÃO PAULO-HCFMUSP</span></p> <p style=""text-align: center;""><br><span style=""font-size: 12pt;"">TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO</span></p> <p style=""text-align: center;""> </p> <p style=""text-align: center;""><span style=""font-size: 10pt;"">DADOS DA PESQUISA</span></p> <p style=""text-align: left;""><br><span style=""font-weight: normal;"">Título da pesquisa - Psicoterapia de sessão única com suporte de aplicativo de smartphone para o tratamento de depressão pós-parto: ensaio clínico randomizado</span><br><span style=""font-weight: normal;"">Pesquisador principal - Daniel Graça Fatori de Sá</span><br><span style=""font-weight: normal;"">Departamento/Instituto - Instituto de Psiquiatria do HC-FMUSP</span></p></div>",,,,,,,,,,,,,
+tcle_descricao,tcle,,descriptive,"<div class=""rich-text-field-label""><p dir=""ltr""><span style=""font-weight: normal;"">Convidamos a Sra. para participar desta pesquisa que irá testar uma nova forma de cuidado e tratamento da depressão pós-parto. Abaixo, vamos te explicar porque estamos fazendo essa pesquisa, como é a pesquisa, se existe risco ou incomodo e como você pode se beneficiar de participar.</span></p> <p style=""text-align: justify;""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""text-decoration: underline; font-weight: normal;"">""Por que estamos fazendo esta pesquisa?""</span></p> <p style=""text-align: justify;""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""font-weight: normal;"">Sabemos que a maternidade traz muitos desafios e que muitas mulheres se sentem tristes, desanimadas ou ansiosas após o nascimento do bebê. No entanto, nem sempre é fácil encontrar tratamento efetivo e acessível. Por isso, estamos realizando este estudo para testar uma nova forma de cuidado: uma ""Psicoterapia de Sessão Única"" (uma conversa focada com um especialista) combinada com o uso de um aplicativo de celular chamado Motherly, desenvolvido especialmente para apoiar a saúde emocional de mães como você.</span></p> <p style=""text-align: justify;""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""font-weight: normal;"">O nosso principal objetivo é descobrir se essa combinação (terapia de sessão única + aplicativo) funciona bem para diminuir a tristeza e melhorar o bem-estar das mães, ajudando-as a retomar atividades prazerosas e a cuidar melhor de si mesmas e de seus bebês.  </span></p> <p style=""text-align: justify;""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""text-decoration: underline; font-weight: normal;"">""O que vai acontecer se eu aceitar participar?""</span></p> <p style=""text-align: justify;""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""font-weight: normal;"">Se você aceitar participar, sua participação durará cerca de 8 semanas. O funcionamento do estudo acontecerá da seguinte forma:</span></p> <ol> <li dir=""ltr"" aria-level=""1""> <p dir=""ltr"" role=""presentation""><span style=""font-weight: normal;"">Sorteio (Randomização): Para saber se o tratamento funciona, precisamos que as participantes sejam divididas em dois grupos por meio de um sorteio (como tirar a sorte na moeda). Você tem 50% de chance de cair em cada grupo:</span></p> </li> <ul> <li dir=""ltr"" aria-level=""2""> <p dir=""ltr"" role=""presentation"">Grupo 1 (Tratamento Imediato): <span style=""font-weight: normal;"">Receberá a sessão de terapia logo no início e terá acesso imediato ao aplicativo Motherly.</span></p> </li> <li dir=""ltr"" aria-level=""2""> <p dir=""ltr"" role=""presentation"">Grupo 2 (Lista de Espera):<span style=""font-weight: normal;""> Aguardará 4 semanas sem o tratamento. Após esse tempo de espera, receberá a sessão de terapia e o acesso ao aplicativo. Essa espera é necessária para que possamos comparar os resultados entre quem recebeu o apoio agora e quem aguardou um pouco. Sem essa possibilidade de comparação não é possível determinar cientificamente se a terapia de sessão única com aplicativo é efetiva.</span></p> </li> </ul> <li dir=""ltr"" aria-level=""1""> <p dir=""ltr"" role=""presentation""><span style=""font-weight: normal;"">O tratamento:</span></p> </li> <ul> <li dir=""ltr"" aria-level=""2""> <p dir=""ltr"" role=""presentation""><span style=""font-weight: normal;"">Sessão Única: Você terá uma conversa online com um psicólogo da nossa equipe. O foco será ajudar você a voltar a fazer atividades que trazem satisfação e a lidar melhor com o dia a dia.</span></p> </li> <li dir=""ltr"" aria-level=""2""> <p dir=""ltr"" role=""presentation""><span style=""font-weight: normal;"">Aplicativo Motherly: Você baixará este app no seu celular. Ele contém leituras, áudios de relaxamento e ferramentas para organizar sua rotina e monitorar seu humor. Você poderá usá-lo no seu tempo.</span></p> </li> </ul> <li dir=""ltr"" aria-level=""1""> <p dir=""ltr"" role=""presentation""><span style=""font-weight: normal;"">Respostas a Questionários: Em quatro momentos diferentes (no início, depois de 1 semana, 2 semanas e 1 mês), você fará entrevistas de avaliação e responderá formulários online para saber como você está se sentindo em relação à tristeza, ansiedade, sono e estresse, entre outros. Responder a essas perguntas é fundamental para nossa pesquisa, já que são estas respostas que nos permitem determinar se o tratamento funciona bem.</span></p> </li> </ol> <p dir=""ltr""> </p> <p dir=""ltr""><span style=""text-decoration: underline; font-weight: normal;"">""Existe algum risco ou incômodo?""</span></p> <p><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""font-weight: normal;"">Esta pesquisa é considerada de risco mínimo. Os procedimentos (conversa com psicólogo e uso de aplicativo) não envolvem procedimentos físicos invasivos e são seguros. No entanto, você pode sentir alguns desconfortos:</span></p> <p><span style=""font-weight: normal;""><strong> </strong></span></p> <ul> <li dir=""ltr"" aria-level=""1""> <p dir=""ltr"" role=""presentation""><span style=""font-weight: normal;""><span style=""text-decoration: underline;"">Cansaço</span>: Responder aos questionários pode tomar um pouco do seu tempo.</span></p> </li> <li dir=""ltr"" aria-level=""1""> <p dir=""ltr"" role=""presentation""><span style=""font-weight: normal;""><span style=""text-decoration: underline;"">Desconforto emocional</span>: Ao falar ou responder perguntas sobre seus sentimentos, tristeza ou dificuldades com o bebê, você pode se sentir emocionada ou desconfortável. Mas terá apoio da nossa equipe caso qualquer desconforto apareça.</span></p> </li> </ul> <p dir=""ltr""><span style=""font-weight: normal;"">Providências e cuidados: Para sua segurança, nossa equipe estará te monitorando. Se identificarmos que você está com um nível de depressão muito grave ou com pensamentos de machucar a si mesma, nós entraremos em contato imediatamente por telefone ou mensagem. Se necessário, faremos o encaminhamento para um tratamento especializado no Hospital das Clínicas ou indicaremos um serviço de saúde próximo à sua casa. Você nunca estará desamparada durante o estudo.</span></p> <p dir=""ltr""> </p> <p dir=""ltr""><span style=""text-decoration: underline; font-weight: normal;"">""O que eu ganho participando?""</span></p> <p dir=""ltr""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""font-weight: normal;"">Ao participar, você terá a oportunidade de receber atendimento psicológico gratuito e especializado, além de acesso a uma ferramenta tecnológica (o aplicativo Motherly) com conteúdos educativos sobre saúde mental, sono e cuidados com o bebê. Esperamos que essa participação ajude a diminuir seus sentimentos de tristeza e ansiedade, melhore seu sono e ajude você a lidar melhor com o estresse da maternidade. Mesmo que você fique no grupo de espera inicialmente, você terá a garantia de receber o tratamento ao final das 4 semanas. Além disso, sua participação ajudará a ciência a desenvolver tratamentos melhores e mais acessíveis para outras mães em todo o Brasil no futuro.</span></p> <p dir=""ltr""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""text-decoration: underline; font-weight: normal;"">""Como vocês vão cuidar de mim durante a pesquisa?""</span></p> <p dir=""ltr""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""font-weight: normal;"">Durante as 8 semanas do estudo, nossa equipe te acompanhará por meio de questionários e avaliações. Se identificarmos em suas respostas que você está com sintomas graves de depressão ou risco de suicídio, nós entraremos em contato (por mensagem ou telefone) para oferecer orientação e encaminhá-la para atendimento especializado na rede pública ou no Instituto de Psiquiatria do Hospital das Clínicas (HC-FMUSP). Se ao final do estudo você ainda estiver se sentindo mal ou seus sintomas não tiverem melhorado, nós faremos o encaminhamento para que você continue seu tratamento em um serviço de saúde adequado.</span></p> <p dir=""ltr""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""text-decoration: underline; font-weight: normal;"">""Posso desistir? Meus dados estão seguros?""</span></p> <p dir=""ltr""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""font-weight: normal;"">A sua participação é totalmente voluntária. Isso significa que você é livre para desistir, podendo se recusar a participar ou retirar seu consentimento a qualquer momento, sem precisar dar explicações e sem sofrer qualquer penalidade ou prejuízo no seu atendimento de saúde habitual. Todas as informações que você nos der serão tratadas com total sigilo. Seu nome e contato não aparecerão nos resultados da pesquisa, como relatórios, artigos científicos e apresentações. Para proteger sua identidade, usaremos apenas códigos numéricos em nossos arquivos, que serão guardados em servidores seguros.</span></p> <p dir=""ltr""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""text-decoration: underline; font-weight: normal;"">""Terei uma cópia deste documento?""</span></p> <p dir=""ltr""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""font-weight: normal;"">Este documento é a garantia do nosso acordo. Como esta pesquisa é realizada em ambiente digital, uma cópia deste Termo de Consentimento (em formato PDF) será enviada automaticamente para o seu e-mail ou disponibilizada para download imediato. Recomendamos que você guarde este arquivo com você para eventuais consultas.</span></p> <p dir=""ltr""><span style=""font-weight: normal;""><strong> </strong></span></p> <p dir=""ltr""><span style=""text-decoration: underline; font-weight: normal;"">""Terei custos ou direitos a compensação?""</span></p> <p dir=""ltr""> </p> <p dir=""ltr""><span style=""font-weight: normal;"">A participação nesta pesquisa não terá nenhum custo para você. Como as atividades são online (pelo celular ou computador), não prevemos gastos com transporte ou alimentação.</span></p> <p dir=""ltr""><span style=""text-decoration: underline; font-weight: normal;""><strong><br><br></strong></span></p> <p dir=""ltr""><span style=""font-weight: normal;"">Em qualquer etapa do estudo, você terá acesso aos profissionais responsáveis pela pesquisa para esclarecimento de dúvidas. O principal investigador é o <span style=""text-decoration: underline;"">Dr. Daniel Graça Fatori de Sá</span>, que pode ser encontrado no <span style=""text-decoration: underline;"">Instituto de Psiquiatria do Hospital das Clínicas da Faculdade de Medicina da USP</span>, endereço <span style=""text-decoration: underline;"">R. Dr. Ovídio Pires de Campos, 785</span>, telefone <span style=""text-decoration: underline;"">11-2661-6132</span>, e-mail <span style=""text-decoration: underline;"">daniel.fatori@usp.br</span>. Se você tiver alguma consideração ou dúvida sobre a ética da pesquisa, entre em contato com o Comitê de Ética em Pesquisa (CEP) - Rua Ovídio Pires de Campos, 225 - 6º andar - tel: (11) 2661-7585, (11) 2661-1548, das 7h às 16h de segunda a sexta feira ou por e-mail.</span></p> <p style=""text-align: justify;""> </p></div>",,,,,,,,,,,,,
+tcle_pdf,tcle,,descriptive,"Baixe aqui o Termo de Consentimento em formato PDF.",,,,,,,,,,,,,
+tcle_concordo,tcle,,radio,"Declaro que li e aceito os termos de Consentimento ","0, Recusar | 1, Aceitar",,,,,,,y,LH,,,,
+tcle_nome,tcle,,text,"Qual seu nome completo?",,,,,,,"[tcle_concordo] =1",y,LH,,,,
+t1_preavl,formulrio_pravaliao,,descriptive,"Lembrar a participante do sigilo. Ela não pode te contar para qual grupo foi selecionada. 
+
+Antes de iniciar o protocolo, você deverá realizar uma captura de tela da chamada de vídeo com a participante e registrá-lo. 
+
+Você pode explicar para a participante dessa maneira: ""Antes de começarmos eu irei realizar um print/captura/foto da minha tela que conterá a chamada que estamos, esse é um procedimento padrão em nosso estudo que tem objetivo de garantir um compromisso ético e comprovação da avaliação. Essa imagem não será usada em nenhum local fora da administração do estudo e também não será divulgada de modo algum, garantindo assim o sigilo da sua imagem. Você pode ficar com a câmera aberta ou fechada, essa é uma escolha sua. Você está de acordo com isso? Posso tirar?"".
+",,,,,,,,,,,,,
+t1_preavl_data,formulrio_pravaliao,,text,"Data da avaliação",,,datetime_seconds_dmy,,,,,,,,,," @HIDEEN @NOW"
+t1_preavl_nome,formulrio_pravaliao,,dropdown,Avaliador,"1, Carla Chagas | 2, Daniela Prado | 3, Daniele Nahomi | 4, Débora Neves | 5, Gabriela Costa | 6, Gabriela Souza | 7, Júlia Catanoce | 8, Julia Nicolella | 9, Magdala Casini | 10, Sylvia Nascimento | 11, Tatiane Brito | 12, Vivian Rank | 13, Vera Videira",,,,,,,y,,,,,
+t1_preavl_print,formulrio_pravaliao,,file,"Insira aqui o arquivo com o print da avaliação",,,,,,,,y,,,,,
+t1_start_demo,linha_base_t1,"<div class=""rich-text-field-label""><p dir=""ltr"">Mencionar o TCLE e perguntar se a participante tem dúvidas. Explicar qualquer aspecto ou detalhe que a participante não tenha entendido do estudo e do aplicativo. </p> <p style=""text-align: justify;""> </p></div>",text,"Start time",,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN-SURVEY"
+t1_tcle,linha_base_t1,,radio,"Compreendo e aceito o Termo de Consentimento Livre e Esclarecido:","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_data,linha_base_t1,,text,"Data da entrevista",,,date_dmy,,,,,y,LV,,,,
+t1_horario_inicio,linha_base_t1,,text,"Horário do inicio da entrevista",,,time,,,,,y,LV,,,,
+t1_avaliadora,linha_base_t1,,dropdown,"Nome da avaliadora","1, Carla Chagas | 2, Daniela Prado | 3, Daniele Nahomi | 4, Débora Neves | 5, Gabriela Costa | 6, Gabriela Souza | 7, Júlia Catanoce | 8, Julia Nicolella | 9, Magdala Casini | 10, Sylvia Nascimento | 11, Tatiane Brito | 12, Vivian Rank | 13, Vera Videira",,,,,,,y,LV,,,,
+t1_nome,linha_base_t1,,descriptive,"Nome da participante: [t0_arm_1][t0_nome]",,,,,,y,,,,,,,
+t1_altura,linha_base_t1,,text,"Qual a sua altura?",,"Separe a altura com ponto (por ex: 1.65)",number_2dp,1.00,2.00,,,y,LV,,,,
+t1_peso_mae,linha_base_t1,,text,"Qual o seu peso atual (em quilogramas)?",,"em kg",number,,,,,y,LV,,,,
+t1_cor,linha_base_t1,,radio,"A sua cor/raça é?","1, Branca | 2, Preta | 3, Parda | 4, Amarela | 5, Indígena",,,,,,,y,LV,,,,
+t1_escola,linha_base_t1,,radio,"Qual o seu nível de escolaridade?","0, Fundamental I incompleto | 1, Fundamental I completo/Fundamental II incompleto | 2, Fundamental II completo/Médio incompleto | 3, Médio completo | 4, Superior incompleto ou cursando | 5, Superior Completo | 6, Cursando pós-graduação (mestrado/doutorado) | 7, Pós-graduada",,,,,,,y,LV,,,,
+t1_renda,linha_base_t1,,text,"Qual a renda mensal média da sua família? 
+(Somando a renda de todas as pessoas que moram na sua casa ou apartamento).
+",,,number,,,,,y,LV,,,,"Usar ex. 10.000 para dez mil reais. Não usar vírgula"
+t1_familia1,linha_base_t1,,text,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Quantas pessoas, incluindo você, residem em sua casa? <br />(Considerar apenas as pessoas que dormiram no local na maior parte dos dias nas últimas duas semanas)</p></div>",,,number,,,,,y,LV,,,,
+t1_comodos1,linha_base_t1,,text,"Quantos quartos tem a casa ou apartamento onde você mora neste momento?",,,number,,,,,y,LV,,,,
+t1_comodos2,linha_base_t1,,text,"Quantos banheiros tem a casa ou apartamento onde você mora neste momento?",,,number,,,,,y,LV,,,,
+t1_trabalho,linha_base_t1,,radio,"Qual sua situação de trabalho atual?","1, Emprego fixo, com carteira de trabalho assinada | 2, Emprego fixo, sem carteira assinada | 3, Emprego temporário, com carteira de trabalho assinada | 4, Emprego sem contrato, sem carteira assinada | 5, Desempregada | 6, Autônoma | 7, Trabalhador doméstico ou familiar | 8, Não trabalha | 9, Aposentada",,,,,,,y,LV,,,,
+t1_estudando,linha_base_t1,,radio,"Você está estudando no momento?","0, Não | 1, Sim, ensino fundamental | 2, Sim, ensino médio ou supletivo | 3, Sim, curso profissionalizante | 4, Sim, ensino superior (graduação) | 5, Sim, ensino superior (pós-graduação)",,,,,,,y,LV,,,,
+t1_ecivil,linha_base_t1,,radio,"Qual seu estado civil?","1, Casada ou vive com companheiro | 2, Viúva | 3, Divorciada ou Separada | 4, Solteira | 5, Solteira com parceiro fixo (namorando)",,,,,,,y,LV,,,,
+t1_pai_r,linha_base_t1,,radio,"Qual sua relação com o pai de seu filho(a)?","1, Relacionamento estável (ele é marido ou companheiro e moram juntos) | 2, Relacionamento estável (ele é namorado ou companheiro, mas não moram juntos) | 3, Não tem relacionamento estável com o pai do filho(a) | 4, Não sabe quem é o pai do filho(a)",,,,,,,y,LV,,,,
+t1_pai_relac,linha_base_t1,,text,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Quando você descobriu estar grávida, quanto tempo de relacionamento você tinha com o pai de seu(ua) filho(a) (em meses)?</p></div>",,"Em meses",number,,,,,y,LV,,,,
+t1_pai_temp,linha_base_t1,,radio,"O pai da criança se envolveu na gestação?","0, Não se envolveu | 1, Envolveu-se um pouco | 2, Envolveu-se muito",,,,,,,y,LV,,,,
+t1_start_prenatal,prnatal_t1,,text,Start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN-SURVEY"
+t1_prenatal1,prnatal_t1,,text,"Agora gostaria de saber como foi o seu pré-natal. Quantas consultas de pré-natal você fez no total? (Consulta com o médico ginecologista/obstetra).",,,number,,,,,y,LV,,,,
+t1_prenatal2,prnatal_t1,,radio,"As consultas aconteceram no sistema público ou privado?","0, Público | 1, Privado | 2, Ambos",,,,,,,y,LV,,,,
+t1_prenatal3,prnatal_t1,,radio,"Você tem plano de saúde neste momento?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_prenatal5,prnatal_t1,,radio,"Você fez ultrassonografia?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_prenatal6,prnatal_t1,,radio,"Você fez exame de sangue no pré-natal?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_prenatal7,prnatal_t1,,radio,"Você fez exame físico (peso e altura) no pré-natal?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_prenatal8,prnatal_t1,,radio,"Você teve diabetes gestacional?","0, Não | 1, Sim","Níveis elevados de glicose no sangue durante a gestação.",,,,,,y,LH,,,,
+t1_prenatal9,prnatal_t1,,radio,"Você teve pré-eclâmpsia?","0, Não | 1, Sim","Pressão arterial elevada durante a gestação.",,,,,,y,LH,,,,
+t1_prenatal10,prnatal_t1,,radio,"Seu médico(a) mencionou ou diagnosticou que sua gestação foi de alto risco?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_prenatal10a,prnatal_t1,,text,"Por qual(ais) razão(ões)?",,,,,,,"[t1_prenatal10] = '1'",y,LV,,,,
+t1_prenatal11,prnatal_t1,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Você tem alguma doença crônica que necessita de visitas regulares ao médico ou de tratamento continuado (como asma/bronquite, diabetes, problemas renais, convulsões, entre outros)?</p></div>","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_prenatal11a,prnatal_t1,,text,"Qual(ais) doença(s) crônica(s)?",,,,,,,"[t1_prenatal11] = '1'",y,LV,,,,
+t1_start_dna,dados_de_nascimento_e_antropometricos_t1,"Agora, por favor, gostaria que você respondesse algumas perguntas a respeito do parto e sobre seu bebê.",text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN-SURVEY"
+t1_crianca,dados_de_nascimento_e_antropometricos_t1,,text,"Nome do bebê",,,,,,,,y,LV,,,,
+t1_sexo,dados_de_nascimento_e_antropometricos_t1,,radio,"Sexo do bebê","1, Masculino | 2, Feminino",,,,,,,y,LH,,,,
+t1_data_nasc,dados_de_nascimento_e_antropometricos_t1,,text,"Data do nascimento",,,date_dmy,,,,,y,LV,,,,
+t1_idade_bebe,dados_de_nascimento_e_antropometricos_t1,,calc,"Idade do bebê","rounddown(
+datediff([t1_data_nasc], [t1_data], ""M"", ""dmy"", true)
+)",,,,,,,,,,,,
+t1_idd_gestac,dados_de_nascimento_e_antropometricos_t1,,text,"Idade gestacional no dia do nascimento. (Em semanas)",,"Ajudar a participante a lembrar o número exato, caso seja dificil para ela. Se não souber no momento, a participante pode reportar posteriormente.",number,,,,,y,LV,,,,
+t1_peso,dados_de_nascimento_e_antropometricos_t1,,text,"Peso ao nascer. (Em gramas. Ex 2500, 3000, etc. Não usar vírgula ou ponto).",,,number,,,,,y,LV,,,,
+t1_comprim,dados_de_nascimento_e_antropometricos_t1,,text,"Comprimento ao nascer. (Em centímetros).",,,number,,,,,y,LV,,,,
+t1_local,dados_de_nascimento_e_antropometricos_t1,,radio,"Local onde foi realizado o parto","1, Hospital/clínica | 2, Domicilio | 3, Casa de parto | 4, Outro",,,,,,,y,LV,,,,
+t1_local1,dados_de_nascimento_e_antropometricos_t1,,text,Outro,,,,,,,"[t1_local] = '4'",y,LV,,,,
+t1_parto,dados_de_nascimento_e_antropometricos_t1,,radio,"Tipo de parto","1, Normal | 2, Cesárea",,,,,,,y,LV,,,,
+t1_cesarea,dados_de_nascimento_e_antropometricos_t1,,radio,"Motivo da realização de cesárea","1, Sofrimento fetal | 2, Desproporção feto-pélvica | 3, Distocia de apresentação | 4, Hemorragia materna | 5, Parada de progressão | 6, Eclâmpsia, pré-eclâmpsia | 7, Pós-maturidade | 8, Morte fetal | 9, Diabetes materna | 10, Parto(s) prévio(s) foi/foram cesárea | 11, Mãe pediu | 12, Médico quis | 13, Cesárea programada | 14, Outro","Explicação de alguns termos médicos que são apresentados nas opções de resposta: Sofrimento fetal: privação de oxigênio; Desproporção feto-pélvica: também conhecido como desproporção cefalopélvica, é quando o diâmetro da cintura pélvica é menor que o diâmetro cefálico do bebê; Distocia de apresentação: ocorrência de anormalidade na posição fetal; Parada de progressão: trabalho de parto que progride muito lentamente; Pré-eclâmpsia: quadro de hipertensão arterial e de proteinúria (perdas de proteínas na urina) que se inicia após 20 semanas de gestação; Eclâmpsia: quadro mais grave do espectro da hipertensão na gravidez, que causa convulsões frequentes e perda de consciência, podendo causar coma e óbito; Pós-maturidade: nascimento após 42 semanas de gestação.",,,,,"[t1_parto] = '2'",y,LV,,,,
+t1_cesarea1,dados_de_nascimento_e_antropometricos_t1,,text,Outro,,,,,,,"[t1_cesarea] = '14'",y,LV,,,,
+t1_forceps,dados_de_nascimento_e_antropometricos_t1,,radio,"Foi utilizado fórceps?","0, Não | 1, Sim","Fórceps obstétrico é um instrumento utilizado para extrair o bebê durante o parto em determinadas condições que podem resultar em perigo para a mãe ou para o bebê. Pode ser indicado em razão de problemas como sofrimento fetal, prolapso do cordão e em razão de doenças da mãe, como cardiopatias ou pneumopatias.",,,,,,y,LH,,,,
+t1_episiotomia,dados_de_nascimento_e_antropometricos_t1,,radio,"Foi realizado episiotomia?","0, Não | 1, Sim","Procedimento cirúrgico que consiste em uma incisão no períneo (a região entre o ânus e a vagina) para facilitar a passagem do bebê. Também conhecido como ""pique"".",,,,,,y,LH,,,,
+t1_analgesia,dados_de_nascimento_e_antropometricos_t1,,radio,"Foi feita analgesia no parto?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_filhos,dados_de_nascimento_e_antropometricos_t1,,radio,"Número de filhos nascidos no parto","1, 1 | 2, 2 | 3, 3 ou mais",,,,,,,y,LH,,,,
+t1_alta,dados_de_nascimento_e_antropometricos_t1,,radio,"O bebê teve alta junto com você (mãe)? ","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_motivo_alta,dados_de_nascimento_e_antropometricos_t1,,text,"Qual o motivo?",,,,,,,"[t1_alta] = '0'",y,LV,,,,
+t1_intercorrencia,dados_de_nascimento_e_antropometricos_t1,,radio,"Houve alguma intercorrência?","0, Não | 1, Sim","A intercorrência é definida aqui como eventos ou condições clínicas que afetam a mãe e que podem interferir diretamente no parto ou na saúde do bebê. Segundo Varela et al (2018), as principais intercorrências são: infecção do trato urinário, anemia, leucorreia (corrimento vaginal), sangramento vaginal, trabalho de parto prematuro, doença hipertensiva, descolamento prematuro da placenta, diabetes gestacional, oligodrâmnio (volume deficiente de líquido amniótico), doenças infecciosas diversas, hiperêmese (náuseas e vômitos frequentes e graves).",,,,,,y,LH,,,,
+t1_tipo_interc,dados_de_nascimento_e_antropometricos_t1,,text,"Qual foi a intercorrência?",,"Anotar exatamente o relato da mãe. Não é necessário se preocupar com pré-determinar se o relato realmente se trata de uma intercorrência",,,,,"[t1_intercorrencia] = '1'",y,LV,,,,
+t1_cpap,dados_de_nascimento_e_antropometricos_t1,,radio,"Precisou de oxigenação artificial ao nascer (CPAP)?","0, Não | 1, Sim","A sigla CPAP vem do inglês ""Continuous Positive Airway Pressure"". Em português significa: pressão positiva contínua nas vias aéreas. O CPAP é um recurso não-invasivo e com menos complicações em relação à ventilação mecânica invasiva. É um sistema artificial que gera uma pressão transpulmonar positiva durante a respiração espontânea e permite, assim, um aumento da capacidade residual funcional (que por sua vez é um importante reservatório de oxigênio durante os períodos em que não há fluxo aéreo inspiratório, como no choro e na alimentação. Geralmente aplicado em situação de prematuridade.",,,,,,y,LH,,,,
+t1_incubadora,dados_de_nascimento_e_antropometricos_t1,,radio,"Precisou de incubadora ao nascer?","0, Não | 1, Sim","Incubadora neonatal é um equipamento médico que proporciona ao recém-nascido prematuro um ambiente termoneutro, controlado pelos fatores fluxo de ar interior, umidade e temperatura.",,,,,,y,LH,,,,
+t1_apgar1,dados_de_nascimento_e_antropometricos_t1,,text,"Qual o APGAR de 1º minuto?",,"Avaliação por 5 sinais objetivos do recém-nascido, atribuindo-se a cada um dos sinais uma pontuação de 0 a 2. Do inglês ""Appearance, Pulse, Grimace, Activity, Respiration"", em português: ""Aparência, Pulso, Gesticulação, Atividade, Respiração"".",number,0,10,,,y,LV,,,,
+t1_apgar5,dados_de_nascimento_e_antropometricos_t1,,text,"Qual o APGAR de 5º minuto?",,,number,,,,,y,LV,,,,
+t1_previa,dados_de_nascimento_e_antropometricos_t1,,text,"Quantos filhos(as) você já teve antes dele(a)? Indique zero (0) se ele(a) é o(a) seu(sua) primeiro(a) filho(a).",,,number,,,,,y,LV,,,,
+t1_start_primeiro,primeiro_ano_de_vida_do_bebe_t1,"Neste questionário, gostaria que você me respondesse algumas coisas sobre como está sendo esse primeiro ano do(a) seu(ua) filho(a)",text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_posnatal,primeiro_ano_de_vida_do_bebe_t1,,text,"Quantas consultas com o pediatra o bebê teve até o momento?
+",,,number,,,,,y,LV,,,,
+t1_vacinas,primeiro_ano_de_vida_do_bebe_t1,,radio,"Já recebeu alguma vacina?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_amament1,primeiro_ano_de_vida_do_bebe_t1,,radio,"O(A) [t1_crianca] mama no peito?
+","0, Nunca mamou | 1, Não atualmente, mas mamava | 2, Sim",,,,,,,y,LH,,,,
+t1_amament1a,primeiro_ano_de_vida_do_bebe_t1,,radio,"Há quanto tempo [t1_crianca] mama exclusivamente no peito? Isto é, recebeu APENAS leite materno e nenhum outro alimento, como fórmulas, sucos, chás etc.","0, Menos de 1 mês | 1, 1 | 2, 2 | 3, 3 | 4, 4 | 5, 5 | 6, 6 ou mais | 99, Nunca mamou exclusivamente",,,,,,"[t1_amament1] = '1' or [t1_amament1] = '2'",y,LV,,,,
+t1_doenca_bebe1,primeiro_ano_de_vida_do_bebe_t1,,radio,"O(A) [t1_crianca] foi diagnosticado com alguma doença por um médico? (Exemplo: dermatite atopica, bronquite, rinite, asma, etc)","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_doenca_bebe1a,primeiro_ano_de_vida_do_bebe_t1,,text,"Qual foi a doença diagnosticada?",,,,,,,"[t1_doenca_bebe1] = '1'",y,LV,,,,
+t1_hospitalizacao1,primeiro_ano_de_vida_do_bebe_t1,,radio,"O(A) [t1_crianca] teve algum problema que precisou que ele fosse hospitalizado? (Ele precisou ficar algum tempo sobre observação, isto é, diferente de uma consulta médica típica).","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_hospitalizacao1a,primeiro_ano_de_vida_do_bebe_t1,,text,"Qual foi o motivo que o levou a ser hospitalizado?",,,,,,,"[t1_hospitalizacao1] = '1'",y,LV,,,,
+t1_start_ttmental,tratamento_saude_mental_t1,,text,Start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_sm1,tratamento_saude_mental_t1,,radio,"Você já fez tratamento psicológico (psicoterapia)?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_sm1a,tratamento_saude_mental_t1,,text,"Quantos anos você tinha quando realizou tratamento psicológico pela primeira vez?",,,number,,,,"[t1_sm1] = '1'",y,LV,,,,
+t1_sm1b,tratamento_saude_mental_t1,,text,"Por qual(ais) razão(ões) você realizou tratamento psicológico?",,,,,,,"[t1_sm1] = '1'",y,LV,,,,
+t1_sm2,tratamento_saude_mental_t1,,text,"Quando foi o seu último tratamento psicológico?",,,,,,,"[t1_sm1] = '1'",y,LH,,,,
+t1_sm5,tratamento_saude_mental_t1,,text,"Por qual(ais) razão(ões) você realizou esse último tratamento psicológico?",,,,,,,"[t1_sm1] = '1'",y,LH,,,,
+t1_sm3,tratamento_saude_mental_t1,,radio,"Você já fez tratamento psiquiátrico?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_sm3a,tratamento_saude_mental_t1,,text,"Quantos anos você tinha quando realizou tratamento psiquiátrico pela primeira vez?",,,number,,,,"[t1_sm3] = '1'",y,LV,,,,
+t1_sm3b,tratamento_saude_mental_t1,,text,"Por qual(ais) razão(ões) você realizou tratamento psiquiátrico?",,,,,,,"[t1_sm3] = '1'",y,LV,,,,
+t1_sm3c,tratamento_saude_mental_t1,,radio,"Tomou medicações psiquiátricas em algum momento?","0, Não | 1, Sim","Nomes comerciais de medicamentos se necessário para ajudar a participante a lembrar: Prozac, Daforin, Eufor, Luvox, Zoloft, Lexapro, Venlift, Frontal, Rivotril, Valium, Stilnox, Haldol, Zyprexa, Abilify, Risperdal, Seroquel, Ritalina, Depakene, Valpakene, Depakot, entre outros",,,,,"[t1_sm3] = '1'",y,LH,,,,
+t1_sm3d,tratamento_saude_mental_t1,,text,"Quais medicações psiquiátricas você tomou?",,,,,,,"[t1_sm3c] = '1'",y,LV,,,,
+t1_sm4,tratamento_saude_mental_t1,,text,"Quando foi o seu último tratamento psiquiátrico?",,,,,,,"[t1_sm3] = '1'",y,LH,,,,
+t1_sm6,tratamento_saude_mental_t1,,text,"Por qual(ais) razão(ões) você realizou esse último tratamento psiquiátrico?",,,,,,,"[t1_sm3] = '1'",y,LH,,,,
+t1_sm7,tratamento_saude_mental_t1,,radio,"Tomou medicações psiquiátricas nesse último tratamento?","0, Não | 1, Sim",,,,,,"[t1_sm3] = '1'",y,LH,,,,
+t1_sm8,tratamento_saude_mental_t1,,text,"Quais medicações psiquiátricas você tomou?",,"Nomes comerciais de medicamentos se necessário para ajudar a participante a lembrar: Prozac, Daforin, Eufor, Luvox, Zoloft, Lexapro, Venlift, Frontal, Rivotril, Valium, Stilnox, Haldol, Zyprexa, Abilify, Risperdal, Seroquel, Ritalina, Depakene, Valpakene, Depakot, entre outros.",,,,,"[t1_sm7] = '1'",y,LH,,,,
+t1_start_smart,uso_de_smartphones_e_apps_t1,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Vamos mudar um pouco de assunto agora? Gostaria de saber mais sobre aplicativos que você curte e sua relação com tecnologia de forma geral.</p></div>",text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_app1,uso_de_smartphones_e_apps_t1,,descriptive,"Quais os 5 apps para smartphone que você mais usa atualmente?",,,,,,,,y,,,,,
+t1_app1_a,uso_de_smartphones_e_apps_t1,,text,"App 1",,,,,,,,y,,,,,
+t1_app1_b,uso_de_smartphones_e_apps_t1,,text,"App 2",,,,,,,,y,,,,,
+t1_app1_c,uso_de_smartphones_e_apps_t1,,text,"App 3",,,,,,,,y,,,,,
+t1_app1_d,uso_de_smartphones_e_apps_t1,,text,"App 4",,,,,,,,y,,,,,
+t1_app1_e,uso_de_smartphones_e_apps_t1,,text,"App 5",,,,,,,,y,,,,,
+t1_app2,uso_de_smartphones_e_apps_t1,,radio,"Você usa algum app para smartphone específico para mães?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_app2a,uso_de_smartphones_e_apps_t1,,notes,"Quais apps são esses?",,,,,,,"[t1_app2] = '1'",y,LV,,,,
+t1_app3,uso_de_smartphones_e_apps_t1,,radio,"Você usa algum app para smartphone específico para saúde física ou saúde mental?","0, Não | 1, Sim",,,,,,,y,LH,,,,
+t1_app3a,uso_de_smartphones_e_apps_t1,,notes,"Quais apps são esses?",,,,,,,"[t1_app3] = '1'",y,LV,,,,
+t1_app4,uso_de_smartphones_e_apps_t1,,text,"Pensando nos últimos 7 dias, da hora que você acorda até dormir, quanto tempo em média você gasta por dia usando seu smartphone? Considere todas as atividades e usos (mensagens, redes sociais, qualquer tipo de app).
+
+(OBS: colocar em HH:MM - ex. pessoa ficou 7 horas no celular, colocar 07:00)
+",,"Colocar horas e minutos (HH:MM).",time,,,,,y,LV,,,,
+t3_start_ttmental,tratamento_saude_mental_t3,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t3_data,tratamento_saude_mental_t3,,text,"Data da avaliação",,,datetime_dmy,,,,,y,LV,,,,
+t3_avaliador,tratamento_saude_mental_t3,,dropdown,"Nome do avaliadora","1, Carla Chagas | 2, Daniela Prado | 3, Daniele Nahomi | 4, Débora Neves | 5, Gabriela Costa | 6, Gabriela Souza | 7, Júlia Catanoce | 8, Julia Nicolella | 9, Magdala Casini | 10, Sylvia Nascimento | 11, Tatiane Brito | 12, Vivian Rank | 13, Vera Videira",,,,,,,y,LV,,,,
+t3_participante,tratamento_saude_mental_t3,,descriptive,"Nome da participante: [t0_arm_1][t0_nome]",,,,,,,,,,,,,
+t3_data_t3,tratamento_saude_mental_t3,,descriptive,"Data da avaliação da linha de base: [t1_arm_1][t1_preavl_data]",,,,,,,,,,,,,
+t3_sm1,tratamento_saude_mental_t3,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Desde que nos falamos pela última vez, você iniciou tratamento psicológico (psicoterapia)?</p></div>","0, Nao | 1, Sim",,,,,,"[t1_arm_1][t1_sm1] = '0'",y,LH,,,,
+t3_sm1b,tratamento_saude_mental_t3,,notes,"Por qual(ais) razão(ões) você iniciou esse tratamento psicológico?",,,,,,,"[t3_sm1] = '1'",y,LV,,,,
+t3_sm2,tratamento_saude_mental_t3,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Desde que nos falamos, você continua fazendo tratamento psicológico (psicoterapia)?</p></div>","0, Nao | 1, Sim",,,,,,"[t1_arm_1][t1_sm1] = '1'",y,LH,,,,
+t3_sm3,tratamento_saude_mental_t3,,radio,"Desde que nos falamos pela última vez, você iniciou tratamento psiquiátrico?","0, Nao | 1, Sim",,,,,,"[t1_arm_1][t1_sm3] = '0'",y,LH,,,,
+t3_sm3b,tratamento_saude_mental_t3,,notes,"Por qual(ais) razão(ões) você realizou tratamento psiquiátrico?",,,,,,,"[t3_sm3] = '1'",y,LV,,,,
+t3_sm3x,tratamento_saude_mental_t3,,radio,"Desde que nos falamos pela última vez, você continua fazendo algum tratamento psiquiátrico?","0, Nao | 1, Sim",,,,,,"[t1_arm_1][t1_sm3] = '1'",y,LH,,,,
+t3_sm3c,tratamento_saude_mental_t3,,radio,"Está tomando alguma medicação psiquiátrica no momento?","0, Nao | 1, Sim","Nomes comerciais de medicamentos se necessário para ajudar a participante a lembrar: Prozac, Daforin, Eufor, Luvox, Zoloft, Lexapro, Venlift, Frontal, Rivotril, Valium, Stilnox, Haldol, Zyprexa, Abilify, Risperdal, Seroquel, Ritalina, Depakene, Valpakene, Depakot, entre outros",,,,,"[t3_sm3] = '1' or [t3_sm3x] = '1'",y,LH,,,,
+t3_sm3d,tratamento_saude_mental_t3,,notes,"Quais medicações psiquiátricas você está tomando?",,,,,,,"[t3_sm3c] = '1'",y,LV,,,,
+t4_start_ttmental,tratamento_saude_mental_t4,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t4_data,tratamento_saude_mental_t4,,text,"Data da avaliação",,,datetime_dmy,,,,,y,LV,,,,
+t4_avaliador,tratamento_saude_mental_t4,,dropdown,"Nome do avaliadora","1, Ana Polimeno | 2, Bruna Anjos | 3, Camila Deak | 4, Caroline Andrade | 5, Giovanna Mazzuli | 6, Julia Nicolella | 7, Leticia Benicio | 8, Maysa Dias | 9, Monica Fonseca | 10, Nadia Slwczuk | 11, Amanda Dutra | 12, Karen Duran Moreira | 13, Ana Carolina Peres Simas | 14, Stephanie Marão Perassollo",,,,,,,y,LV,,,,
+t4_participante,tratamento_saude_mental_t4,,descriptive,"Nome da participante: [t0_arm_1][t0_nome]",,,,,,,,,,,,,
+t4_data_ts,tratamento_saude_mental_t4,,descriptive,"Data da avaliação pós-tratamento: [t3_arm_1][t3_data]",,,,,,,,,,,,,
+t4_sm1,tratamento_saude_mental_t4,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Desde que nos falamos pela última vez, você iniciou tratamento psicológico (psicoterapia)?</p></div>","0, Nao | 1, Sim",,,,,,"[t3_arm_1][t3_sm1] = '0' or [t3_arm_1][t3_sm2] = '0'",y,LH,,,,
+t4_sm1b,tratamento_saude_mental_t4,,notes,"Por qual(ais) razão(ões) você iniciou esse tratamento psicológico?",,,,,,,"[t4_sm1] = '1'",y,LV,,,,
+t4_sm2,tratamento_saude_mental_t4,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Desde que nos falamos, você continua fazendo tratamento psicológico (psicoterapia)?</p></div>","0, Nao | 1, Sim",,,,,,"[t3_arm_1][t3_sm1] = '1' or [t3_arm_1][t3_sm2] = '1'",y,LH,,,,
+t4_sm3,tratamento_saude_mental_t4,,radio,"Desde que nos falamos pela última vez, você iniciou tratamento psiquiátrico?","0, Nao | 1, Sim",,,,,,"[t3_arm_1][t3_sm3] = '0' or [t3_arm_1][t3_sm3x] = '0'",y,LH,,,,
+t4_sm3b,tratamento_saude_mental_t4,,notes,"Por qual(ais) razão(ões) você realizou tratamento psiquiátrico?",,,,,,,"[t4_sm3] = '1'",y,LV,,,,
+t4_sm3x,tratamento_saude_mental_t4,,radio,"Desde que nos falamos pela última vez, você continua fazendo algum tratamento psiquiátrico?","0, Nao | 1, Sim",,,,,,"[t3_arm_1][t3_sm3] = '1' OR [t3_arm_1][t3_sm3x] = '1'",y,LH,,,,
+t4_sm3c,tratamento_saude_mental_t4,,radio,"Está tomando alguma medicação psiquiátrica no momento?","0, Nao | 1, Sim","Nomes comerciais de medicamentos se necessário para ajudar a participante a lembrar: Prozac, Daforin, Eufor, Luvox, Zoloft, Lexapro, Venlift, Frontal, Rivotril, Valium, Stilnox, Haldol, Zyprexa, Abilify, Risperdal, Seroquel, Ritalina, Depakene, Valpakene, Depakot, entre outros",,,,,"[t4_sm3] = '1' or [t4_sm3x] = '1'",y,LH,,,,
+t4_sm3d,tratamento_saude_mental_t4,,notes,"Quais medicações psiquiátricas você está tomando?",,,,,,,"[t4_sm3c] = '1'",y,LV,,,,
+t1_qidssr16_aviso,qidssr16,,descriptive,"<div class=""rich-text-field-label""><p style=""text-align: center;""><span style=""font-size: 18pt;"">AVISO PARA A AVALIADORA<span style=""font-weight: normal;""> </span></span></p> <p> </p> <p><span style=""font-weight: normal;"">Neste questionário, </span>crie um link para survey e envie para a participante responder sozinha.</p> <p><span style=""font-weight: normal;"">Peça para que ela avise assim que finalizar. </span><br><br>PARA CRIAR O LINK:<br><span style=""font-weight: normal;"">1. Clique em 'Survey Options'</span></p> <p><span style=""font-weight: normal;"">2. Clique em 'Open Survey'</span></p> <p><span style=""font-weight: normal;"">3. Copie o link e envie para a participante</span></p> <p><span style=""font-weight: normal;"">4. Clique em 'Leave wthout saving changes' </span></p> <p> </p></div>",,,,,,,,,,,,," @HIDDEN-SURVEY"
+t1_qidssr16_txt,qidssr16,,descriptive,"Por favor, marque as respostas para cada item que melhor descrevem você nos últimos 7 dias.",,,,,,,,,,,,,
+t1_start_qidssr,qidssr16,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_qidssr16_1,qidssr16,,radio,"Pegar no Sono:","0, Nunca levo mais do que 30 minutos para pegar no sono. | 1, Levo pelo menos 30 minutos para pegar no sono, menos da metade das vezes (3 dias ou menos nos últimos 7 dias). | 2, Levo pelo menos 30 minutos para pegar no sono, mais da metade das vezes (4 dias ou mais nos últimos 7 dias). | 3, Levo mais de uma hora para pegar no sono, mais da metade das vezes (4 dias ou mais nos últimos 7 dias).",,,,,,,y,LV,,,,
+t1_qidssr16_2,qidssr16,,radio,"Sono durante a noite:","0, Não acordo durante a noite. | 1, Tenho um sono leve e agitado, acordando por períodos curtos em cada noite. | 2, Acordo pelo menos uma vez por noite, mas volto a dormir com facilidade. | 3, Acordo mais do que uma vez por noite e fico acordado(a) por 20 minutos ou mais, mais da metade das vezes (4 dias ou mais nos últimos 7 dias).",,,,,,,y,LV,,,,
+t1_qidssr16_3,qidssr16,,radio,"Acordar cedo demais:
+","0, Na maioria das vezes, acordo até 30 minutos antes do que preciso para levantar. | 1, Mais da metade das vezes (4 dias ou mais nos últimos 7 dias), acordo mais de 30 minutos antes do que preciso para levantar. | 2, Quase sempre acordo pelo menos em torno de uma hora antes da hora que eu preciso, mas acabo voltando a dormir. | 3, Acordo pelo menos uma hora antes do que preciso e não consigo voltar a dormir.",,,,,,,y,LV,,,,
+t1_qidssr16_4,qidssr16,,radio,"Dormir demais:","0, Durmo até 7-8 horas por noite, sem cochilos durante o dia. | 1, Durmo até 10 horas num período de 24 horas, incluindo cochilos. | 2, Durmo até 12 horas num período de 24 horas, incluindo cochilos. | 3, Durmo mais do que 12 horas num período de 24 horas, incluindo cochilos.",,,,,,,y,LV,,,,
+t1_qidssr16_5,qidssr16,,radio,"Sentir-se triste:","0, Não me sinto triste. | 1, Sinto-me triste menos da metade das vezes (3 dias ou menos nos últimos 7 dias). | 2, Sinto-me triste mais da metade das vezes (4 dias ou mais nos últimos 7 dias). | 3, Sinto-me triste quase o tempo todo.",,,,,,,y,LV,,,,
+t1_qidssr16_txt2,qidssr16,,radio,"- Com relação ao seu apetite:","0, Meu apetite habitual não mudou. | 1, Meu apetite diminuiu. | 2, Meu apetite aumentou.",,,,,,,y,LV,,,,
+t1_qidssr16_6,qidssr16,,radio,"Apetite Diminuído","1, Como com menor frequência ou menores quantidades de comida que o habitual. | 2, Como muito menos que o habitual e só com um esforço pessoal. | 3, Como raramente num período de 24 horas e só com um esforço pessoal extremo ou quando outros me convencem a comer.",,,,,,"[t1_qidssr16_txt2] = '1'",y,LV,,,,
+t1_qidssr16_7,qidssr16,,radio,"Apetite Aumentado","1, Sinto necessidade de comer mais frequentemente do que o habitual. | 2, Regularmente, como com mais frequência e/ou em maiores quantidades do que o habitual. | 3, Sinto-me compelido a comer demais tanto nas refeições como entre elas.",,,,,,"[t1_qidssr16_txt2] = '2'",y,LV,,,,
+t1_qidssr16_txt3,qidssr16,,radio,"- Com relação ao seu peso (nas últimas 2 semanas):","0, Não tive qualquer mudança no meu peso. | 1, Perdi peso. | 2, Ganhei peso.",,,,,,,y,LV,,,,
+t1_qidssr16_8,qidssr16,,radio,"Perda de peso (nas duas últimas semanas)","1, Sinto-me como se tivesse tido uma pequena perda de peso. | 2, Perdi 1 quilo ou mais. | 3, Perdi 2,5 quilos ou mais.",,,,,,"[t1_qidssr16_txt3] = '1'",y,LV,,,,
+t1_qidssr16_9,qidssr16,,radio,"Aumento de Peso (nas duas últimas semanas)
+","1, Sinto-me como se tivesse tido um pequeno aumento de peso. | 2, Engordei 1 quilo ou mais. | 3, Engordei 2,5 quilos ou mais",,,,,,"[t1_qidssr16_txt3] = '2'",y,LV,,,,
+t1_qidssr16_10,qidssr16,,radio,"Concentração / Tomar decisões:
+","0, Não houve mudança na minha capacidade habitual de me concentrar ou de tomar decisões. | 1, Ocasionalmente, me sinto indeciso(a) ou acho que minha atenção flutua. | 2, Na maior parte do tempo, me esforço para prestar atenção ou para tomar decisões. | 3, Não consigo me concentrar o suficiente para ler ou não consigo tomar nem mesmo decisões pequenas.",,,,,,,y,LV,,,,
+t1_qidssr16_11,qidssr16,,radio,"Visão de Mim Mesmo:
+","0, Considero-me tão valioso(a) e merecedor(a) como os outros. | 1, Recrimino-me mais do que o habitual. | 2, Acredito muito que causo problemas para os outros. | 3, Penso quase constantemente sobre pequenos e grandes defeitos em mim mesmo(a).",,,,,,,y,LV,,,,
+t1_qidssr16_12,qidssr16,,radio,"Ideias de Morte e Suicídio:
+","0, Não penso em suicídio ou morte. | 1, Sinto que a vida é vazia e me pergunto se vale a pena viver. | 2, Penso em suicídio ou morte várias vezes por semana durante vários minutos. | 3, Penso em suicídio ou morte várias vezes por dia com algum detalhe, ou fiz planos específicos de suicídio, ou realmente tentei me matar.",,,,,,,y,LV,,,,
+t1_qidssr16_13,qidssr16,,radio,"Interesse geral:
+","0, Não houve mudanças do habitual quanto ao interesse que tenho em outras pessoas e atividades. | 1, Noto que estou menos interessado(a) em pessoas ou em atividades. | 2, Acho que tenho interesse em apenas uma ou duas das atividades a que me dedicava anteriormente. | 3, Não tenho praticamente interesse nenhum nas atividades a que me dedicava anteriormente.",,,,,,,y,LV,,,,
+t1_qidssr16_14,qidssr16,,radio,"Nível de energia:","0, Não há mudanças no meu nível habitual de energia. | 1, Fico cansado(a) mais facilmente do que o habitual. | 2, Tenho que fazer um grande esforço para começar ou acabar minhas atividades diárias habituais (por exemplo, fazer compras, lição de casa, cozinhar ou trabalhar). | 3, Eu não consigo realmente desempenhar a maioria das minhas atividades diárias, porque simplesmente não tenho energia.",,,,,,,y,LV,,,,
+t1_qidssr16_15,qidssr16,,radio,"Sentir lentidão:","0, Penso, falo e me movimento na minha velocidade habitual. | 1, Acho que o meu pensamento está mais lento ou a minha voz parece sem brilho ou monótona. | 2, Levo vários segundos para responder à maioria das perguntas e tenho certeza que o meu pensamento está lento. | 3, Sinto-me frequentemente incapaz de responder a perguntas sem um esforço extremo.",,,,,,,y,LV,,,,
+t1_qidssr16_16,qidssr16,,radio,"Sentir-se agitado:","0, Não me sinto agitado(a). | 1, Fico frequentemente irrequieto(a), torcendo as mãos ou precisando trocar a posição em que estou sentado(a). | 2, Tenho impulsos de me movimentar e estou bastante agitado(a). | 3, Há ocasiões em que fico incapaz de permanecer sentado(a) e preciso andar de um lado para o outro.",,,,,,,y,LV,,,,
+t1_qidssr16_total,qidssr16,,calc,"Somatória dos itens","max (
+[t1_qidssr16_1],
+[t1_qidssr16_2],
+[t1_qidssr16_3],
+[t1_qidssr16_4]
+)
++
+[t1_qidssr16_5]
++
+max (
+  if([t1_qidssr16_6]="""",0,[t1_qidssr16_6]),
+  if([t1_qidssr16_7]="""",0,[t1_qidssr16_7]),
+  if([t1_qidssr16_8]="""",0,[t1_qidssr16_8]),
+  if([t1_qidssr16_9]="""",0,[t1_qidssr16_9])
+)
++
+sum (
+[t1_qidssr16_10],
+[t1_qidssr16_11],
+[t1_qidssr16_12],
+[t1_qidssr16_13],
+[t1_qidssr16_14]
+)
++
+max (
+[t1_qidssr16_15],
+[t1_qidssr16_16]
+)",,,,,,,,,,,," @HIDDEN"
+t1_qidssr16_total_2,qidssr16,,calc,"Somatória dos itens","max (
+[t1_qidssr16_1],
+[t1_qidssr16_2],
+[t1_qidssr16_3],
+[t1_qidssr16_4]
+)
++
+[t1_qidssr16_5]
++
+max (
+  if([t1_qidssr16_6]="""",0,[t1_qidssr16_6]),
+  if([t1_qidssr16_7]="""",0,[t1_qidssr16_7]),
+  if([t1_qidssr16_8]="""",0,[t1_qidssr16_8]),
+  if([t1_qidssr16_9]="""",0,[t1_qidssr16_9])
+)
++
+sum (
+[t1_qidssr16_10],
+[t1_qidssr16_11],
+[t1_qidssr16_12],
+[t1_qidssr16_13],
+[t1_qidssr16_14]
+)
++
+max (
+[t1_qidssr16_15],
+[t1_qidssr16_16]
+)",,,,,,,,,,,," @HIDDEN"
+t1_start_qidsc,qidsc16,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_start_qidsc1,qidsc16,,descriptive,"Por favor, marque as respostas para cada item que melhor descrevem a paciente nos últimos 7 dias.
+
+Abaixo de cada item, há dicas de perguntas que poderão ser feitas para investigar qual a melhor resposta.",,,,,,,,,,,,,
+t1_qidsc16_1,qidsc16,,radio,"Insônia Inicial","0, Nunca leva mais do que 30 minutos para pegar no sono. | 1, Leva pelo menos 30 minutos para pegar no sono, menos da metade das vezes (3 dias ou menos nos últimos 7 dias). | 2, Leva pelo menos 30 minutos para pegar no sono, mais da metade das vezes (4 dias ou mais nos últimos 7 dias). | 3, Leva mais de uma hora para pegar no sono, mais da metade das vezes (4 dias ou mais nos últimos 7 dias).","Na última semana, como tem estado o seu sono? Quantas horas você tem dormido? Você teve dificuldade para dormir (para pegar no sono)? Quanto tempo você tem levado para dormir nesta última semana? Você tem sido capaz de dormir a noite toda? Acontece de você despertar no meio da noite? Quanto tempo leva para voltar a dormir quando isso acontece? O seu sono está inquieto ou perturbado?  Você tem cochilado durante o dia?",,,,,,y,LV,,,,
+t1_qidsc16_2,qidsc16,,radio,"Insônia Intermediária (Meio da noite)","0, Não acorda durante a noite. | 1, Tem um sono leve e agitado, acordando por períodos curtos em cada noite. | 2, Acorda pelo menos uma vez por noite, mas volta a dormir com facilidade. | 3, Acorda mais do que uma vez por noite e fica acordado(a) por 20 minutos ou mais, mais da metade das vezes (4 dias ou mais nos últimos 7 dias).",,,,,,,y,LV,,,,
+t1_qidsc16_3,qidsc16,,radio,"Insônia Terminal (Acordar cedo demais)","0, Na maioria das vezes, acorda até 30 minutos antes do que precisa para levantar. | 1, Mais da metade das vezes (4 dias ou mais nos últimos 7 dias), acorda mais de 30 minutos antes do que precisa para levantar. | 2, Quase sempre acorda pelo menos em torno de uma hora antes da hora que precisa, mas acaba voltando a dormir. | 3, Acorda pelo menos uma hora antes do que precisa e não consegue voltar a dormir.",,,,,,,y,LV,,,,
+t1_qidsc16_4,qidsc16,,radio,Hipersonia,"0, Dorme até 7-8 horas por noite, sem cochilos durante o dia. | 1, Dorme até 10 horas num período de 24 horas, incluindo cochilos. | 2, Dorme até 12 horas num período de 24 horas, incluindo cochilos. | 3, Dorme mais do que 12 horas num período de 24 horas, incluindo cochilos.",,,,,,,y,LV,,,,
+t1_qidsc16_5,qidsc16,,radio,"Humor (Triste)","0, Não se sente triste. | 1, Sente-se triste menos da metade das vezes (3 dias ou menos nos últimos 7 dias). | 2, Sente-se triste mais da metade das vezes (4 dias ou mais nos últimos 7 dias). | 3, Sente-se triste quase o tempo todo.","Na última semana, como você tem se sentido? Tem se sentido triste ou infeliz? (Deprimido?)  SE SIM: Você pode descrever como tem sido isso para você? (SE DESCONHECIDO: Quanto isso tem sido ruim?) SE DEPRIMIDO: Com que frequência você tem se sentido assim nesta última semana? Quantos dias da semana? Você diria que se sente triste a maior parte do dia? A metade do dia? Ou menos?",,,,,,y,LV,,,,
+t1_qidsc16_txt2,qidsc16,,radio,"- Com relação ao apetite:","0, O apetite habitual não mudou. | 1, O apetite diminuiu. | 2, O apetite aumentou.","Na última semana, como foi seu apetite? (Como foi comparado com seu apetite habitual [antes do episódio depressivo]?)   Tem sentido mais fome, menos fome ou está parecido com o habitual?  Você ficou menos interessada em comer? Quanto menos? A comida tem o mesmo sabor de sempre? SE MENOS: Quanto menos? Você teve que se forçar a comer? Outras pessoas tiveram que insistir para que coma?   SE MAIS: Além de sentir mais fome, você tem comido com mais frequência ou em quantidades maiores de forma regular? Tem a sensação de que precisa comer em excesso, tanto nas refeições quanto entre elas?",,,,,,y,,,,,
+t1_qidsc16_6,qidsc16,,radio,"Apetite (Diminuído)","0, Apetite habitual não mudou. | 1, Come com menor frequência ou menores quantidades de comida que o habitual. | 2, Come muito menos que o habitual e só com um esforço pessoal. | 3, Come raramente num período de 24 horas e só com um esforço pessoal extremo ou quando outros a convencem a comer.",,,,,,"[t1_qidsc16_txt2] = '1'",y,LV,,,,
+t1_qidsc16_7,qidsc16,,radio,"Apetite (Aumentado)","0, Apetite habitual não mudou. | 1, Sente necessidade de comer mais frequentemente do que o habitual. | 2, Regularmente, come com mais frequência e/ou em maiores quantidades do que o habitual. | 3, Sente-se compelida a comer demais tanto nas refeições como entre elas.",,,,,,"[t1_qidsc16_txt2] = '2'",y,LV,,,,
+t1_qidsc16_txt3,qidsc16,,radio,"- Com relação ao peso:","0, Não teve qualquer mudança no meu peso. | 1, Perdeu peso. | 2, Ganhou peso.","Nas últimas duas semanas, você percebeu alguma mudança no seu peso? Acha que perdeu peso, ganhou peso ou permaneceu praticamente igual? Você sente que emagreceu um pouco, mesmo sem ter se pesado? Percebeu alguma diferença nas roupas ou no corpo? Você chegou a se pesar?  Tem ideia de aproximadamente quantos quilos perdeu/ganhou?",,,,,,y,,,,,
+t1_qidsc16_8,qidsc16,,radio,"Peso (Diminuição) nas últimas duas semanas","0, Não teve qualquer mudança no peso. | 1, Sente como se tivesse tido uma pequena perda de peso. | 2, Perdeu 1 quilo ou mais. | 3, Perdeu 2,5 quilos ou mais.",,,,,,"[t1_qidsc16_txt3] = '1'",y,LV,,,,
+t1_qidsc16_9,qidsc16,,radio,"Peso (Aumento) nas últimas duas semanas","0, Não teve qualquer mudança no peso. | 1, Sente como se tivesse tido um pequeno aumento de peso. | 2, Engordou 1 quilo ou mais. | 3, Engordou 2,5 quilos ou mais",,,,,,"[t1_qidsc16_txt3] = '2'",y,LV,,,,
+t1_qidsc16_10,qidsc16,,radio,"Concentração / Tomada de Decisão","0, Não houve mudança na capacidade habitual de se concentrar ou de tomar decisões. | 1, Ocasionalmente se sente indeciso(a) ou acha que a atenção flutua. | 2, Na maior parte do tempo, se esforça para prestar atenção ou para tomar decisões. | 3, Não consegue se concentrar o suficiente para ler ou não consegue tomar nem mesmo decisões pequenas.","Na última semana, você teve dificuldade em se concentrar ou organizar seus pensamentos?  SE SIM: Acontece mais em casa ou mais no trabalho? Onde acontece? Você pode me dar alguns exemplos? Foi capaz de se concentrar para ler um livro, um texto, uma notícia no celular? Você precisa ler as coisas várias vezes para entender direito?  Com que frequência aconteceu isso na última semana? Isto causou algum problema para você?  SE SIM: Você pode me dar alguns exemplos?   Sua dificuldade em se concentrar foi tão ruim em algum momento na última semana que foi difícil seguir uma conversa?  SE SIM: Quanto isso tem sido ruim? Com que frequência isso aconteceu na última semana? Considere a concentração da paciente durante a entrevista.",,,,,,y,LV,,,,
+t1_qidsc16_11,qidsc16,,radio,"Visão de si mesmo","0, Considera-se tão valioso(a) e merecedor(a) como os outros. | 1, Recrimina-se mais do que o habitual. | 2, Acredita muito que causa problemas para os outros. | 3, Pensa quase constantemente sobre pequenos e grandes defeitos em si mesmo(a).","Na última semana, como você tem se enxergado? Como tem sido a forma como você pensa sobre você mesma? Você se sente bem consigo mesma? Você tem sido mais crítica consigo mesma do que costuma ser? Tem pensado que você é um problema ou causa dificuldades para outras pessoas? Com que frequência você pensa sobre seus defeitos ou coisas que considera inadequadas em você?",,,,,,y,LV,,,,
+t1_qidsc16_12,qidsc16,,radio,"Ideação Suicida","0, Não pensa em suicídio ou morte. | 1, Sente que a vida é vazia e se pergunta se vale a pena viver. | 2, Pensa em suicídio ou morte várias vezes por semana durante vários minutos. | 3, Pensa em suicídio ou morte várias vezes por dia com algum detalhe, ou fez planos específicos de suicídio, ou realmente tentou se matar.","Na última semana, você sentiu como se não valesse a pena viver? SE SIM: Fale-me sobre isso.  SE NÃO: Você já se sentiu como se estivesse cansado de viver? Esta semana, você pensou que seria melhor estar morto?  SE SIM: Fale-me sobre isso.   Você teve pensamentos de se machucar ou se matar nesta última semana?  SE SIM: Quais foram seus pensamentos? Com que frequência você teve esses pensamentos? Quanto tempo eles costumam durar? Você fez planos de fato?  SE SIM: Quais são estes planos? Você fez alguma preparação para levar a cabo estes planos? Contou a alguém sobre isto?",,,,,,y,LV,,,,
+t1_qidsc16_13,qidsc16,,radio,Envolvimento,"0, Não houve mudanças quanto ao interesse que tem em outras pessoas e atividades. | 1, Noto que está menos interessado(a) em pessoas ou em atividades. | 2, Acho que tem interesse em apenas uma ou duas das atividades a que se dedicava anteriormente. | 3, Não tem praticamente interesse nenhum nas atividades a que se dedicava anteriormente.","Na última semana, como está o seu interesse pelas pessoas e pelas atividades do seu dia a dia? Você percebeu alguma mudança em relação ao seu interesse habitual [antes do episódio depressivo]? Tem conseguido se interessar pelas coisas que normalmente costumava gostar? E em relação às pessoas? Tem tido vontade de conversar, encontrar ou estar com elas como antes? Você diria que ainda tem interesse por várias atividades, embora menos do que antes, ou sente interesse por apenas uma ou duas coisas? Você ainda tem algum interesse pelas atividades que costumava fazer ou praticamente perdeu o interesse por elas?",,,,,,y,LV,,,,
+t1_qidsc16_14,qidsc16,,radio,"Nível de energia / Fadiga","0, Não há mudanças no seu nível habitual de energia. | 1, Fica cansado(a) mais facilmente do que o habitual. | 2, Tem que fazer um grande esforço para começar ou acabar suas atividades diárias habituais (por exemplo, fazer compras, lição de casa, cozinhar ou trabalhar). | 3, Não consegue realmente desempenhar a maioria das suas atividades diárias, porque simplesmente não tem energia.","Na última semana, como tem estado seu nível de energia? Você percebeu alguma mudança em relação ao seu nível habitual de energia [antes do episódio depressivo]? Como tem sido para realizar suas atividades do dia a dia? Você se sente cansada mais facilmente do que costumava?  Apesar do cansaço, ainda consegue realizar suas atividades diárias? Parece que você precisa se esforçar muito, gastar mais energia do que o habitual para fazer as coisas?  Mesmo tentando, sente que realmente não consegue realizar a maioria das atividades? ",,,,,,y,LV,,,,
+t1_qidsc16_15,qidsc16,,radio,"Lentificação psicomotora","0, Pensa, fala e se movimenta na velocidade habitual. | 1, Nota que o pensamento está mais lento ou a voz parece sem brilho ou monótona. | 2, Leva vários segundos para responder à maioria das perguntas e tem certeza que o pensamento está lento. | 3, Sente-se frequentemente incapaz de responder a perguntas sem um esforço extremo.","Na última semana, você percebeu alguma mudança na sua velocidade de pensar, falar ou se movimentar? Você sente que está mais lenta do que costuma ser? Tem percebido alguma dificuldade ou demora maior para pensar no que quer dizer ou para responder às pessoas? Alguém comentou que você está falando ou se movimentando mais devagar? Acontece de você sentir que não consegue responder às perguntas sem fazer um esforço muito grande? Considere o comportamento da paciente durante a entrevista.",,,,,,y,LV,,,,
+t1_qidsc16_16,qidsc16,,radio,"Agitação psicomotora","0, Não se sente agitado(a). | 1, Fica frequentemente irrequieto(a), torcendo as mãos ou precisando trocar a posição em que está sentado(a). | 2, Tem impulsos de se movimentar e fica bastante agitado(a). | 3, Há ocasiões em que fica incapaz de permanecer sentado(a) e precisa andar de um lado para o outro","Na última semana, você se sentiu mais agitada ou inquieta do que o habitual? Como você percebe essa agitação? Você sente uma necessidade de ficar se mexendo ou mudar de posição? Consegue permanecer sentada tranquilamente ou sente necessidade de se levantar e andar? Quando você se sente assim, consegue continuar sentado(a), mesmo inquieto(a), ou sente que precisa necessariamente se levantar e andar? Considere a concentração da paciente durante a entrevista.",,,,,,y,LV,,,,
+t1_qidsc16_total,qidsc16,,calc,"Pontuação final","max (
+[t1_qidsc16_1],
+[t1_qidsc16_2],
+[t1_qidsc16_3],
+[t1_qidsc16_4]
+)
++
+[t1_qidsc16_5]
++
+max (
+  if([t1_qidsc16_6]="""",0,[t1_qidsc16_6]),
+  if([t1_qidsc16_7]="""",0,[t1_qidsc16_7]),
+  if([t1_qidsc16_8]="""",0,[t1_qidsc16_8]),
+  if([t1_qidsc16_9]="""",0,[t1_qidsc16_9])
+)
++
+sum (
+[t1_qidsc16_10],
+[t1_qidsc16_11],
+[t1_qidsc16_12],
+[t1_qidsc16_13],
+[t1_qidsc16_14]
+)
++
+max (
+[t1_qidsc16_15],
+[t1_qidsc16_16]
+)",,,,,,,,,,,,
+t1_start_epds,escala_de_depresso_de_edimburgo_epds_t1,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Agora eu gostaria de fazer algumas perguntas sobre como você tem se sentido. Por favor, me diga qual a resposta que melhor reflete como você tem se sentido nos últimos 7 dias.</p></div>",text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_epds1,escala_de_depresso_de_edimburgo_epds_t1,,radio,"Eu tenho sido capaz de rir e achar graça das coisas.","0, Como sempre fiz | 1, Não tanto quanto antes | 2, Sem dúvida, menos que antes | 3, De jeito nenhum",,,,,,,y,LV,,,,
+t1_epds2,escala_de_depresso_de_edimburgo_epds_t1,,radio,"Eu tenho pensado no futuro com alegria.","0, Sim, como de costume | 1, Um pouco menos que de costume | 2, Muito menos que de costume | 3, Praticamente não",,,,,,,y,LV,,,,
+t1_epds3,escala_de_depresso_de_edimburgo_epds_t1,,radio,"Eu tenho me culpado sem razão quando as coisas dão errado.","3, Sim, muito frequentemente | 2, Sim, às vezes | 1, Raramente | 0, Não, de jeito nenhum",,,,,,,y,LV,,,,
+t1_epds4,escala_de_depresso_de_edimburgo_epds_t1,,radio,"Eu tenho ficado ansiosa ou preocupada sem uma boa razão.  ","3, Sim, bastante | 2, Sim, às vezes | 1, De vez em quando | 0, Não, de jeito nenhum",,,,,,,y,LV,,,,
+t1_epds5,escala_de_depresso_de_edimburgo_epds_t1,,radio,"Eu tenho me sentido assustada ou em pânico sem um bom motivo. ","3, Sim, bastante | 2, Sim, às vezes | 1, De vez em quando | 0, Não, de jeito nenhum",,,,,,,y,LV,,,,
+t1_epds6,escala_de_depresso_de_edimburgo_epds_t1,,radio,"Eu tenho me sentido sobrecarregada pelas tarefas e acontecimentos do meu dia-a-dia.   ","3, Sim, na maioria das vezes eu não consigo lidar bem com eles | 2, Sim, algumas vezes não consigo lidar bem como antes | 1, Não, na maioria das vezes consigo lidar bem com eles | 0, Não, eu consigo lidar com eles tão bem quanto antes",,,,,,,y,LV,,,,
+t1_epds7,escala_de_depresso_de_edimburgo_epds_t1,,radio,"Eu tenho me sentido tão infeliz que eu tenho tido dificuldade de dormir.  ","3, Sim, na maioria das vezes | 2, Sim, algumas vezes | 1, Raramente | 0, Não, nenhuma vez",,,,,,,y,LV,,,,
+t1_epds8,escala_de_depresso_de_edimburgo_epds_t1,,radio,"Eu tenho me sentido triste ou muito mal.","3, Sim, na maioria das vezes | 2, Sim, algumas vezes | 1, Raramente | 0, Não, nenhuma vez",,,,,,,y,LV,,,,
+t1_epds9,escala_de_depresso_de_edimburgo_epds_t1,,radio,"Eu tenho me sentido tão triste que tenho chorado.	","3, Sim, na maior parte do tempo | 2, Sim, muitas vezes | 1, Só de vez em quando | 0, Não, nunca",,,,,,,y,LV,,,,
+t1_epds10,escala_de_depresso_de_edimburgo_epds_t1,,radio,"Eu tenho pensado em fazer alguma coisa contra mim mesma.","3, Sim, muitas vezes | 2, Às vezes | 1, Raramente | 0, Nunca",,,,,,,y,LV,,,,
+t1_total_epds,escala_de_depresso_de_edimburgo_epds_t1,,calc,"Somatória EPDS","sum([t1_epds1],[t1_epds2],[t1_epds3],[t1_epds4],[t1_epds5],[t1_epds6],[t1_epds7],[t1_epds8],[t1_epds9],[t1_epds10])",,,,,,,y,LV,,,,
+t1_start_gad,escala_de_ansiedade_generalizada_gad7_t1,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_gad1,escala_de_ansiedade_generalizada_gad7_t1,"Na última semana, com que frequência você tem se incomodado com os seguintes problemas? 
+Para cada afirmação indique a frequência de acordo com as seguintes opções de resposta:
+
+Raramente
+Alguns dias
+Mais da metade dos dias
+Quase todos os dias",radio,"Sentiu-se nervosa, ansiosa, inquieta.","0, Raramente | 1, Alguns dias | 2, Mais da metade dos dias | 3, Quase todos os dias",,,,,,,,,,t1_gad,,
+t1_gad2,escala_de_ansiedade_generalizada_gad7_t1,,radio,"Não conseguiu parar de se preocupar ou controlar suas preocupações.","0, Raramente | 1, Alguns dias | 2, Mais da metade dos dias | 3, Quase todos os dias",,,,,,,,,,t1_gad,,
+t1_gad3,escala_de_ansiedade_generalizada_gad7_t1,,radio,"Se preocupou demais com diferentes coisas.","0, Raramente | 1, Alguns dias | 2, Mais da metade dos dias | 3, Quase todos os dias",,,,,,,,,,t1_gad,,
+t1_gad4,escala_de_ansiedade_generalizada_gad7_t1,,radio,"Sentiu dificuldade em relaxar.","0, Raramente | 1, Alguns dias | 2, Mais da metade dos dias | 3, Quase todos os dias",,,,,,,,,,t1_gad,,
+t1_gad5,escala_de_ansiedade_generalizada_gad7_t1,,radio,"Ficou tão agitada que foi difícil ficar parada.","0, Raramente | 1, Alguns dias | 2, Mais da metade dos dias | 3, Quase todos os dias",,,,,,,,,,t1_gad,,
+t1_gad6,escala_de_ansiedade_generalizada_gad7_t1,,radio,"Ficou facilmente aborrecida, irritada.","0, Raramente | 1, Alguns dias | 2, Mais da metade dos dias | 3, Quase todos os dias",,,,,,,,,,t1_gad,,
+t1_gad7,escala_de_ansiedade_generalizada_gad7_t1,,radio,"Sentiu-se com medo, como se algo ruim pudesse acontecer.","0, Raramente | 1, Alguns dias | 2, Mais da metade dos dias | 3, Quase todos os dias",,,,,,,,,,t1_gad,,
+t1_total_gad,escala_de_ansiedade_generalizada_gad7_t1,,calc,"Somatória GAD-7","sum([t1_gad1],[t1_gad2],[t1_gad3],[t1_gad4],[t1_gad5],[t1_gad6],[t1_gad7])",,,,,,,y,LH,,,," @HIDDEN-SURVEY"
+t1_start_sds,escala_de_incapacidade_de_sheehan_sds,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_sds1,escala_de_incapacidade_de_sheehan_sds,"Escala de Incapacidade de Sheehan (SDS)",radio,"Vida Familiar / Responsabilidades do Lar
+
+Os sintomas têm interrompido sua vida familiar/responsabilidades do lar?","0, 0 - De nenhuma forma | 1, 1 - Suavemente | 2, 2 - Suavemente | 3, 3 - Suavemente | 4, 4 - Moderadamente | 5, 5 - Moderadamente | 6, 6 - Moderadamente | 7, 7 - Marcadamente | 8, 8 - Marcadamente | 9, 9 - Marcadamente | 10, 10 - Extremamente",,,,,,,y,LV,,,,
+t1_sds2,escala_de_incapacidade_de_sheehan_sds,,radio,"Trabalho/Escola
+
+Os sintomas têm interrompido suas atividades no trabalho/escola?
+","0, 0 - De nenhuma forma | 1, 1 - Suavemente | 2, 2 - Suavemente | 3, 3 - Suavemente | 4, 4 - Moderadamente | 5, 5 - Moderadamente | 6, 6 - Moderadamente | 7, 7 - Marcadamente | 8, 8 - Marcadamente | 9, 9 - Marcadamente | 10, 10 - Extremamente",,,,,,,y,LV,,,,
+t1_sds3,escala_de_incapacidade_de_sheehan_sds,,radio,"Vida Social
+
+Os sintomas têm interrompido sua vida social?
+
+","0, 0 - De nenhuma forma | 1, 1 - Suavemente | 2, 2 - Suavemente | 3, 3 - Suavemente | 4, 4 - Moderadamente | 5, 5 - Moderadamente | 6, 6 - Moderadamente | 7, 7 - Marcadamente | 8, 8 - Marcadamente | 9, 9 - Marcadamente | 10, 10 - Extremamente",,,,,,,y,LV,,,,
+t1_start_psqi,pittsburgh_sleep_quality_index_psqi,"Pittsburgh Sleep Quality Index (PSQI)",text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_psqi_txt,pittsburgh_sleep_quality_index_psqi,,descriptive,"Instruções: As seguintes perguntas são relativas aos seus hábitos de sono durante o último mês somente. Suas respostas devem indicar a lembrança mais exata da maioria dos dias e noites do último mês. Por favor, responda a todas as perguntas.",,,,,,,,,,,,,
+t1_psqi_1,pittsburgh_sleep_quality_index_psqi,,text,"Durante o último mês, quando você geralmente foi para a cama à noite? 
+
+Hora usual de deitar:",,,time,,,,,y,,,,,
+t1_psqi_2,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, quanto tempo (em minutos) você geralmente levou para dormir à noite? ","0, < 15 minutos | 1, 16-30 minutos | 2, 31-60 minutos | 3, >60 minutos",,,,,,,y,LV,,,,
+t1_psqi_3,pittsburgh_sleep_quality_index_psqi,,text,"Durante o último mês, quando você geralmente levantou de manhã? 
+
+Hora usual de levantar: ",,,time,,,,,y,,,,,
+t1_psqi_4,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, quantas horas de sono você teve por noite? (Este pode ser diferente do número de horas que você ficou na cama). 
+","0, > 7 horas | 1, 6-7 horas | 2, 5-6 horas | 3, < 5 horas",,,,,,,y,LV,,,,
+t1_psqi_txt2,pittsburgh_sleep_quality_index_psqi,,descriptive,"Para cada uma das questões restantes, marque a melhor (uma) resposta. Por favor, responda a todas as questões.
+",,,,,,,,,,,,,
+t1_psqi_5a,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, com que frequência você teve dificuldade de dormir porque você... Não conseguiu adormecer em até 30 minutos 
+","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_5b,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, com que frequência você teve dificuldade de dormir porque você... Acordou no meio da noite ou de manhã cedo
+","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_5c,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, com que frequência você teve dificuldade de dormir porque você... Precisou levantar para ir ao banheiro
+","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_5d,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, com que frequência você teve dificuldade de dormir porque você... Não conseguiu respirar confortavelmente
+","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_5e,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, com que frequência você teve dificuldade de dormir porque você... Tossiu ou roncou forte 
+","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_5f,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, com que frequência você teve dificuldade de dormir porque você... Sentiu muito frio 
+","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_5g,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, com que frequência você teve dificuldade de dormir porque você... Sentiu muito calor","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_5h,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, com que frequência você teve dificuldade de dormir porque você... Teve sonhos ruins 
+","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_5i,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, com que frequência você teve dificuldade de dormir porque você... Teve dor ","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_5j1,pittsburgh_sleep_quality_index_psqi,,notes,"Durante o último mês, existe outra razão que causou em você dificuldade de dormir? Por favor, descreva.
+",,,,,,,,y,LV,,,,
+t1_psqi_5j2,pittsburgh_sleep_quality_index_psqi,,radio,"Com que frequência, durante o último mês, você teve dificuldade para dormir devido a essa razão?
+","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_6,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, como você classificaria a qualidade do seu sono de uma maneira geral? ","0, Muito boa | 1, Boa | 2, Ruim | 3, Muito ruim",,,,,,,y,LV,,,,
+t1_psqi_7,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, com que frequência você tomou medicamento (prescrito ou ""por conta própria"") para lhe ajudar a dormir? ","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_8,pittsburgh_sleep_quality_index_psqi,,radio,"No último mês, com que frequência você teve dificuldade de ficar acordado enquanto dirigia, comia ou participava de uma atividade social (festa, reunião de amigos, trabalho, estudo)? ","0, Nenhuma no último mês | 1, Menos de 1 vez/semana | 2, 1 ou 2 vezes/semana | 3, 3 ou mais vezes/semana",,,,,,,y,LV,,,,
+t1_psqi_9,pittsburgh_sleep_quality_index_psqi,,radio,"Durante o último mês, quão problemático foi para você manter o entusiasmo (ânimo) para fazer as coisas (suas atividades habituais)? ","0, Nenhuma dificuldade | 1, Um problema leve | 2, Um problema razoável | 3, Um grande problema",,,,,,,y,LV,,,,
+t1_start_psi,psi_short_form_t1,"Agora gostaríamos de entender qual tem sido sua percepção sobre alguns aspectos da sua vida de mãe. Esse questionário possui algumas frases e gostaria que você me indicasse o quanto essas frases se aplicam a você, esse índice varia entre Concordo Totalmente e Discordo Totalmente.
+",text,start,,,datetime_seconds_dmy,,,,,,LV,,,," @NOW @HIDDEN"
+t1_psi56,psi_short_form_t1,,radio,"Eu frequentemente sinto que eu não consigo lidar com as coisas muito bem.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi69,psi_short_form_t1,,radio,"Eu percebo que eu desisto de mais coisas da minha vida para satisfazer as necessidades dos meus filhos do que eu pensava que eu teria de desistir.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi70,psi_short_form_t1,,radio,"Eu me sinto presa às minhas responsabilidades como mãe.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi72,psi_short_form_t1,,radio,"Desde que tive esse filho, eu não tenho conseguido fazer coisas novas e diferentes.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi73,psi_short_form_t1,,radio,"Desde que tive filho, eu sinto que quase nunca consigo fazer as coisas de que gosto.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi76,psi_short_form_t1,,radio,"Eu não estou satisfeita com a última compra de roupa que eu fiz.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi80,psi_short_form_t1,,radio,"Tem um bom número de coisas que me incomodam na minha vida.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi85,psi_short_form_t1,,radio,"Ter um filho tem me causado mais problemas em meu relacionamento com meu marido/companheiro(a) do que eu esperava.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi91,psi_short_form_t1,,radio,"Eu me sinto sozinha e sem amigos.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi92,psi_short_form_t1,,radio,"Quando eu vou a uma festa eu geralmente imagino que eu não vou me divertir.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi93,psi_short_form_t1,,radio,"Eu não me interesso mais pelas pessoas como eu costumava me interessar.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi100,psi_short_form_t1,,radio,"Eu não aprecio as coisas como eu costumava apreciar.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi10,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] raramente faz coisas para mim que fazem eu me sentir bem.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi12,psi_short_form_t1,,radio,"Quando eu faço coisas para o(a) [t1_arm_1][t1_crianca], eu tenho a sensação que meus esforços não são muito apreciados.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi13,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] sorri para mim muito menos do que eu esperava.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi14,psi_short_form_t1,,radio,"Às vezes eu sinto que o(a) [t1_arm_1][t1_crianca] não gosta de mim e não me quer por perto.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi18,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] é muito emotivo e fica chateado facilmente.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi23,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] parece que não aprende tão rápido quanto as outras crianças.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi24,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] parece que não sorri tanto quanto a maioria das crianças.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi26,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] não é capaz de fazer tantas coisas quanto eu esperava.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi38,psi_short_form_t1,,radio,"Demora um longo tempo e é muito difícil para o(a) [t1_arm_1][t1_crianca] se acostumar com coisas novas.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi58,psi_short_form_t1,,radio,"Eu sinto que eu sou: (Escolha uma resposta em relação às escolhas abaixo).","1, Uma mãe muito boa | 2, Uma mãe melhor do que a média | 3, Uma mãe na média | 4, Uma pessoa que tem alguns problemas para ser mãe | 5, Uma mãe não muito boa",,,,,,,y,LV,,,,
+t1_psi63,psi_short_form_t1,,radio,"Eu esperava ter sentimentos mais positivos de afeição e íntimos pelo(a) [t1_arm_1][t1_crianca] do que eu tenho e isso me incomoda.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi64,psi_short_form_t1,,radio,"Às vezes, o(a) [t1_arm_1][t1_crianca] faz coisas que me incomodam só para ser mau.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi17,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] parece que chora e fica agitado, reclama com mais frequência do que as outras crianças.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi19,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] geralmente acorda de mau humor","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi20,psi_short_form_t1,,radio,"Eu sinto que o(a) [t1_arm_1][t1_crianca] é temperamental e fica chateado facilmente. ","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi31,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] está sempre se pendurando em mim.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi32,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] reage muito fortemente quando algo que ele não gosta acontece.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi34,psi_short_form_t1,,radio,"Quando está brincando, o(a) [t1_arm_1][t1_crianca] frequentemente não dá risada.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi36,psi_short_form_t1,,radio,"Colocar os horários de comer e de dormir para o(a) [t1_arm_1][t1_crianca] foi muito mais difícil do que eu imaginava.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi41,psi_short_form_t1,,radio,"Eu descobri que conseguir que o(a) [t1_arm_1][t1_crianca] faça alguma coisa ou pare de fazer algo que ele já está fazendo é: (Escolha uma resposta em relação às escolhas abaixo). ","1, Mais difícil do que eu esperava | 2, Um pouco mais difícil do que eu esperava | 3, Tão difícil quanto eu esperava | 4, Um pouco mais fácil do que eu esperava | 5, Mais fácil do que eu esperava",,,,,,,y,LV,,,,
+t1_psi42,psi_short_form_t1,,radio,"Pense com cuidado e conte o número de coisas que o(a) [t1_arm_1][t1_crianca] faz que incomodam você. Por exemplo, se recusa a escutar, fica agitado, chora, interrompe, briga, choraminga etc. (Escolha uma resposta em relação às escolhas abaixo).","1, 1-3 | 2, 4-5 | 3, 6-7 | 4, 8-9 | 5, 10+",,,,,,,y,LV,,,,
+t1_psi44,psi_short_form_t1,,radio,"Tem algumas coisas que o(a) [t1_arm_1][t1_crianca] faz que me incomodam muito.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi47,psi_short_form_t1,,radio,"O comportamento do(a) [t1_arm_1][t1_crianca] é mais problemático do que eu esperava.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_psi50,psi_short_form_t1,,radio,"O(A) [t1_arm_1][t1_crianca] tem mais demandas ou exige mais de mim do que a maioria das crianças.","1, Concordo Totalmente | 2, Concordo | 3, Nem concordo nem discordo | 4, Discordo | 5, Discordo Totalmente",,,,,,,y,LV,,,,
+t1_start_ad,alcool_e_drogas_t1,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_droga1,alcool_e_drogas_t1,"Agora, faremos algumas perguntas sobre uso de substâncias não prescritas por um(a) médico(a) ",radio,"Você tomou bebidas alcoólicas durante a gravidez?","0, Nunca | 1, Ocasionalmente, algumas vezes por mês | 2, Semanalmente, pelo menos uma vez por semana (ou só final de semana) | 3, Diariamente ou quase todos os dias",,,,,,,y,LV,,,,
+t1_droga1a,alcool_e_drogas_t1,,radio,"Atualmente, você toma bebidas alcoólicas? ","0, Nunca | 1, Ocasionalmente, algumas vezes por mês | 2, Semanalmente, pelo menos uma vez por semana (ou só final de semana) | 3, Diariamente ou quase todos os dias",,,,,,,y,LV,,,,
+t1_droga1b,alcool_e_drogas_t1,,text,"Com qual idade você começou a tomar bebidas alcoólicas?",,,number,,,,"[t1_droga1] <> 0 or [t1_droga1a] <> 0",y,LV,,,,
+t1_droga2,alcool_e_drogas_t1,,radio,"Durante a gestação, você fumou cigarro (tabaco)?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga2a,alcool_e_drogas_t1,,radio,"Atualmente, você fuma cigarro (tabaco)?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga2b,alcool_e_drogas_t1,,text,"Com qual idade você começou a fumar cigarro (tabaco)?",,,number,,,,"[t1_droga2] <> 0 or [t1_droga2a] <> 0",y,LV,,,,
+t1_droga3,alcool_e_drogas_t1,,radio,"Durante a gestação, você usou maconha?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga3a,alcool_e_drogas_t1,,radio,"Atualmente, você usa maconha? ","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga3b,alcool_e_drogas_t1,,text,"Com qual idade você começou a usar maconha?",,,number,,,,"[t1_droga3] <> 0 or [t1_droga3a] <> 0",y,LV,,,,
+t1_droga4,alcool_e_drogas_t1,,radio,"Durante a gestação, você usou cocaína ou crack?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga4a,alcool_e_drogas_t1,,radio,"Atualmente, você usa cocaína ou crack? ","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga4b,alcool_e_drogas_t1,,text,"Com qual idade você começou a usar cocaína ou crack?",,,number,,,,"[t1_droga4] <> 0 or [t1_droga4a] <> 0",y,LV,,,,
+t1_droga5,alcool_e_drogas_t1,,radio,"Durante a gestação, você usou anfetaminas ou êxtase?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga5a,alcool_e_drogas_t1,,radio,"Atualmente, você usa anfetaminas ou êxtase? ","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga5b,alcool_e_drogas_t1,,text,"Com qual idade você começou a usar anfetaminas ou êxtase?",,,number,,,,"[t1_droga5] <> 0 or [t1_droga5a] <> 0",y,LV,,,,
+t1_droga6,alcool_e_drogas_t1,,radio,"Durante a gestação, você usou inalantes?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga6a,alcool_e_drogas_t1,,radio,"Atualmente, você usa inalantes? ","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga6b,alcool_e_drogas_t1,,text,"Com qual idade você começou a usar inalantes?",,,number,,,,"[t1_droga6] <> 0 or [t1_droga6a] <> 0",y,LV,,,,
+t1_droga7,alcool_e_drogas_t1,,radio,"Durante a gestação, você usou hipnóticos/sedativos?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga7a,alcool_e_drogas_t1,,radio,"Atualmente, você usa hipnóticos/sedativos? ","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga7b,alcool_e_drogas_t1,,text,"Com qual idade você começou a usar hipnóticos/sedativos?",,,number,,,,"[t1_droga7] <> 0 or [t1_droga7a] <> 0",y,LV,,,,
+t1_droga8,alcool_e_drogas_t1,,radio,"Durante a gestação, você usou alucinógenos?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga8a,alcool_e_drogas_t1,,radio,"Atualmente, você usa alucinógenos? ","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga8b,alcool_e_drogas_t1,,text,"Com qual idade você começou a usar alucinógenos?",,,number,,,,"[t1_droga8] <> 0 or [t1_droga8a] <> 0",y,LV,,,,
+t1_droga9,alcool_e_drogas_t1,,radio,"Durante a gestação, você usou opióides?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga9a,alcool_e_drogas_t1,,radio,"Atualmente, você usa opióides? ","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga9b,alcool_e_drogas_t1,,text,"Com qual idade você começou a usar opióides?",,,number,,,,"[t1_droga9] <> 0 or [t1_droga9a] <> 0",y,LV,,,,
+t1_droga10,alcool_e_drogas_t1,,radio,"Durante a gestação, você usou alguma outra droga?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga10a,alcool_e_drogas_t1,,radio,"Atualmente, você usa alguma outra droga? ","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_droga10b,alcool_e_drogas_t1,,text,"Com qual idade você começou a usar essa outra droga?",,,number,,,,"[t1_droga10] <> 0 or [t1_droga10a] <> 0",y,LV,,,,
+t1_droga10c,alcool_e_drogas_t1,,text,"Qual droga é essa?",,,,,,,"[t1_droga10] <> 0 or [t1_droga10a] <> 0",y,LV,,,,
+t1_start_social,avaliacao_suporte_social,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_mspss2,avaliacao_suporte_social,"Gostaria de saber sobre o que você pensa sobre três afirmações. Preste atenção em cada uma das afirmações e indique o quanto você concorda com cada uma.",radio,"Tem uma pessoa que eu posso compartilhar minhas alegrias e tristezas.","1, Discordo muito fortemente | 2, Discordo fortemente | 3, Discordo um pouco | 4, Neutro | 5, Concordo um pouco | 6, Concordo fortemente | 7, Concordo muito fortemente",,,,,,,y,LV,,,,
+t1_mspss4,avaliacao_suporte_social,,radio,"Eu tenho ajuda emocional e suporte que eu preciso da minha família.","1, Discordo muito fortemente | 2, Discordo fortemente | 3, Discordo um pouco | 4, Neutro | 5, Concordo um pouco | 6, Concordo fortemente | 7, Concordo muito fortemente",,,,,,,y,LV,,,,
+t1_mspss7,avaliacao_suporte_social,,radio,"Eu posso contar com meus amigos quando as coisas dão errado.","1, Discordo muito fortemente | 2, Discordo fortemente | 3, Discordo um pouco | 4, Neutro | 5, Concordo um pouco | 6, Concordo fortemente | 7, Concordo muito fortemente",,,,,,,y,LV,,,,
+t1_simss,avaliacao_suporte_social,,text,"Quantas pessoas você tem perto de você com quem pode contar para ajuda em momentos de dificuldade, como cuidar de crianças ou animais de estimação, dar caronas ao hospital ou loja, ou ajudar quando estiver doente?",,,number,,,,,y,LV,,,,
+t1_start_bads,escala_de_depressao_para_ac_formulario_breve_bads_t1,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_badssf1,escala_de_depressao_para_ac_formulario_breve_bads_t1,"Por favor, preste atenção nas seguintes frases. Me diga o número que melhor descreve o quanto a afirmação foi verdadeira para você durante a última semana, incluindo o dia de hoje. ",radio,"Há certas coisas que eu tinha que fazer e não consegui","0, 6 Concordo totalmente | 1, 5 | 2, 4 Concordo | 3, 3 Indiferente | 4, 2 Discordo | 5, 1 | 6, 0 Discordo totalmente",,,,,,,y,LV,,,,
+t1_badssf2,escala_de_depressao_para_ac_formulario_breve_bads_t1,,radio,"Eu estou contente com a quantidade e tipos de coisas que eu fiz.","0, 0 Discordo totalmente | 1, 1 | 2, 2 Discordo | 3, 3 Indiferente | 4, 4 Concordo | 5, 5 | 6, 6 Concordo totalmente",,,,,,,y,LV,,,,
+t1_badssf3,escala_de_depressao_para_ac_formulario_breve_bads_t1,,radio,"Eu estive engajado(a) em um amplo e variado conjunto de atividades.","0, 0 Discordo totalmente | 1, 1 | 2, 2 Discordo | 3, 3 Indiferente | 4, 4 Concordo | 5, 5 | 6, 6 Concordo totalmente",,,,,,,y,LV,,,,
+t1_badssf4,escala_de_depressao_para_ac_formulario_breve_bads_t1,,radio,"Eu tomei boas decisões sobre as atividades e/ou situações em que me engajei.","0, 0 Discordo totalmente | 1, 1 | 2, 2 Discordo | 3, 3 Indiferente | 4, 4 Concordo | 5, 5 | 6, 6 Concordo totalmente",,,,,,,y,LV,,,,
+t1_badssf5,escala_de_depressao_para_ac_formulario_breve_bads_t1,,radio,"Eu sou uma pessoa ativa e consegui atingir as metas que havia estabelecido.","0, 0 Discordo totalmente | 1, 1 | 2, 2 Discordo | 3, 3 Indiferente | 4, 4 Concordo | 5, 5 | 6, 6 Concordo totalmente",,,,,,,y,LV,,,,
+t1_badssf6,escala_de_depressao_para_ac_formulario_breve_bads_t1,,radio,"O que eu mais fiz foi fugir ou esquivar de alguma coisa desagradável.","0, 6 Concordo totalmente | 1, 5 | 2, 4 Concordo | 3, 3 Indiferente | 4, 2 Discordo | 5, 1 | 6, 0 Discordo totalmente",,,,,,,y,LV,,,,
+t1_badssf7,escala_de_depressao_para_ac_formulario_breve_bads_t1,,radio,"Eu perdi muito tempo pensando repetidamente sobre meus problemas.","0, 6 Concordo totalmente | 1, 5 | 2, 4 Concordo | 3, 3 Indiferente | 4, 2 Discordo | 5, 1 | 6, 0 Discordo totalmente",,,,,,,y,LV,,,,
+t1_badssf8,escala_de_depressao_para_ac_formulario_breve_bads_t1,,radio,"Eu me engajei em atividades que me distraíram de me sentir mal.","0, 6 Concordo totalmente | 1, 5 | 2, 4 Concordo | 3, 3 Indiferente | 4, 2 Discordo | 5, 1 | 6, 0 Discordo totalmente",,,,,,,y,LV,,,,
+t1_badssf9,escala_de_depressao_para_ac_formulario_breve_bads_t1,,radio,"Eu fiz coisas que eram agradáveis.","0, 0 Discordo totalmente | 1, 1 | 2, 2 Discordo | 3, 3 Indiferente | 4, 4 Concordo | 5, 5 | 6, 6 Concordo totalmente",,,,,,,y,LV,,,,
+t1_badssf_total,escala_de_depressao_para_ac_formulario_breve_bads_t1,,calc,"Somatória BADS-SF","sum([t1_badssf1],[t1_badssf2],[t1_badssf3],[t1_badssf4],[t1_badssf5],[t1_badssf6],[t1_badssf7],[t1_badssf8],[t1_badssf9])",,,,,,,y,LV,,,," @HIDDEN-SURVEY"
+t1_start_rpi,indice_de_probabilidade_de_recompensa_rpi_t1,,text,start,,,,,,,,,,,,," @NOW @HIDDEN"
+t1_rpi1,indice_de_probabilidade_de_recompensa_rpi_t1,"Pense no último mês e me diga o quanto cada um dos itens se encaixa para você. As opções de resposta são: Discordo totalmente, Discordo, Concordo e Concordo totalmente.",radio,"Eu tenho muitos interesses que me dão prazer.","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_rpi2,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu aproveito a maioria das oportunidades que estão disponíveis para mim.","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_rpi3,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Meus comportamentos frequentemente têm consequências negativas.","1, Concordo totalmente | 2, Concordo | 3, Discordo | 4, Discordo totalmente",,,,,,,y,LV,,,,
+t1_rpi4,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu faço amigos facilmente.","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_rpi5,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Existem muitas atividades que eu acho satisfatórias. ","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_rpi6,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu me considero uma pessoa com muitas habilidades.","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_rpi7,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Coisas acontecem que fazem me sentir desesperançoso(a) ou inadequado(a).","1, Concordo totalmente | 2, Concordo | 3, Discordo | 4, Discordo totalmente",,,,,,,y,LV,,,,
+t1_rpi8,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu sinto um forte senso de realização.","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_rpi9,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Mudanças aconteceram na minha vida e tornaram difícil para mim encontrar diversão.","1, Concordo totalmente | 2, Concordo | 3, Discordo | 4, Discordo totalmente",,,,,,,y,LV,,,,
+t1_rpi10,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"É fácil encontrar boas maneiras de passar o meu tempo.","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_rpi11,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu tenho as habilidades para obter prazer na vida.","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_rpi12,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu tenho poucos recursos financeiros, o que limita as coisas que eu posso fazer.","1, Concordo totalmente | 2, Concordo | 3, Discordo | 4, Discordo totalmente",,,,,,,y,LV,,,,
+t1_rpi13,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu tenho tido muitas experiências desagradáveis.","1, Concordo totalmente | 2, Concordo | 3, Discordo | 4, Discordo totalmente",,,,,,,y,LV,,,,
+t1_rpi14,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Parece que as coisas ruins sempre acontecem comigo.","1, Concordo totalmente | 2, Concordo | 3, Discordo | 4, Discordo totalmente",,,,,,,y,LV,,,,
+t1_rpi15,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu tenho boas habilidades sociais.","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_rpi16,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu frequentemente me machuco com os outros.","1, Concordo totalmente | 2, Concordo | 3, Discordo | 4, Discordo totalmente",,,,,,,y,LV,,,,
+t1_rpi17,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Pessoas são maldosas e agressivas comigo.","1, Concordo totalmente | 2, Concordo | 3, Discordo | 4, Discordo totalmente",,,,,,,y,LV,,,,
+t1_rpi18,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu fui muito capaz nos trabalhos que já tive.","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_rpi19,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu gostaria de encontrar um lugar para viver que traria mais satisfação para minha vida.","1, Concordo totalmente | 2, Concordo | 3, Discordo | 4, Discordo totalmente",,,,,,,y,LV,,,,
+t1_rpi20,indice_de_probabilidade_de_recompensa_rpi_t1,,radio,"Eu tenho muitas oportunidades de socializar com as pessoas.","1, Discordo totalmente | 2, Discordo | 3, Concordo | 4, Concordo totalmente",,,,,,,y,LV,,,,
+t1_total_rpi,indice_de_probabilidade_de_recompensa_rpi_t1,,calc,"Somatória RPI","sum(
+  [t1_rpi1],[t1_rpi2],
+  (5-[t1_rpi3]),
+  [t1_rpi4],[t1_rpi5],[t1_rpi6],
+  (5-[t1_rpi7]),
+  [t1_rpi8],
+  (5-[t1_rpi9]),
+  [t1_rpi10],[t1_rpi11],
+  (5-[t1_rpi12]),
+  (5-[t1_rpi13]),
+  (5-[t1_rpi14]),
+  [t1_rpi15],
+  (5-[t1_rpi16]),
+  (5-[t1_rpi17]),
+  [t1_rpi18],
+  (5-[t1_rpi19]),
+  [t1_rpi20]
+)",,,,,,,y,LV,,,," @HIDDEN-SURVEY"
+feedback_txt,feedback_de_entrevista,,descriptive,"Obrigado pelo seu tempo! Antes de finalizarmos, por favor, responda:",,,,,,,,,,,,,
+feedback_1,feedback_de_entrevista,,dropdown,"Dê uma nota para a avaliação:","0, 0 | 1, 1 | 2, 2 | 3, 3 | 4, 4 | 5, 5",,,,,,,y,LV,,,,
+feedback_2,feedback_de_entrevista,,notes,"Você gostaria de fazer algum comentário sobre a avaliação que você acabou de realizar? Apenas a coordenação terá acesso à estas informações. ",,,,,,,,,LV,,,,
+t1_start_cgi,clinical_global_impression_severity_t1,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_text_cgi_s,clinical_global_impression_severity_t1,,descriptive,"<div class=""rich-text-field-label""><p><strong> As questões abaixo não devem ser realizadas diretamente para a participante. </strong></p> <p style=""text-align: justify;""><span style=""font-weight: normal;"">A CGI-S é uma escala desenvolvida para que o avaliador use o máximo de informações possíveis que tenha acesso para classificar participantes de estudos da área da saúde em termos de gravidade do transtorno mental diagnosticado. Não se trata, então, de perguntar ao paciente seu estado de gravidade ou ler as opções de resposta para ele; trata-se de se utilizar um amplo conjunto de informações clínicas levantadas durante a entrevista. Para isso é importante se familiarizar do ponto de vista teórico com as características do transtorno mental em questão. Livros sobre psicopatologia apresentam um panorama detalhado sobre Depressão. Vamos retomar, brevemente, os principais sintomas desse transtorno mental:</span><br><br>- Humor deprimido<span style=""font-weight: normal;""> (sentimento de tristeza, vazio, sem esperança);</span><br>- Diminuição do interesse ou prazer<span style=""font-weight: normal;""> em todas ou quase todas as atividades que fazem parte do cotidiano;</span><br><span style=""font-weight: normal;"">- Perda ou ganho significativo de </span>peso<span style=""font-weight: normal;"">;</span><br><span style=""font-weight: normal;"">- Redução ou aumento do </span>apetite <span style=""font-weight: normal;"">quase todos os dias.</span><br><span style=""font-weight: normal;"">- </span>Insônia <span style=""font-weight: normal;"">ou </span>hipersonia<span style=""font-weight: normal;"">;</span><br><span style=""font-weight: normal;"">- </span>Agitação<span style=""font-weight: normal;""> ou </span>retardo psicomotor<span style=""font-weight: normal;"">;</span><br><span style=""font-weight: normal;"">- </span>Fadiga<span style=""font-weight: normal;""> ou </span>perda de energia<span style=""font-weight: normal;"">;</span><br>- Sentimentos de inutilidade<span style=""font-weight: normal;""> ou </span>culpa excessiva<span style=""font-weight: normal;""> ou inapropriada;</span><br>- Diminuição da capacidade de pensar ou se concentrar<span style=""font-weight: normal;"">, ou </span>indecisão<span style=""font-weight: normal;"">;</span><br>- Pensamentos recorrentes de morte, ideação suicida, tentativa de suicídio<span style=""font-weight: normal;""> ou</span> plano específico <span style=""font-weight: normal;"">para cometer suicídio;</span><br><br><span style=""font-weight: normal;"">Os dados que você levantou ao longo da avaliação, tomando como base as seções ""Tratamento saúde mental"", ""QIDS-C16"", ""Escala de Depressão de Edimburgo"", ""Escala de Incapacidade de Sheehan"", e ""Escala de depressão para ativação comportamental"", procure montar um quadro geral do funcionamento da participante e do impacto da Depressão nas áreas de vida (ocupacional, social, familiar etc).</span><br><br><span style=""font-weight: normal;"">Abaixo, veja algumas descrições de cada uma das opções de resposta que podem te auxiliar a tomar uma decisão acerca da classificação da participante:</span><br><br>- 1 Normal, não doente:<span style=""font-weight: normal;""> pela natureza do presente estudo, não teremos participantes que se encaixam nessa categoria.</span><br>- 2 Limítrofe para transtorno mental<span style=""font-weight: normal;"">, tem sintomas, mas não apresenta prejuízos.</span><br>- 3 Levemente doente, prejuízo funcional leve<span style=""font-weight: normal;"">: sintomas de depressão estão presentes, mas tem intensidade leve ou são poucos sintomas. Os sintomas talvez sejam reações a eventos estressores ou apenas temporários. Não há quase nenhum prejuízo funcional observável, salvo pequenos problemas pontuais que não afetam áreas importantes da vida.</span><br>- 4 Moderadamente doente, desempenha com esforço:<span style=""font-weight: normal;""> sintomas de depressão estão presentes, mas tem intensidade moderada, usualmente com cinco ou mais sintomas presentes, além de humor deprimido ou perda de interesse/prazer. Os sintomas impactam o funcionamento, mas é possível realizar tarefas e atividades com esforço. Há prejuízo na área social, mas ainda mantém vínculos, mesmo que com dificuldade.</span><br>- 5 Marcadamente doente, desempenho limitado:<span style=""font-weight: normal;""> sintomas de depressão estão presentes com intensidade alta, frequentemente com cinco ou mais sintomas presentes, além de humor deprimido ou perda de interesse/prazer. Os sintomas impactam o funcionamento, gerando perda de produtividade ou de desempenho. É possível manter ou realizar algumas tarefas e atividades, mas com muito esforço. Há prejuízo na área social, com perda de vínculos ou evitação/afastamento de pessoas ou situações sociais.</span><br>- 6 Gravemente doente, consegue desempenhar praticamente somente com assistência:<span style=""font-weight: normal;""> Humor deprimido ou diminuição do interesse ou prazer constantemente presentes. Presença de pensamentos recorrentes de morte ou ideação suicida, algum risco de tentativa de suicídio. Muita dificuldade de exercer tarefas e atividades, mesmo que básicas, geralmente precisa de auxílio. Prejuízo funcional importante, afetando todas ou quase todas as áreas da vida. Prejuízo social importante.</span><br>- 7 Transtorno mental extremamente grave, desempenho completamente comprometido:<span style=""font-weight: normal;""> Humor deprimido ou diminuição do interesse ou prazer constantemente presentes. Presença de ideação suicida com plano específico, alto risco de tentativa de suicídio. Dificuldade extrema ou impossibilidade de manter higiene pessoal sem auxílio. Prejuízo funcional profundo, afetando todas ás áreas da vida. Prejuízo social importante. Pela natureza do presente estudo é muito improvável que teremos participantes que se encaixam nessa categoria.</span><br><br><span style=""font-weight: normal;"">Sendo assim, tomando como base as explicações acima e as informações que você levantou ao longo da avaliação, preencha:</span></p></div>",,,,,,,,,,,,,
+t1_cgi_s,clinical_global_impression_severity_t1,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Considerando os dados levantados durante a avaliação e considerando a sua experiência clínica prévia com pacientes com sintomas depressivos, como você classifica a gravidade dos sintomas dessa paciente neste momento?</p></div>","1, Normal, não doente; | 2, Limítrofe para transtorno mental, tem sintomas mas não apresenta prejuízo; | 3, Levemente doente, prejuízo funcional leve; | 4, Moderadamente doente, desempenha com esforço; | 5, Marcadamente doente, desempenho limitado; | 6, Gravemente doente, consegue desempenhar praticamente somente com assistência; | 7, Transtorno mental extremamente grave, desempenho completamente comprometido;",,,,,,,y,LV,,,,
+t1_start_qualisess,qualidade_da_entrevista_t1,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_quali1,qualidade_da_entrevista_t1,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Qualidade da entrevista<br><br>As questões abaixo não devem ser realizadas diretamente para a participante. Devem ser preenchidas pela avaliadora.<br><br>Responda imediatamente após o término da entrevista.</p></div>",radio,"A avaliação ocorreu por qual meio?","0, Ligação telefônica | 1, Videochamada | 2, Ambos (precisou trocar)",,,,,,,y,LV,,,,
+t1_quali2,qualidade_da_entrevista_t1,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Por favor, use as seguintes escalas de 5 pontos para dar sua impressão sobre a entrevista com a participante.</p> <p style=""text-align: justify;""><br />Você achou que ela foi...</p></div>",radio,"...cooperativa.
+","0, Muito pouco cooperativa | 1, Pouco cooperativa | 2, Neutra | 3, Cooperativa | 4, Muito cooperativa",,,,,,,y,LV,,,,
+t1_quali3,qualidade_da_entrevista_t1,,radio,"...que ela estava sendo sincera ou verdadeira","0, Sendo muito pouco sincera ou verdadeira | 1, Sendo pouco sincera ou verdadeira | 2, Neutra | 3, Sendo sincera ou verdadeira | 4, Sendo muito sincera ou verdadeira",,,,,,,y,LV,,,,
+t1_quali4,qualidade_da_entrevista_t1,,radio,"...que ela estava muito à vontade.","0, Muito nervosa ou receosa | 1, Nervosa ou receosa | 2, Neutra | 3, À vontade | 4, Muito à vontade",,,,,,,y,LV,,,,
+t1_quali5,qualidade_da_entrevista_t1,,radio,"Na maioria das vezes você achou que ela entendeu as perguntas?
+","0, Não entendeu quase nada das perguntas | 1, Não entendeu direito as perguntas | 2, Neutro | 3, Entendeu as perguntas | 4, Entendeu as perguntas muito bem",,,,,,,y,LV,,,,
+t1_quali6,qualidade_da_entrevista_t1,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Escolha a opção que melhor descreve a qualidade da conexão ou da ligação telefônica:</p></div>","0, Muito ruim, muitos problemas ocorreram, não consigo garantir a qualidade das informações | 1, Ruim, problemas ocorreram, a qualidade da entrevista foi comprometida | 2, Razoável, alguns problemas ocorreram, a qualidade da entrevista foi um pouco comprometida | 3, Boa, alguns problemas ocasionais ocorreram, mas não comprometeram | 4, Muito boa, sem problemas",,,,,,,y,LV,,,,
+t1_quali7,qualidade_da_entrevista_t1,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;""><strong id=""docs-internal-guid-0485dfc8-7fff-d20e-bacf-2911493d477c"">Você acha que em algum momento a presença de alguma pessoa no ambiente da participante influenciou as respostas?</strong></p></div>","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_quali8,qualidade_da_entrevista_t1,,radio,"<div class=""rich-text-field-label""><p dir=""ltr"">A participante estava fazendo atividades ou tarefas de casa enquanto respondia as perguntas?</p></div>","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_quali9,qualidade_da_entrevista_t1,,notes,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Adicione aqui qualquer comentário que ache pertinente (ex. problemas, impressões gerais etc) a respeito da entrevista ou da participante:</p></div>",,,,,,,,,LV,,,,
+t1_horario_fim,qualidade_da_entrevista_t1,,text,"Horário do fim da entrevista",,,time,,,,,y,LV,,,,
+t1_start_pre,formulario_pre_sessao,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_pre_sessao1,formulario_pre_sessao,"<div class=""rich-text-field-label""><p style=""text-align: justify;""><strong>Olá [t0_arm_1][t0_nome]!!</strong></p> <p style=""text-align: justify;""><strong id=""docs-internal-guid-ad2446d1-7fff-b3f5-aa02-3631474e9143"">Antes de agendarmos a sua sessão de psicoterapia, gostaríamos que você respondesse a algumas perguntas. Reflita sobre elas e busque responder com atenção. Estas perguntas são o início do processo terapêutico. Respondê-las irá te ajudar a tirar o melhor proveito da sessão e também irá ajudar sua terapeuta a te auxiliar. Não há necessidade de escrever muito. </strong></p> <p style=""text-align: justify;""><strong>Obrigada!</strong></p></div>",notes,"Descreva como é um dia típico seu, da manhã até a noite. O que você costuma fazer?",,,,,,,,y,LV,,,,
+t1_pre_sessao2,formulario_pre_sessao,,notes,"<div class=""rich-text-field-label""><p><strong id=""docs-internal-guid-0c7052ce-7fff-b812-c84a-9f8c1e6f83bf"">O que você gosta ou costumava gostar de fazer em momentos de lazer para se divertir, relaxar ou se sentir bem consigo mesma?</strong></p></div>",,,,,,,,y,LV,,,,
+t1_pre_sessao3,formulario_pre_sessao,,notes,"O que você costuma fazer ou sente que deveria estar fazendo de obrigações do dia a dia, trabalho, cuidados com a casa ou consigo mesma?",,,,,,,,y,LV,,,,
+t1_pre_sessao4,formulario_pre_sessao,,notes,"Há atividades que você fazia antes (por prazer, por obrigação ou por hábito) que deixou de fazer ou está fazendo menos desde que os sintomas começaram (ou desde que virou mãe)?",,,,,,,,y,LV,,,,
+t1_pre_sessao5,formulario_pre_sessao,,notes,"Que pessoas (familiares, amigos, etc.) você gosta de estar ou a quem pode pedir ajuda quando precisa? ",,,,,,,,y,LV,,,,
+t1_pre_sessao7,formulario_pre_sessao,,descriptive,"Muito obrigada por dedicar seu tempo e compartilhar suas respostas. Elas serão lidas com cuidado pela psicoterapeuta e trabalhadas com você da melhor forma possível durante a sessão.",,,,,,,,,,,,,
+pron_txt,formulrio_para_pronturio,,descriptive,"Dados da sessão",,,,,,,,,,,,,
+pron_data,formulrio_para_pronturio,,text,"Data da sessão.",,,date_dmy,,,,,y,,,,," @TODAY"
+pron_duracao,formulrio_para_pronturio,,text,"Duração da sessão (em minutos).",,,number,,,,,y,,,,,
+pron_terapeuta,formulrio_para_pronturio,,dropdown,"Nome da psicoterapeuta.","1, Ana Claudia Sillos | 2, Anna Beatriz Gualandi | 3, Camila Monti | 4, Elisa Teixeira | 5, Karina Lima | 6, Késya Martha | 7, Lais Machado | 8, Milena Santiago | 9, Monica Fonseca | 10, Rachel Costa | 11, Rebeca Costa | 12, Eduarda Souza",,,,,,,y,,,,,
+pron_txt_2,formulrio_para_pronturio,,descriptive,Queixas,,,,,,,,,,,,,
+pron_queixas,formulrio_para_pronturio,,notes,"Descreva as principais queixas trazidas pela participante na sessão (Inclua contexto social, relacional ou prático que tenha emergido, além das queixas emocionais. Ex.: ""Participante relata isolamento social significativo desde o nascimento do bebê, sem rede de apoio próxima; apresenta também queixas relativas à amamentação, que está sendo muito difícil."")
+",,"limite 80 palavras",,,,,,y,LV,,,,
+pron_etapas_intro,formulrio_para_pronturio,,checkbox,"Quais etapas da fase de introdução foram efetivamente realizadas durante a sessão","1, Apresentação da terapeuta | 2, Psicoeducação sobre PSU | 3, Acolhimento da queixa | 4, Resumo da queixa",,,,,,,y,LV,,,,
+pron_etapas_aval,formulrio_para_pronturio,,checkbox,"Quais aspectos foram efetivamente avaliados na fase de avaliação","1, Rotina atual | 2, Fonte de reforçamento | 3, Rede de apoio | 4, Experiências prévias",,,,,,,y,LV,,,,
+pron_ba,formulrio_para_pronturio,,checkbox,"Quais intervenções de ativação comportamental foram efetivamente realizadas na sessão? ","1, Explicação da racional | 2, Brainstorm de atividades | 3, Classificação de atividades por nível de dificuldade ou esforço | 4, Definição de metas específicas e alcançáveis | 5, Identificação de rede de apoio para suporte na execução da atividade",,,,,,,y,LV,,,,
+pron_ba_sim,formulrio_para_pronturio,,notes," Descreva as atividades agendadas e os obstáculos percebidos durante a sessão (inclua a área de cada atividade (lazer, produtividade, relacionamentos) e eventuais dificuldades observadas. Ex.: ""Agendadas duas atividades: caminhada leve 3 vezes por semana (lazer) e contato semanal com a irmã por videochamada (relacionamentos). Participante demonstrou interesse mas minimizou a própria capacidade de realizar, possível esquiva."")
+",,"limite 80 palavras",,,,,,y,LV,,,,
+pron_ba_nao,formulrio_para_pronturio,,notes,"Caso a ativação comportamental não tenha sido realizada, descreva (Ex.: ""BA não realizada pois participante apresentou ideação suicida. Sessão foi redirecionada para elaboração de plano de segurança""). Caso contrário, escreva 'não se aplica'.
+",,"limite 80 palavras",,,,,,y,LV,,,,
+pron_tcc,formulrio_para_pronturio,,checkbox,"Outras técnicas de TCC utilizadas. (Selecione todas que se aplicam.)","1, Questionamento socrático | 2, Resolução de problemas | 3, Psicoeducação adicional (além da introdução padrão da sessão) | 4, Reestruturação cognitiva | 5, Higiene do sono | 6, Manejo de estresse | 7, Plano de segurança | 8, Outro",,,,,,,y,LV,,,,
+pron_tcc_outro,formulrio_para_pronturio,,notes,"Especifique a outra técnica utilizada.
+",,,,,,,"[pron_tcc(8)] = '1'",y,LV,,,,
+pron_app_modulos,formulrio_para_pronturio,,checkbox,"Módulos do aplicativo Motherly utilizados na sessão. (Selecione todos que se aplicam.)","1, Ativação Comportamental | 2, Regulação Emocional | 3, Manejo de Estresse | 4, Reestruturação Cognitiva | 5, Higiene do Sono | 6, Mindfulness | 7, Aplicativo não acessado na sessão",,,,,,,y,LV,,,,
+pron_grav_sessao,formulrio_para_pronturio,,radio,"A sessão de psicoterapia foi gravada? ","0, Sim | 1, Não, a participante não deu consentimento | 2, Não, tive problemas técnicos",,,,,,,y,LV,,,,
+pron_txt_3,formulrio_para_pronturio,,descriptive,Emergências,,,,,,,,,,,,,
+pron_ideacao,formulrio_para_pronturio,,radio,"Ideação suicida foi identificada na sessão.","0, Não | 1, Sim",,,,,,,y,LV,,,,
+pron_ideacao_plano,formulrio_para_pronturio,,radio,"Plano de segurança foi elaborado.","0, Não | 1, Sim",,,,,,"[pron_ideacao] = '1'",y,LV,,,,
+pron_ideacao_supervisao,formulrio_para_pronturio,,radio," Supervisão foi notificada","0, Não | 1, Sim",,,,,,"[pron_ideacao] = '1'",y,LV,,,,
+pron_vd,formulrio_para_pronturio,,radio,"Violência doméstica foi identificada na sessão.","0, Não | 1, Sim",,,,,,,y,LV,,,,
+pron_vd_rede,formulrio_para_pronturio,,radio,"Rede de atendimento à mulher foi apresentada.","0, Não | 1, Sim",,,,,,[pron_vd]='1',y,LV,,,,
+pron_txt_4,formulrio_para_pronturio,,descriptive,"Dificuldades no uso do aplicativo",,,,,,,,,,,,,
+pron_app_instalado,formulrio_para_pronturio,,radio,"O aplicativo estava instalado no início da sessão?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+pron_app_tecnico,formulrio_para_pronturio,,radio,"Houve problemas técnicos com o aplicativo durante a sessão.","0, Não | 1, Sim",,,,,,,y,LV,,,,
+pron_app_resistencia,formulrio_para_pronturio,,radio,"A participante demonstrou resistência ao uso do aplicativo.","0, Não | 1, Sim",,,,,,,y,LV,,,,
+pron_app_dificuldades,formulrio_para_pronturio,,notes,"Descreva as dificuldades encontradas e como foram manejadas (Ex.: ""Participante não tinha o aplicativo instalado. Instalação realizada durante a sessão, consumindo cerca de 10 minutos. Participante teve dificuldade com o cadastro por não lembrar a senha do email, resolvido com criação de novo cadastro."")",,"limite 80 palavras",,,,,"[pron_app_instalado] = '0' OR
+[pron_app_tecnico] = '1' OR
+[pron_app_resistencia] = '1'",y,LV,,,,
+pron_txt_5,formulrio_para_pronturio,,descriptive,"Observações gerais",,,,,,,"[pron_app_instalado] = '0' OR
+[pron_app_tecnico] = '1' OR
+[pron_app_resistencia] = '1'",,,,,,
+pron_obs,formulrio_para_pronturio,,notes,"Use este campo para registrar qualquer informação clinicamente relevante não capturada nos campos anteriores: impressões sobre o vínculo, temas que emergiram mas não foram aprofundados, situações atípicas na sessão. Ex.: ""Participante ficou muito emocionada ao falar sobre a relação com a mãe, que faleceu durante a gestação. Tema não aprofundado por limitação de tempo. Aliança percebida como boa, com engajamento ao longo de toda a sessão."")
+",,,,,,,"[pron_app_instalado] = '0' OR
+[pron_app_tecnico] = '1' OR
+[pron_app_resistencia] = '1'",,LV,,,,
+t1_start_quali,qualidade_da_sessao,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t1_quali_terapeuta,qualidade_da_sessao,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Qualidade da sessão de Psicoterapia <br><br>As questões abaixo devem ser preenchidas pela psicóloga. <br><br>Responda imediatamente após o término da sessão com a participante.</p></div>",dropdown,Terapeuta,"1, Ana Claudia Sillos | 2, Anna Beatriz Gualandi | 3, Camila Monti | 4, Elisa Teixeira | 5, Karina Lima | 6, Késya Martha | 7, Lais Machado | 8, Milena Santiago | 9, Monica Fonseca | 10, Rachel Costa | 11, Rebeca Costa | 12, Eduarda Souza",,,,,,,y,,,,,
+t1_quali_sessao_data,qualidade_da_sessao,,text,"Data da sessão",,,date_dmy,,,,,y,LV,,,,
+t1_quali_sessao_inicio,qualidade_da_sessao,,text,"Horário de início da sessão",,,time,,,,,y,LV,,,,
+t1_quali_sessao_fim,qualidade_da_sessao,,text,"Horário do fim da sessão",,,time,,,,,y,LV,,,,
+t1_quali_sessao_meio,qualidade_da_sessao,,radio,"A sessão de psicoterapia ocorreu por qual meio?","0, Ligação telefônica | 1, Videochamada | 2, Ambos (precisou trocar)",,,,,,,y,LV,,,,
+t1_quali_sessao1,qualidade_da_sessao,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Por favor, use as seguintes escalas de 5 pontos para dar sua impressão sobre a sessão com a <strong>[t0_arm_1][t0_nome]</strong>.</p> <p style=""text-align: justify;""><br>Você achou que ela foi...</p></div>",radio,"...cooperativa.
+","0, Muito pouco cooperativa | 1, Pouco cooperativa | 2, Neutra | 3, Cooperativa | 4, Muito cooperativa",,,,,,,y,LV,,,,
+t1_quali_sessao2,qualidade_da_sessao,,radio,"...que ela estava sendo sincera ou verdadeira","0, Sendo muito pouco sincera ou verdadeira | 1, Sendo pouco sincera ou verdadeira | 2, Neutra | 3, Sendo sincera ou verdadeira | 4, Sendo muito sincera ou verdadeira",,,,,,,y,LV,,,,
+t1_quali_sessao3,qualidade_da_sessao,,radio,"...que ela estava muito à vontade.","0, Muito nervosa ou receosa | 1, Nervosa ou receosa | 2, Neutra | 3, À vontade | 4, Muito à vontade",,,,,,,y,LV,,,,
+t1_quali_sessao4,qualidade_da_sessao,,radio,"Na maioria das vezes você achou que ela entendeu as perguntas?
+","0, Não entendeu quase nada das perguntas | 1, Não entendeu direito as perguntas | 2, Neutro | 3, Entendeu as perguntas | 4, Entendeu as perguntas muito bem",,,,,,,y,LV,,,,
+t1_quali_sessao5,qualidade_da_sessao,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Escolha a opção que melhor descreve a qualidade da conexão da Videochamada:</p></div>","0, Muito ruim, muitos problemas ocorreram, não consigo garantir a qualidade das informações | 1, Ruim, problemas ocorreram, a qualidade da sessão foi comprometida | 2, Razoável, alguns problemas ocorreram, a qualidade da sessão foi um pouco comprometida | 3, Boa, alguns problemas ocasionais ocorreram, mas não comprometeram | 4, Muito boa, sem problemas",,,,,,,y,LV,,,,
+t2_quali_sessao6,qualidade_da_sessao,,radio,"<div class=""rich-text-field-label""><p style=""text-align: justify;""><strong id=""docs-internal-guid-0485dfc8-7fff-d20e-bacf-2911493d477c"">Você acha que em algum momento a presença de alguma pessoa no ambiente da participante influenciou o que ela disse em sessão?</strong></p></div>","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_quali_sessao7,qualidade_da_sessao,,radio,"<div class=""rich-text-field-label""><p dir=""ltr"">A participante estava fazendo atividades ou tarefas de casa enquanto fazia a sessão?</p></div>","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t1_quali_sessao8,qualidade_da_sessao,,radio,"Como foi a finalização da sessão?","0, O tempo de sessão foi suficiente para cumprir todas as etapas. | 1, Houve intercorrência na sessão. É necessário agendar outro dia para finalizar as etapas.",,,,,,,,LV,,,,
+t1_quali_sessao8a,qualidade_da_sessao,,notes,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Motivo da intercorrência:</p></div>",,,,,,,"[t1_quali_sessao8] = '1'",y,LV,,,,
+t1_quali_sessao9,qualidade_da_sessao,,notes,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Adicione aqui qualquer comentário que ache pertinente a respeito da psicoterapia ou da participante:</p></div>",,,,,,,,,LV,,,,
+t2_start_waiclient,waisr,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t2_waisrc_txt,waisr,,descriptive,"<div class=""rich-text-field-label""><p><span style=""font-weight: normal;"">Instruções: Abaixo está uma lista de afirmações e perguntas sobre experiências que as pessoas podem ter com a sua terapia ou com seu terapeuta. Pense na sua experiência na terapia e decida qual categoria melhor descreve a sua própria experiência. </span></p> <p><span style=""font-weight: normal;"">IMPORTANTE!!! Por favor, reserve um tempo para considerar cuidadosamente cada pergunta.</span></p></div>",,,,,,,,,,,,,
+t2_waisrc_1,waisr,,radio,"1. Como resultado desta sessão, eu tenho mais clareza sobre como poderei mudar.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrc_2,waisr,,radio,"2. O que estou fazendo na terapia me fornece novas maneiras ver o meu problema.","5, Sempre | 4, Muito frequentemente | 3, Frequentemente | 2, Às vezes | 1, Raramente",,,,,,,y,LV,,,,
+t2_waisrc_3,waisr,,radio,"3. Eu acho que [t1_arm_1][t1_quali_terapeuta] gosta de mim.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrc_4,waisr,,radio,"4. [t1_arm_1][t1_quali_terapeuta] e eu colaboramos para definir os objetivos da minha terapia.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrc_5,waisr,,radio,"5. [t1_arm_1][t1_quali_terapeuta] e eu respeitamo-nos mutuamente.","5, Sempre | 4, Muito frequentemente | 3, Frequentemente | 2, Às vezes | 1, Raramente",,,,,,,y,LV,,,,
+t2_waisrc_6,waisr,,radio,"6. [t1_arm_1][t1_quali_terapeuta] e eu estamos trabalhando para alcançar objetivos que foram mutuamente acordados.","5, Sempre | 4, Muito frequentemente | 3, Frequentemente | 2, Às vezes | 1, Raramente",,,,,,,y,LV,,,,
+t2_waisrc_7,waisr,,radio,"7. Eu sinto que [t1_arm_1][t1_quali_terapeuta] gosta de mim.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrc_8,waisr,,radio,"8. [t1_arm_1][t1_quali_terapeuta] e eu concordamos sobre aquilo que é importante eu trabalhar.","5, Sempre | 4, Muito frequentemente | 3, Frequentemente | 2, Às vezes | 1, Raramente",,,,,,,y,LV,,,,
+t2_waisrc_9,waisr,,radio,"9. Eu sinto que [t1_arm_1][t1_quali_terapeuta] se importa comigo mesmo quando faço coisas que ele(a) não aprova.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrc_10,waisr,,radio,"10. Sinto que aquilo que eu faço em terapia irá me ajudar a atingir as mudanças que eu quero.","5, Sempre | 4, Muito frequentemente | 3, Frequentemente | 2, Às vezes | 1, Raramente",,,,,,,y,LV,,,,
+t2_waisrc_11,waisr,,radio,"11. [t1_arm_1][t1_quali_terapeuta] e eu estabelecemos um bom entendimento sobre quais mudanças seriam boas para mim.","5, Sempre | 4, Muito frequentemente | 3, Frequentemente | 2, Às vezes | 1, Raramente",,,,,,,y,LV,,,,
+t2_waisrc_12,waisr,,radio,"12. Acredito que o modo como estamos trabalhando com o meu problema é correto.
+","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrc_goals,waisr,,calc,Goals,"sum (
+    [t2_waisrc_4] +[t2_waisrc_6] + [t2_waisrc_8] + [t2_waisrc_11]
+    )",,,,,,,y,LH,,,," @HIDDEN"
+t2_waisrc_tasks,waisr,,calc,Tasks,"sum (
+    [t2_waisrc_1] +[t2_waisrc_2] + [t2_waisrc_10] + [t2_waisrc_12]
+    )",,,,,,,y,LH,,,," @HIDDEN"
+t2_waisrc_bond,waisr,,calc,Bond,"sum (
+    [t2_waisrc_3] +[t2_waisrc_5] + [t2_waisrc_7] + [t2_waisrc_9]
+    )",,,,,,,y,LH,,,," @HIDDEN"
+t3_start_sus,system_usability_of_scale_sus_t3,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t3_sus1,system_usability_of_scale_sus_t3,"Agora gostaria de saber o que você achou do aplicativo. Gostaria que você dissesse se discorda fortemente, discorda, não concorda nem discorda, concorda ou concorda fortemente com as frases a seguir.",radio,"Acho que gostaria de utilizar este produto com frequência.","1, Discordo fortemente | 2, Discordo | 3, Não concordo nem discordo | 4, Concordo | 5, Concordo fortemente",,,,,,,y,,,t3_sus10,,
+t3_sus2,system_usability_of_scale_sus_t3,,radio,"Considerei o produto mais complexo do que o necessário.","1, Discordo fortemente | 2, Discordo | 3, Não concordo nem discordo | 4, Concordo | 5, Concordo fortemente",,,,,,,y,,,t3_sus10,,
+t3_sus3,system_usability_of_scale_sus_t3,,radio,"Achei o produto fácil de utilizar.","1, Discordo fortemente | 2, Discordo | 3, Não concordo nem discordo | 4, Concordo | 5, Concordo fortemente",,,,,,,y,,,t3_sus10,,
+t3_sus4,system_usability_of_scale_sus_t3,,radio,"Acho que necessitaria de ajuda de um técnico para conseguir utilizar este produto.","1, Discordo fortemente | 2, Discordo | 3, Não concordo nem discordo | 4, Concordo | 5, Concordo fortemente",,,,,,,y,,,t3_sus10,,
+t3_sus5,system_usability_of_scale_sus_t3,,radio,"Considerei que as várias funcionalidades deste produto estavam bem integradas.","1, Discordo fortemente | 2, Discordo | 3, Não concordo nem discordo | 4, Concordo | 5, Concordo fortemente",,,,,,,y,,,t3_sus10,,
+t3_sus6,system_usability_of_scale_sus_t3,,radio,"Achei que este produto tinha muitas inconsistências.","1, Discordo fortemente | 2, Discordo | 3, Não concordo nem discordo | 4, Concordo | 5, Concordo fortemente",,,,,,,y,,,t3_sus10,,
+t3_sus7,system_usability_of_scale_sus_t3,,radio,"Suponho que a maioria das pessoas aprenderia a utilizar rapidamente este produto.","1, Discordo fortemente | 2, Discordo | 3, Não concordo nem discordo | 4, Concordo | 5, Concordo fortemente",,,,,,,y,,,t3_sus10,,
+t3_sus8,system_usability_of_scale_sus_t3,,radio,"Considerei o produto muito complicado de utilizar.","1, Discordo fortemente | 2, Discordo | 3, Não concordo nem discordo | 4, Concordo | 5, Concordo fortemente",,,,,,,y,,,t3_sus10,,
+t3_sus9,system_usability_of_scale_sus_t3,,radio,"Senti-me muito confiante ao utilizar este produto.","1, Discordo fortemente | 2, Discordo | 3, Não concordo nem discordo | 4, Concordo | 5, Concordo fortemente",,,,,,,y,,,t3_sus10,,
+t3_sus10,system_usability_of_scale_sus_t3,,radio,"Tive que aprender muito antes de conseguir lidar com este produto.","1, Discordo fortemente | 2, Discordo | 3, Não concordo nem discordo | 4, Concordo | 5, Concordo fortemente",,,,,,,y,,,t3_sus10,,
+t3_total_sus,system_usability_of_scale_sus_t3,,calc,"Somatória SUS","(
+    ([t3_sus1]-1) + (5-[t3_sus2]) + ([t3_sus3]-1) + (5-[t3_sus4]) + ([t3_sus5]-1) + 
+    (5-[t3_sus6]) + ([t3_sus7]-1) + (5-[t3_sus8]) + ([t3_sus9]-1) + (5-[t3_sus10])
+    )
+        * 2.5",,,,,,,y,LV,,,," @HIDDEN-SURVEY"
+t3_start_umars,mobile_application_rating_scale_user_version_umars,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t3_umars_txt,mobile_application_rating_scale_user_version_umars,,descriptive,"Marque o número que representa mais precisamente a qualidade do aplicativo que você está utilizando para o estudo. Todos os itens são avaliados numa escala de 1 a 5 pontos, sendo ""1. Inadequado"" e ""5. Excelente"". ",,,,,,,,,,,,,
+t3_umars_txt2,mobile_application_rating_scale_user_version_umars,,descriptive,"Avaliação da Qualidade do Aplicativo
+
+SEÇÃO E - Qualidade subjetiva do aplicativo
+",,,,,,,,,,,,,
+t3_umars17,mobile_application_rating_scale_user_version_umars,,radio,"Você recomendaria este aplicativo para pessoas que poderiam se beneficiar de seu uso?","1, De forma alguma: Não recomendaria este aplicativo para ninguém | 2, Recomendaria este aplicativo para poucas pessoas | 3, Talvez: Recomendaria este aplicativo para várias pessoas | 4, Recomendaria este aplicativo para muitas pessoas | 5, Definitivamente: Recomendaria este aplicativo para todo mundo",,,,,,,y,LV,,,,
+t3_umars18,mobile_application_rating_scale_user_version_umars,,radio,"Quantas vezes você acha que usaria este aplicativo nos próximos 12 meses se fosse relevante para você?
+","1, Nenhuma | 2, 1-2 | 3, 3-10 | 4, 10-50 | 5, >50",,,,,,,y,LV,,,,
+t3_umars19,mobile_application_rating_scale_user_version_umars,,radio,"Você pagaria por este aplicativo?","1, (1) Definitivamente não pagaria | 2, (2) | 3, (3) | 4, (4) | 5, (5) Definitivamente pagaria",,,,,,,y,LV,,,,
+t3_umars20,mobile_application_rating_scale_user_version_umars,,radio,"Qual é a sua avaliação geral do aplicativo?
+","1, 1 Estrela: Um dos piores que já usei | 2, 2 Estrelas | 3, 3 Estrelas: Mediano | 4, 4 Estrelas | 5, 5 Estrelas: Um dos melhores que já usei",,,,,,,y,LV,,,,
+t3_umars_txt3,mobile_application_rating_scale_user_version_umars,,descriptive,"SEÇÃO F - Impacto percebido
+",,,,,,,,,,,,,
+t3_umars21,mobile_application_rating_scale_user_version_umars,,radio,"Conscientização: Este aplicativo me deixou mais consciente sobre a importância de lidar com a saúde mental.","1, (1) Discordo totalmente | 2, (2) | 3, (3) | 4, (4) | 5, (5) Concordo Totalmente",,,,,,,y,LV,,,,
+t3_umars22,mobile_application_rating_scale_user_version_umars,,radio,"Conhecimento: Este aplicativo expandiu meu conhecimento sobre saúde mental.","1, (1) Discordo totalmente | 2, (2) | 3, (3) | 4, (4) | 5, (5) Concordo Totalmente",,,,,,,y,LV,,,,
+t3_umars23,mobile_application_rating_scale_user_version_umars,,radio,"Atitudes - Este aplicativo mudou minhas atitudes melhorando minha saúde mental.
+","1, (1) Discordo totalmente | 2, (2) | 3, (3) | 4, (4) | 5, (5) Concordo Totalmente",,,,,,,y,LV,,,,
+t3_umars24,mobile_application_rating_scale_user_version_umars,,radio,"Intenção de mudar - Este aplicativo expandiu minhas intenções/motivações para lidar com a saúde mental.
+","1, (1) Discordo totalmente | 2, (2) | 3, (3) | 4, (4) | 5, (5) Concordo Totalmente",,,,,,,y,LV,,,,
+t3_umars25,mobile_application_rating_scale_user_version_umars,,radio,"Procurar ajuda - Este aplicativo me motivaria a procurar ajuda para lidar com problemas de saúde mental (como Depressão ou Ansiedade).
+","1, (1) Discordo totalmente | 2, (2) | 3, (3) | 4, (4) | 5, (5) Concordo Totalmente",,,,,,,y,LV,,,,
+t3_umars26,mobile_application_rating_scale_user_version_umars,,radio,"Mudança de comportamento - O uso deste aplicativo vai aumentar as coisas que faço para melhorar minha saúde mental.
+","1, (1) Discordo totalmente | 2, (2) | 3, (3) | 4, (4) | 5, (5) Concordo Totalmente",,,,,,,y,LV,,,,
+t3_umars_txt4,mobile_application_rating_scale_user_version_umars,,descriptive,"Perguntas abertas.
+
+Abaixo estão algumas perguntas abertas nas quais você poderá passar sua opinião livremente sobre o aplicativo que você utilizou
+",,,,,,,,,,,,,
+final_app2a,mobile_application_rating_scale_user_version_umars,,notes,"O que você achou do Motherly? (Lembre-se: você está livre para falar o que desejar).
+",,,,,,,,y,LV,,,,
+final_app3a,mobile_application_rating_scale_user_version_umars,,notes,"Você tem alguma sugestão de melhoria? (Lembre-se: você está livre para falar o que desejar).
+",,,,,,,,y,LV,,,,
+t3_start_cgi,clinical_global_impression_improvement_t3,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t3_text_cgi_i,clinical_global_impression_improvement_t3,,descriptive,"<div class=""rich-text-field-label""><p><strong> As questões abaixo não devem ser realizadas diretamente para a participante. </strong></p><p style=""text-align: justify;"">A CGI-I é uma escala desenvolvida para que o avaliador use o máximo de informações possíveis que tenha acesso para classificar participantes de estudos de intervenção da área da saúde em termos de melhora ou piora após início de tratamento. Assim como a CGI-S, não se trata de perguntar a participante sua impressão subjetiva acerca da melhora ou piora. Essa impressão subjetiva pode te ajudar a classificar o grau de melhora ou piora, mas não deve ser a única informação utilizada. É necessário se utilizar de um amplo conjunto de informações clínicas levantadas durante a entrevista para determinar objetivamente melhoras ou pioras específicas no funcionamento da participante. Procure, então, levantar exemplos específicos (ex. voltou a conversar com amigos, tem sentido mais prazer nas atividades, tem chorado com menos frequência, tem apresentado menos pensamentos de morte etc). <br /><br />Sendo assim, tomando como base as explicações acima e as informações que você levantou ao longo da avaliação, preencha:</p></div>",,,,,,,,,,,,,
+t3_cgi_i,clinical_global_impression_improvement_t3,,radio,"Comparado à condição da paciente no início do estudo, qual o grau de alteração que ocorreu?","1, Muito melhor | 2, Melhor | 3, Ligeiramente melhor | 4, Sem alteração | 5, Ligeiramente pior | 6, Pior | 7, Muito pior",,,,,,,y,LV,,,,
+t3_start_qualient,qualidade_da_entrevista_t3,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Qualidade da entrevista<br /><br />As questões abaixo não devem ser realizadas diretamente para a participante. Devem ser preenchidas pelo avaliador.<br /><br />Responda imediatamente após o término da entrevista.</p></div>",text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t3_quali1,qualidade_da_entrevista_t3,,radio,"A avaliação ocorreu por qual meio?","0, Ligação telefônica | 1, Videochamada | 2, Ambos (precisou trocar)",,,,,,,y,LV,,,,
+t3_quali2,qualidade_da_entrevista_t3,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Por favor, use as seguintes escalas de 5 pontos para dar sua impressão sobre a entrevista com a gestante.</p> <p style=""text-align: justify;""><br />Você achou que ela foi...</p></div>",radio,"...cooperativa.
+","0, Muito pouco cooperativa | 1, Pouco cooperativa | 2, Neutra | 3, Cooperativa | 4, Muito cooperativa",,,,,,,y,LV,,,,
+t3_quali3,qualidade_da_entrevista_t3,,radio,"...que ela estava sendo sincera ou verdadeira","0, Sendo muito pouco sincera ou verdadeira | 1, Sendo pouco sincera ou verdadeira | 2, Neutra | 3, Sendo sincera ou verdadeira | 4, Sendo muito sincera ou verdadeira",,,,,,,y,LV,,,,
+t3_quali4,qualidade_da_entrevista_t3,,radio,"...que ela estava muito à vontade.","0, Muito nervosa e assustada | 1, Nervosa ou assustada | 2, Neutra | 3, A vontade | 4, Muito a vontade",,,,,,,y,LV,,,,
+t3_quali5,qualidade_da_entrevista_t3,,radio,"Na maioria das vezes você achou que ela entendeu as perguntas?
+","0, Não entendeu quase nada das perguntas | 1, Não entendeu direito as perguntas | 2, Neutro | 3, Entendeu as perguntas | 4, Entendeu as perguntas muito bem",,,,,,,y,LV,,,,
+t3_quali6,qualidade_da_entrevista_t3,,radio,"Escolha a opção que melhor descreve a qualidade da conexão ou da ligação telefônica:","0, Muito ruim, muitos problemas ocorreram, não consigo garantir a qualidade das informações | 1, Ruim, problemas ocorreram, a qualidade da entrevista foi comprometida | 2, Razoável, alguns problemas ocorreram, a qualidade da entrevista foi um pouco comprometida | 3, Boa, alguns problemas ocasionais ocorreram, mas não comprometeram | 4, Muito boa, sem problemas",,,,,,,y,LV,,,,
+t3_quali7,qualidade_da_entrevista_t3,,notes,"<div class=""rich-text-field-label""><p style=""text-align: justify;"">Adicione aqui qualquer comentário que ache pertinente (ex. problemas, impressões gerais etc) a respeito da entrevista ou da gestante:</p></div>",,,,,,,,y,LV,,,,
+t3_quali8,qualidade_da_entrevista_t3,,radio,"Você acha que a participante necessita de encaminhamento para atendimento ou serviço de saúde?","0, Não | 1, Sim",,,,,,,y,LV,,,,
+t3_horario_fim,qualidade_da_entrevista_t3,,text,"Horário do fim da entrevista",,,time,,,,,y,LV,,,,
+t3_cegamento_txt,qualidade_da_entrevista_t3,,descriptive,"Agora que você avaliou a participante, gostaríamos que você respondesse as seguintes perguntas:",,,,,,,,y,,,,,
+t3_cegamento_1,qualidade_da_entrevista_t3,,radio,"A qual grupo você acredita que a participante foi alocada?","1, Intervenção | 2, Lista de espera",,,,,,,y,LV,,,,
+t3_cegamento_2,qualidade_da_entrevista_t3,,dropdown,"Qual o seu grau de confiança nessa resposta? 
+","0, 0 | 1, 1 | 2, 2 | 3, 3 | 4, 4 | 5, 5 | 6, 6 | 7, 7 | 8, 8 | 9, 9 | 10, 10",,,,,,,y,LV,,,,
+t3_cegamento_3,qualidade_da_entrevista_t3,,radio,"Durante a entrevista, a participante revelou a qual grupo foi alocada? 
+","1, Sim | 0, Não",,,,,,,y,LV,,,,
+t2_start_wait,wai_terapeuta,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+t2_waisrt_txt,wai_terapeuta,,descriptive,"<div class=""rich-text-field-label""><p><span style=""font-weight: normal;"">Abaixo encontrará afirmações sobre o que uma pessoa pode pensar ou sentir acerca do seu cliente. Por baixo de cada afirmação existe uma escala de cinco pontos. Por favor </span>leia cuidadosamente <span style=""font-weight: normal;"">e não se esqueça de responder a </span>todas <span style=""font-weight: normal;"">as afirmações.</span></p></div>",,,,,,,,,,,,,
+t2_waisrt_1,wai_terapeuta,,radio,"A [t0_arm_1][t0_nome] e eu estamos de acordo acerca das coisas que é necessário fazer em terapia para ajudar a melhorar a sua situação.
+","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrt_2,wai_terapeuta,,radio,"Estou genuinamente preocupado com o bem-estar da [t0_arm_1][t0_nome] .","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrt_3,wai_terapeuta,,radio,"A [t0_arm_1][t0_nome] e eu trabalhamos para objetivos que foram mutuamente acordados.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrt_4,wai_terapeuta,,radio,"A [t0_arm_1][t0_nome] e eu temos confiança na utilidade das nossas atividades em terapia.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrt_5,wai_terapeuta,,radio,"Aprecio a [t0_arm_1][t0_nome] como pessoa.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrt_6,wai_terapeuta,,radio,"Estabelecemos um bom entendimento quanto às mudanças que seriam boas para a [t0_arm_1][t0_nome].","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrt_7,wai_terapeuta,,radio,"A [t0_arm_1][t0_nome] e eu respeitamo-nos mutuamente.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrt_8,wai_terapeuta,,radio,"A [t0_arm_1][t0_nome] e eu temos uma percepção comum acerca dos seus objetivos.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrt_9,wai_terapeuta,,radio,"Eu respeito a [t0_arm_1][t0_nome] mesmo quando faz coisas que eu não aprovo.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrt_10,wai_terapeuta,,radio,"Estamos de acordo acerca daquilo em que é importante a [t0_arm_1][t0_nome] trabalhar.","1, Raramente | 2, Às vezes | 3, Frequentemente | 4, Muito frequentemente | 5, Sempre",,,,,,,y,LV,,,,
+t2_waisrt_tasks,wai_terapeuta,,calc,Tasks,"sum (
+    [t2_waisrt_1] +[t2_waisrt_4] + [t2_waisrt_10] 
+    )",,,,,,,,LH,,,," @HIDDEN"
+t2_waisrt_goals,wai_terapeuta,,calc,"Goals ","sum (
+    [t2_waisrt_3] +[t2_waisrt_6] + [t2_waisrt_8] 
+    )",,,,,,,,LH,,,," @HIDDEN"
+t2_waisrt_bond,wai_terapeuta,,calc,Bond,"sum (
+    [t2_waisrt_2] +[t2_waisrt_5] + [t2_waisrt_7] + [t2_waisrt_9] 
+    )",,,,,,,,LH,,,," @HIDDEN"
+enc_data,formulrio_de_encaminhamento,,text,Data:,,,date_dmy,,,,,y,,,,,
+enc_nome,formulrio_de_encaminhamento,,text,Nome:,,,,,,,,y,,,,,
+enc_1,formulrio_de_encaminhamento,,checkbox,"Motivo do encaminhamento:","1, Agravamento da depressão | 2, Ideação suicida | 3, Planejamento ou tentativa de suicídio | 4, Violência doméstica | 5, Outros",,,,,,,y,,,,,
+enc_1a,formulrio_de_encaminhamento,,notes,Outros:,,,,,,,"[enc_1(5)] = '1'",y,,,,,
+enc_2,formulrio_de_encaminhamento,,notes,"Descreva aqui o motivo do encaminhamento:",,,,,,,,y,,,,,
+enc_3,formulrio_de_encaminhamento,,radio,"Encaminhamento foi oferecido?","1, Sim | 0, Não",,,,,,,y,,,,,
+enc_4,formulrio_de_encaminhamento,,radio,"A paciente aceitou o encaminhamento?","1, Sim | 0, Não",,,,,,,y,,,,,
+enc_6,formulrio_de_encaminhamento,,text,"Nome do(a) psiquiatra: ",,,,,,,,y,,,,,
+enc_7,formulrio_de_encaminhamento,,text,"Data da realização do atendimento psiquiátrico: ",,,,,,,,y,,,,,
+enc_5,formulrio_de_encaminhamento,,notes,"Observações do(a) psiquiatra: ",,,,,,,,,,,,,
+start_drop,formulario_dropout,,text,start,,,datetime_seconds_dmy,,,,,,,,,," @NOW @HIDDEN"
+texto_dropout,formulario_dropout,,descriptive,"{Preenchido apenas pela equipe de gerenciamento do ensaio clínico quando ocorre a desistência de alguma participante}",,,,,,,,,,,,,
+data_dropout,formulario_dropout,,text,"Data da desistência de participação",,,date_dmy,,,,,y,LV,,,,
+dropout1,formulario_dropout,,radio,"A participante mencionou não ter mais interesse em continuar esperando a intervenção? (Foi randomizada para lista de espera).","0, Não | 1, Sim",,,,,,"[dropout_grupo] = '2'",y,LV,,,,
+dropout2,formulario_dropout,,radio,"A participante mencionou não ter mais interesse na intervenção? (Foi randomizada para intervenção)","0, Não | 1, Sim",,,,,,"[dropout_grupo] = '1'",y,LV,,,,
+dropout3,formulario_dropout,,radio,"A participante desistiu de avaliações?
+","0, Não | 1, Sim, do meio de tratamento (T2) em diante | 2, Sim, do pós-tratamento (T3) em diante | 3, Sim, do seguimento (T4) em diante",,,,,,,y,LV,,,,
+dropout4,formulario_dropout,,text,"Quem ela comunicou essa decisão?",,,,,,,,y,LH,,,,
+dropout5,formulario_dropout,,radio,"Por qual meio a participante comunicou a desistência/saída do estudo?
+","1, Email | 2, Mensagem de texto | 3, Mensagem de voz, áudio | 4, Vídeo chamada | 5, Ligação telefônica",,,,,,,y,LV,,,,
+dropout6,formulario_dropout,,notes,"Qual o motivo da desistência/saída do estudo que a participante reportou?",,,,,,,,y,LV,,,,
+dropout7,formulario_dropout,,radio,"A desistência teve alguma relação com efeitos adversos?
+","0, Não | 1, Sim",,,,,,,y,LV,,,,
+dropout7a,formulario_dropout,,notes,"Quais foram os efeitos adversos?",,,,,,,"[dropout7] = '1'",y,LV,,,,
+dropout8,formulario_dropout,,notes,"Na sua opinião, refletindo em retrospecto, o que poderíamos ter feito para evitar esse dropout?",,,,,,,,y,LV,,,,
+form_falta_data,formulrio_de_falta,,text,Data,,,date_dmy,,,,,y,,,,,
+form_falta_nome,formulrio_de_falta,,text,Nome:,,,,,,,,y,,,,,
+form_falta_razao,formulrio_de_falta,,notes,"Descreva aqui as motivações/circunstâncias da falta:",,,,,,,,y,LV,,,,
+ae_qidsc_a_t3,formulrio_de_eventos_adversos_t3,,calc,"Pontuação QIDS-C em T1: [t1_arm_1][t1_qidsc16_total]
+Pontuação QIDS-C em T3: [t3_arm_1][t1_qidsc16_total]
+Percentual de diferença: 
+","(([t3_arm_1][t1_qidsc16_total] - [t1_arm_1][t1_qidsc16_total]) / [t1_arm_1][t1_qidsc16_total]) * 100",,,,,,,,LV,,,,
+ae_qidsc_b_t3,formulrio_de_eventos_adversos_t3,,calc,"Houve piora maior ou igual a 30% em relação à T1?
+
+1 = sim
+0 = não","if ([t3_arm_1][ae_qidsc_a_t3] >= 30, 1, 0)",,,,,,,,LV,,,,
+ae_qidsc_c_t3,formulrio_de_eventos_adversos_t3,,calc,"Houve surgimento de ideação suicida ou tentativa na QIDS-C em T3 em relação à T1?
+1 = sim
+0 = não
+","if (
+([t3_arm_1][t1_qidsc16_12] >= 2 AND [t1_arm_1][t1_qidsc16_12] <= 1), 
+1, 0)",,,,,,,,LV,,,,
+ae_comments_t3,formulrio_de_eventos_adversos_t3,,notes,"Escreva neste espaço quaisquer observações que julgar relevante em relação à possíveis eventos adversos:
+",,,,,,,,,LV,,,,
+ae_qidssr_a_t4,formulrio_de_eventos_adversos_t4,,calc,"Pontuação QIDS-SR em T1: [t1_arm_1][t1_qidssr16_total]
+Pontuação QIDS-SR em T4: [t4_arm_1][t1_qidssr16_total]
+Percentual de diferença: 
+","(([t4_arm_1][t1_qidssr16_total] - [t1_arm_1][t1_qidssr16_total]) / [t1_arm_1][t1_qidssr16_total]) * 100",,,,,,,,LV,,,,
+ae_qidssr_b_t4,formulrio_de_eventos_adversos_t4,,calc,"Houve piora maior ou igual a 30% em relação à T1?
+1 = sim
+0 = não
+","if ([t4_arm_1][ae_qidssr_a_t4] >= 30, 1, 0)",,,,,,,,LV,,,,
+ae_qidssr_c_t4,formulrio_de_eventos_adversos_t4,,calc,"Houve surgimento de ideação suicida ou tentativa na QIDS-SR em T4 em relação à T1?
+1 = sim
+0 = não
+","if (([t4_arm_1][t1_qidssr16_12] >= 2 AND [t1_arm_1][t1_qidssr16_12] <= 1), 1, 0)",,,,,,,,LV,,,,
+ae_comments_t4,formulrio_de_eventos_adversos_t4,,notes,"Escreva neste espaço quaisquer observações que julgar relevante em relação à possíveis eventos adversos:
+",,,,,,,,,LV,,,,

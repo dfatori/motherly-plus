@@ -24,16 +24,10 @@ dashboard/participantes/*.qmd
 
 # Sensitive raw data
 # Only simulated data and metadata are versioned.
-!data/trial/MotherlyRCT2026_DATA_simulated.csv
-!data/trial/MotherlyRCT2026_DataDictionary_*.csv
-!data/trial/MotherlyRCT2026_R_*.r
-data/trial/*
-data/app/*
-data/*.csv
-data/*.rds
-data/*.xlsx
-data/*.sav
-data/*.dta
+data/*
+!data/MotherlyRCT2026_DATA_simulated.csv
+!data/MotherlyRCT2026_DataDictionary_*.csv
+!data/MotherlyRCT2026_R_*.r
 
 # Temporary / protocol extraction files in scripts/
 scripts/*.rds

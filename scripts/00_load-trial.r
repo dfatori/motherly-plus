@@ -16,12 +16,12 @@ library(readr)
 #----------------------------------------------------------------------#
 
 redcap_files <- list.files(
-  here("data", "trial"),
+  here("data"),
   pattern = "MotherlyRCT.*_DATA_.*\\.csv$",
   full.names = TRUE
 )
 
-if (length(redcap_files) == 0) stop("No REDCap CSV file found in data/trial/")
+if (length(redcap_files) == 0) stop("No REDCap CSV file found in data/")
 latest_file <- sort(redcap_files, decreasing = TRUE)[1]
 
 message("Loading trial data file: ", latest_file)

@@ -294,7 +294,7 @@ psqi_item_names <- c("t1_psqi_1", "t1_psqi_2", "t1_psqi_3", "t1_psqi_4",
 
 redcap_cols <- c(
   "record_id", "redcap_event_name", "rand_number",
-  "t0_idade", "t1_idade_bebe",
+  "t1_idade_bebe",
   "t1_cor", "t1_escola", "t1_renda", "t1_ecivil",
   "t1_trabalho", "t1_estudando", "t1_familia1", "t1_filhos",
   "t1_prenatal1", "t1_prenatal10", "t1_sm1",
@@ -316,9 +316,11 @@ redcap_long <- long %>%
   select(all_of(redcap_cols)) %>%
   left_join(ae, by = "record_id")
 
-# Sparse T0 rows (screening placeholders)
+# Sparse T0 rows (screening placeholders): in REDCap, screening-event
+# variables such as maternal age (t0_idade) live only on t0_arm_1, while
+# randomization (rand_number) is recorded at t1_arm_1. Mirror that here.
 t0_rows <- baseline %>%
-  select(record_id, rand_number, t0_idade) %>%
+  select(record_id, t0_idade) %>%
   mutate(redcap_event_name = "t0_arm_1") %>%
   left_join(ae, by = "record_id")
 
@@ -329,12 +331,12 @@ redcap_full <- bind_rows(redcap_long, t0_rows) %>%
 # Save
 #----------------------------------------------------------------------#
 
-write_csv(redcap_full, here("data", "trial", "MotherlyRCT2026_DATA_simulated.csv"))
+write_csv(redcap_full, here("data", "MotherlyRCT2026_DATA_simulated.csv"))
 saveRDS(redcap_full, here("outputs", "models", "98_simulated_trial_long.rds"))
 saveRDS(baseline, here("outputs", "models", "98_simulated_trial_baseline.rds"))
 
 message("Simulated dataset saved:")
-message("  data/trial/MotherlyRCT2026_DATA_simulated.csv")
+message("  data/MotherlyRCT2026_DATA_simulated.csv")
 message("  outputs/models/98_simulated_trial_long.rds")
 message("  outputs/models/98_simulated_trial_baseline.rds")
 message("Participants: ", n_distinct(redcap_full$record_id))

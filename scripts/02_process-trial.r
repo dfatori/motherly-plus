@@ -36,8 +36,17 @@ rct_raw <- readRDS(here("outputs", "models", "00_trial_raw.rds"))
 # Use baseline (t1_arm_1) as the source of static covariates
 #----------------------------------------------------------------------#
 
+# Screening-event variables: in REDCap these are collected at t0_arm_1,
+# not at t1_arm_1 (e.g., maternal age t0_idade). Pull them separately and
+# join into the baseline (t1_arm_1) row by record_id.
+screening <- rct_raw %>%
+  filter(redcap_event_name == "t0_arm_1") %>%
+  select(record_id, t0_idade)
+
 baseline <- rct_raw %>%
   filter(redcap_event_name == "t1_arm_1") %>%
+  select(-any_of("t0_idade")) %>%
+  left_join(screening, by = "record_id") %>%
   mutate(
     # Group allocation: 1 = waitlist (control), 2 = intervention
     # rand_number or group should come from REDCap; recode here as factor
@@ -158,7 +167,7 @@ baseline <- baseline %>%
 # PSI-4 subscale items were collected in this trial; they are ignored
 # for the PSI-SF scoring below.
 #
-# Source: labels in data/trial/MotherlyRCT2025-Geral_R_*.r and scoring sheet.
+# Source: labels in data/MotherlyRCT2025-Geral_R_*.r and scoring sheet.
 # Verification recommended against the official Brazilian PSI-SF manual.
 #----------------------------------------------------------------------#
 

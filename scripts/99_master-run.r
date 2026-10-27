@@ -16,18 +16,11 @@ library(here)
 
 script_files <- c(
   "00_load-trial.r",
-  "01_load-app.r",
   "02_process-trial.r",
   "03_codebook-trial.r",
-  "04_process-app.r",
-  "05_codebook-app.r",
-  "06_merge-trial-app.r",
   "07_descriptive-baseline.r",
   "10_primary-outcome.r",
   "11_secondary-outcomes-analysis.r",
-  "20_moderation-analysis.r",
-  "21_mediation-analysis.r",
-  "22_process-analysis.r",
   "30_sensitivity-analysis.r",
   "31_adverse-events.r"
 )

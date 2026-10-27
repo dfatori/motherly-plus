@@ -38,7 +38,7 @@ if (is.null(script_file)) {
 }
 
 base_dir <- file.path(project_root, "dashboard")
-data_dir <- file.path(project_root, "data", "trial")   # dados brutos do trial (compartilhados)
+data_dir <- file.path(project_root, "data")   # dados brutos do trial (compartilhados)
 out_dir <- file.path(base_dir, "data")                 # RDS gerados pelo dashboard
 
 if (!dir.exists(data_dir)) {

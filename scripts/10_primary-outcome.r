@@ -104,10 +104,20 @@ cat("Cohen's d for QIDS-C16 at T3:", round(d_qids_t3, 3), "\n")
 
 qids_emm_df <- as.data.frame(qids_emm)
 
+# emmeans names the asymptotic CI columns differently across versions
+# (asymp.LCL/asymp.UCL vs lower.CL/upper.CL); normalize for plotting.
+if (all(c("asymp.LCL", "asymp.UCL") %in% names(qids_emm_df))) {
+  qids_emm_df$conf_low <- qids_emm_df$asymp.LCL
+  qids_emm_df$conf_high <- qids_emm_df$asymp.UCL
+} else {
+  qids_emm_df$conf_low <- qids_emm_df$lower.CL
+  qids_emm_df$conf_high <- qids_emm_df$upper.CL
+}
+
 qids_plot <- ggplot(qids_emm_df, aes(x = time_f, y = emmean, color = group_f, group = group_f)) +
   geom_line(linewidth = 1, position = position_dodge(width = 0.2)) +
   geom_point(size = 4, position = position_dodge(width = 0.2)) +
-  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0.15, linewidth = 1,
+  geom_errorbar(aes(ymin = conf_low, ymax = conf_high), width = 0.15, linewidth = 1,
                 position = position_dodge(width = 0.2)) +
   scale_color_manual(values = c("Waitlist" = "#1b9e77", "Intervention" = "#d95f02")) +
   scale_x_discrete(drop = FALSE) +

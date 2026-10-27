@@ -21,8 +21,8 @@ baseline <- readRDS(here("outputs", "models", "00_baseline_analytic.rds"))
 long <- readRDS(here("outputs", "models", "00_long_analytic.rds"))
 
 # Raw REDCap data for clinical adverse-event fields not in analytic datasets
-redcap_files <- list.files(here("data", "trial"), pattern = "MotherlyRCT.*_DATA_.*\\.csv$", full.names = TRUE)
-if (length(redcap_files) == 0) stop("No REDCap CSV file found in data/trial/")
+redcap_files <- list.files(here("data"), pattern = "MotherlyRCT.*_DATA_.*\\.csv$", full.names = TRUE)
+if (length(redcap_files) == 0) stop("No REDCap CSV file found in data/")
 latest_file <- sort(redcap_files, decreasing = TRUE)[1]
 rct_raw <- read_csv(latest_file, col_types = cols(.default = "?"), na = c("", "NA", " "))
 
