@@ -13,11 +13,10 @@ motherly-plus/
 │   ├── figures/                    # Figures
 │   ├── models/                     # Models
 │   └── tables/                     # Tables
-├── references/                     # SAP/protocol guideline references
 ├── reports/
 │   └── motherly-plus.Rmd           # Summary of results
 ├── sap/
-│   ├── SAP.md                      # Statistical Analysis Plan
+│   ├── SAP.md                      # Statistical analysis plan
 │   └── render-sap.r                # Renders SAP.md to SAP.docx and SAP.pdf
 ├── scripts/
 │   ├── 01_load-trial.r             # Load REDCap export
