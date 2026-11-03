@@ -5,9 +5,6 @@ data/*
 !data/MotherlyRCT2026_DataDictionary_*.csv
 !data/MotherlyRCT2026_InstrumentDesignations_*.csv
 
-# Not pre-registered analyses
-scripts/archived/
-
 # Temporary / protocol extraction files in scripts/
 scripts/*.rds
 scripts/*.txt

@@ -8,13 +8,17 @@ This repository is part of **Motherly Plus: Study Protocol of a Randomized Contr
 
 ```
 motherly-plus/
-├── data/
+├── data/                           # Data dictionary, simulated data
 ├── outputs/
-│   ├── figures/                    # Model figures
+│   ├── figures/                    # Figures
 │   ├── models/                     # Models
 │   └── tables/                     # Tables
+├── references/                     # SAP/protocol guideline references
 ├── reports/
-│   └── motherly-plus.Rmd           # Results report
+│   └── motherly-plus.Rmd           # Summary of results
+├── sap/
+│   ├── SAP.md                      # Statistical Analysis Plan
+│   └── render-sap.r                # Renders SAP.md to SAP.docx and SAP.pdf
 ├── scripts/
 │   ├── 01_load-trial.r             # Load REDCap export
 │   ├── 02_process-trial.r          # Recode, score instruments, build datasets
@@ -24,14 +28,13 @@ motherly-plus/
 │   ├── 06_multiple-imputation.r    # MICE
 │   ├── 07_primary-outcome.r        # Primary outcome (ITT)
 │   ├── 08_secondary-outcomes.r     # Secondary outcomes (ITT)
-│   ├── 09_outcomes-complete-case.r # All outcomes, no imputation
+│   ├── 09_outcomes-complete-case.r # All outcomes, complete-case
 │   ├── 10_adverse-events.r         # Adverse events
 │   ├── mi-helpers.r                # Pooling of imputed analyses
 │   ├── cc-helpers.r                # Complete-case analysis
 │   ├── figures-helpers.r           # Plot figures
 │   ├── run-all.r                   # Runs 01-10 and the report
 │   ├── simulate-data.r             # Data simulation to run scripts
-│   └── archived/
 ├── instructions.md
 └── README.md
 ```
