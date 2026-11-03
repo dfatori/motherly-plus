@@ -34,7 +34,6 @@ motherly-plus/
 │   ├── figures-helpers.r           # Plot figures
 │   ├── run-all.r                   # Runs 01-10 and the report
 │   ├── simulate-data.r             # Data simulation to run scripts
-├── instructions.md
 └── README.md
 ```
 
