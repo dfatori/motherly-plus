@@ -1,6 +1,6 @@
 # Motherly Plus RCT
 
-This repository is part of the manuscript **Motherly Plus: Study Protocol of a Randomized Controlled Trial Evaluating a Smartphone-Assisted Single-Session Psychotherapy Intervention for Postpartum Depression**. It contains the analytical plan of the **Motherly Plus** randomized controlled trial. All scripts were tested on simulated data.
+This repository is part of the manuscript **Motherly Plus: Study Protocol of a Randomized Controlled Trial Evaluating a Smartphone-Assisted Single-Session Psychotherapy Intervention for Postpartum Depression** ([clinicaltrials.gov, NCT07925762](https://clinicaltrials.gov/study/NCT07925762)). It contains the analytical plan of the **Motherly Plus** randomized controlled trial. All scripts were tested on simulated data.
 
 ---
 
@@ -49,11 +49,11 @@ motherly-plus/
 ## Analysis plan
 
 - **Model**: Generalized estimating equations (GEE) with AR1 correlation and robust SEs, `outcome ~ time + time × group` without a group main effect (Twisk et al., 2018, equation 2d), fitted in each imputed dataset and pooled with Rubin's rules;
-- **Missing data**: multiple imputation by chained equations (MICE, m = 100; Graham et al., 2007) of all pre-registered outcomes, with group and baseline covariates/scores as predictors (`scripts/06_multiple-imputation.r`). ITT: all randomized participants. Before the analyses, the availability of each outcome by timepoint and group is described (`scripts/05_missing-data.r`);
+- **Missing data**: multiple imputation by chained equations (MICE, m = 100; Graham et al., 2007) of all pre-registered outcomes, with group and baseline covariates/scores as predictors. ITT: all randomized participants. Before the analyses, the availability of each outcome by timepoint and group is described;
 - **Timepoints**: T1= week 1, baseline; T2= week 2, mid-treatment; T3= week 4, post-treatment; T4= week 8, follow-up;
 - **Primary outcome analysis**: QIDS-C16 total score at T3;
 - **Secondary outcomes analyses**: QIDS-SR16, GAD-7, PSQI, PSI-SF (parental distress, parent-child dysfunctional interaction, total), SDS and EPDS at T3 and T4; CGI-I at T3;
-- **Complete-case analysis** (`scripts/09_outcomes-complete-case.r`): same models for the primary and secondary outcomes, but with no imputation.
+- **Complete-case analysis**: same models for the primary and secondary outcomes, but with no imputation.
 
 ---
 

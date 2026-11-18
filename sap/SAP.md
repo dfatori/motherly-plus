@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Trial title** | Motherly Plus: a randomized controlled trial evaluating a smartphone-assisted single-session psychotherapy intervention for postpartum depression |
-| **Trial registration** | clinicaltrials.gov, ID number 97532226.8.0000.0068 |
+| **Trial registration** | clinicaltrials.gov, NCT07925762 |
 | **Ethics approval** | CAPPesq, HC-FMUSP, CAAE 97532226.8.0000.0068 |
 | **SAP version** | 1.0 |
 | **SAP date** | 2026-11-03 |
