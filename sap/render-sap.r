@@ -9,7 +9,7 @@ library(here)
 sap_md <- here("sap", "SAP.md")
 
 system2("pandoc", c(shQuote(sap_md), "-o", shQuote(here("sap", "SAP.docx"))))
-system2("pandoc", c(shQuote(sap_md), "-o", shQuote(here("sap", "SAP.pdf")), "--pdf-engine=xelatex"))
+system2("pandoc", c(shQuote(sap_md), "-o", shQuote(here("sap", "SAP.pdf")), "--pdf-engine=xelatex", "-V", shQuote("mainfont=Arial")))
 
 #----------------------------------------------------------------------#
 # End of script render-sap.r

@@ -1,6 +1,6 @@
 # Motherly Plus RCT
 
-This repository is part of the manuscript **Motherly Plus: Study Protocol of a Randomized Controlled Trial Evaluating a Smartphone-Assisted Single-Session Psychotherapy Intervention for Postpartum Depression** ([clinicaltrials.gov, NCT07925762](https://clinicaltrials.gov/study/NCT07925762)). It contains the analytical plan of the **Motherly Plus** randomized controlled trial. All scripts were tested on simulated data.
+This repository is part of the manuscript **Motherly Plus: Study Protocol of a Randomized Controlled Trial Evaluating a Smartphone-Assisted Single-Session Psychotherapy Intervention for Postpartum Depression**. It contains the analytical plan of the **Motherly Plus** randomized controlled trial ([clinicaltrials.gov, NCT07925762](https://clinicaltrials.gov/study/NCT07925762)). All scripts were tested on simulated data.
 
 ---
 
