@@ -1,6 +1,6 @@
 # Motherly Plus RCT
 
-This repository is part of **Motherly Plus: Study Protocol of a Randomized Controlled Trial Evaluating a Smartphone-Assisted Single-Session Psychotherapy Intervention for Postpartum Depression**. It contains the analytical plan of the **Motherly Plus** randomized controlled trial. All scripts were tested on simulated data.
+This repository is part of the manuscript **Motherly Plus: Study Protocol of a Randomized Controlled Trial Evaluating a Smartphone-Assisted Single-Session Psychotherapy Intervention for Postpartum Depression**. It contains the analytical plan of the **Motherly Plus** randomized controlled trial. All scripts were tested on simulated data.
 
 ---
 
@@ -42,7 +42,7 @@ motherly-plus/
 ## Requirements
 
 - R >= 4.2
-- R packages used by the pipeline (`scripts/01` to `10` and the report): `here`, `tidyverse`, `readr`, `knitr`, `kableExtra`, `rmarkdown`, `geepack`, `mice`, `emmeans`, `broom`, `MASS`, `gtsummary`, `gt`, `flextable`.
+- R packages: `here`, `tidyverse`, `readr`, `knitr`, `kableExtra`, `rmarkdown`, `geepack`, `mice`, `emmeans`, `broom`, `MASS`, `gtsummary`, `gt`, `flextable`.
 
 ---
 
@@ -57,9 +57,6 @@ motherly-plus/
 
 ---
 
-## Authors
-
-- **Daniel Fatori**: conception, analysis, and code;
-- **Pedro Zuccolo**: revision.
+Code repository created and maintained by **[Daniel Fatori](https://github.com/dfatori)**.
 
 ---
